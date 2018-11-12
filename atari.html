@@ -43,6 +43,7 @@ compiler.</EM>
 <LI><A NAME="toc5.2">5.2</A> <A HREF="atari.html#ss5.2">Hardware access</A>
 <LI><A NAME="toc5.3">5.3</A> <A HREF="atari.html#ss5.3">Display lists</A>
 <LI><A NAME="toc5.4">5.4</A> <A HREF="atari.html#ss5.4">Character mapping</A>
+<LI><A NAME="toc5.5">5.5</A> <A HREF="atari.html#ss5.5">Keyboard codes</A>
 </UL>
 <P>
 <H2><A NAME="toc6">6.</A> <A HREF="atari.html#s6">Loadable drivers</A></H2>
@@ -420,20 +421,20 @@ unsigned char ScreenMemory[100];
 
 void DisplayList =
 {
-        DL_BLK8,
-        DL_BLK8,
-        DL_BLK8,
-        DL_LMS(DL_CHR20x8x2),
-        ScreenMemory,
-        DL_CHR20x8x2,
-        DL_CHR20x8x2,
-        DL_CHR20x8x2,
-        DL_BLK4,
-        DL_CHR20x8x2,
-        DL_JVB
+    DL_BLK8,
+    DL_BLK8,
+    DL_BLK8,
+    DL_LMS(DL_CHR20x8x2),
+    ScreenMemory,
+    DL_CHR20x8x2,
+    DL_CHR20x8x2,
+    DL_CHR20x8x2,
+    DL_BLK4,
+    DL_CHR20x8x2,
+    DL_JVB
 };
 ...
-POKEW(560,(unsigned int)&amp;DisplayList);              // SDLSTL
+POKEW(560,(unsigned int)&amp;DisplayList);      // SDLSTL
 ...
 </PRE>
 </P>
@@ -497,6 +498,30 @@ char* pcAtasciiMappingString = "Hello Atari!";
 </PRE>
 </P>
 <P>does not.</P>
+
+<H2><A NAME="ss5.5">5.5</A> <A HREF="#toc5.5">Keyboard codes</A>
+</H2>
+
+
+<P>For direct keyboard scanning in conjunction with e.g. the OS location "CH" (764/$2FC),
+all keyboard codes are available as defined values on C and assembler side.</P>
+<P>Example:
+<PRE>
+...
+    while (!kbhit());
+    switch (PEEK(764))
+    {
+        case KEY_RETURN:
+        ...
+        case KEY_SPACE:
+        ...
+        case KEY_1:
+        ...
+    }
+...
+</PRE>
+</P>
+<P>You can find the C defines in the file "<CODE>atari.h</CODE>" or "<CODE>atari.inc</CODE>" for the assembler variant.</P>
 
 
 <H2><A NAME="s6">6.</A> <A HREF="#toc6">Loadable drivers</A></H2>
@@ -1053,16 +1078,16 @@ chunk #2 (RAM memory area).</P>
 file (split.s):
 <BLOCKQUOTE><CODE>
 <PRE>
-        .import __CODE_LOAD__, __BSS_LOAD__, __CODE_SIZE__
-        .import __DATA_LOAD__, __RODATA_LOAD__, __STARTUP_LOAD__
+    .import __CODE_LOAD__, __BSS_LOAD__, __CODE_SIZE__
+    .import __DATA_LOAD__, __RODATA_LOAD__, __STARTUP_LOAD__
 
-        .segment "NEXEHDR"
-        .word    __STARTUP_LOAD__
-        .word    __CODE_LOAD__ + __CODE_SIZE__ - 1
+    .segment "NEXEHDR"
+    .word    __STARTUP_LOAD__
+    .word    __CODE_LOAD__ + __CODE_SIZE__ - 1
 
-        .segment "CHKHDR"
-        .word    __RODATA_LOAD__
-        .word    __BSS_LOAD__ - 1
+    .segment "CHKHDR"
+    .word    __RODATA_LOAD__
+    .word    __BSS_LOAD__ - 1
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
@@ -1137,16 +1162,16 @@ FEATURES {
 <P>New contents for NEXEHDR and CHKHDR are needed (split2.s):
 <BLOCKQUOTE><CODE>
 <PRE>
-        .import __STARTUP_LOAD__, __BSS_LOAD__, __DATA_SIZE__
-        .import __DATA_LOAD__, __RODATA_LOAD__
+    .import __STARTUP_LOAD__, __BSS_LOAD__, __DATA_SIZE__
+    .import __DATA_LOAD__, __RODATA_LOAD__
 
-        .segment "NEXEHDR"
-        .word    __RODATA_LOAD__
-        .word    __DATA_LOAD__ + __DATA_SIZE__ - 1
+    .segment "NEXEHDR"
+    .word    __RODATA_LOAD__
+    .word    __DATA_LOAD__ + __DATA_SIZE__ - 1
 
-        .segment "CHKHDR"
-        .word    __STARTUP_LOAD__
-        .word    __BSS_LOAD__ - 1
+    .segment "CHKHDR"
+    .word    __STARTUP_LOAD__
+    .word    __BSS_LOAD__ - 1
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
@@ -1237,13 +1262,13 @@ including commercial applications, and to alter it and redistribute it
 freely, subject to the following restrictions:</P>
 <P>
 <OL>
-<LI>    The origin of this software must not be misrepresented; you must not
+<LI>  The origin of this software must not be misrepresented; you must not
 claim that you wrote the original software. If you use this software
 in a product, an acknowledgment in the product documentation would be
 appreciated but is not required.</LI>
-<LI>    Altered source versions must be plainly marked as such, and must not
+<LI>  Altered source versions must be plainly marked as such, and must not
 be misrepresented as being the original software.</LI>
-<LI>    This notice may not be removed or altered from any source
+<LI>  This notice may not be removed or altered from any source
 distribution.</LI>
 </OL>
 </P>
