@@ -65,6 +65,7 @@ implemented for the cc65 C compiler.</EM>
 <LI><A NAME="toc8.1">8.1</A> <A HREF="apple2.html#ss8.1">DOS 3.3</A>
 <LI><A NAME="toc8.2">8.2</A> <A HREF="apple2.html#ss8.2">Direct console I/O</A>
 <LI><A NAME="toc8.3">8.3</A> <A HREF="apple2.html#ss8.3">Random number generator</A>
+<LI><A NAME="toc8.4">8.4</A> <A HREF="apple2.html#ss8.4">Realtime clock</A>
 </UL>
 <P>
 <H2><A NAME="toc9">9.</A> <A HREF="apple2.html#s9">Other hints</A></H2>
@@ -594,33 +595,47 @@ mouse and RS232 device drivers are not functional as they depend on interrupts.<
 </H2>
 
 
-<P>
-<DL>
-
-<DT><B>Color</B><DD>
-<P>The Apple&nbsp;][ has no color text mode. Therefore the functions textcolor(),
-bgcolor() and bordercolor() have no effect.</P>
-
-</DL>
-</P>
-
+<P>The Apple&nbsp;][ has no color text mode. Therefore the functions
+<CODE>textcolor()</CODE>, <CODE>bgcolor()</CODE> and <CODE>bordercolor()</CODE> have no effect.</P>
 
 
 <H2><A NAME="ss8.3">8.3</A> <A HREF="#toc8.3">Random number generator</A>
 </H2>
 
 
-<P>
-<DL>
-
-<DT><B>Random number seed</B><DD>
 <P>The random number seed is generated from the time the program waits for user input.
 Therefore it is necessary to wait for at least one user keypress either via Standard
 I/O or via Direct console I/O before initializing the pseudo random number generator.</P>
 
-</DL>
-</P>
 
+<H2><A NAME="ss8.4">8.4</A> <A HREF="#toc8.4">Realtime clock</A>
+</H2>
+
+
+<P>There are several types of realtime clocks. It's not desirable to have specific code
+for all of them. As ProDOS 8 supports file timestamps, realtime clock owners usually
+use ProDOS 8 drivers for their realtime clock. Those drivers read the realtime clock
+and write the result to the date/time location in RAM ($BF90 to $BF93).
+ProDOS 8 reads the date/time from that RAM location. If there's no realtime clock the
+RAM location keeps containing zeros. ProDOS 8 uses those zeros as timestamps and the
+files show up in a directory as <CODE>&lt;NO DATE&gt;</CODE>.</P>
+<P>There's no common interface to set realtime clocks so if a realtme clock <B>IS</B>
+present there's just nothing to do. However, if there's <B>NO</B> realtime clock present,
+the user might very well be interest to "manually" set the RAM location in order to
+have timestamps. But he surely doesn't want to manually set the RAM location over and
+over again. Rather he wants to set it just once after booting ProDOS 8.</P>
+<P>From that perspective it makes most sense to not set both the date and the time but
+rather only set the date and have the time just stay zero. Then files show up in a
+directory as <CODE>DD-MON-YY  0:00</CODE>.</P>
+<P>So <CODE>clock_settime()</CODE> checks if the current time equals 0:00. If it does <B>NOT</B>
+then a realtime clock is supposed to be active and <CODE>clock_settime()</CODE> fails with
+<CODE>ERANGE</CODE>. Otherwise <CODE>clock_settime()</CODE> sets the date - and completely ignores
+the time provided as parameter.</P>
+<P><CODE>clock_getres()</CODE> too checks if the current time equals 0:00. If it does <B>NOT</B>
+then a realtime clock is supposed to be active and <CODE>clock_getres()</CODE> returns a time
+resolution of one minute. Otherwise <CODE>clock_getres()</CODE> presumes that the only one
+who sets the RAM location is <CODE>clock_settime()</CODE> and therefore returns a time
+resolution of one day.</P>
 
 
 

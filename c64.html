@@ -59,6 +59,9 @@ compiler.</EM>
 <P>
 <H2><A NAME="toc8">8.</A> <A HREF="c64.html#s8">Limitations</A></H2>
 
+<UL>
+<LI><A NAME="toc8.1">8.1</A> <A HREF="c64.html#ss8.1">Realtime clock</A>
+</UL>
 <P>
 <H2><A NAME="toc9">9.</A> <A HREF="c64.html#s9">Other hints</A></H2>
 
@@ -534,6 +537,15 @@ flow control because of a full buffer.</P>
 <H2><A NAME="s8">8.</A> <A HREF="#toc8">Limitations</A></H2>
 
 
+
+
+<H2><A NAME="ss8.1">8.1</A> <A HREF="#toc8.1">Realtime clock</A>
+</H2>
+
+
+<P>The realtime clock functions use the CIA1 TOD clock. As that clock only stores
+the time but not the date, the date set by <CODE>clock_settime()</CODE> ist simply stored
+inside the C library for retrieval in the same program via <CODE>clock_gettime()</CODE>.</P>
 
 
 

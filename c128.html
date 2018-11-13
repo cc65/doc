@@ -47,6 +47,9 @@ compiler.</EM>
 <P>
 <H2><A NAME="toc6">6.</A> <A HREF="c128.html#s6">Limitations</A></H2>
 
+<UL>
+<LI><A NAME="toc6.1">6.1</A> <A HREF="c128.html#ss6.1">Realtime clock</A>
+</UL>
 <P>
 <H2><A NAME="toc7">7.</A> <A HREF="c128.html#s7">Other hints</A></H2>
 
@@ -424,6 +427,15 @@ $C00 and $D00).</P>
 <H2><A NAME="s6">6.</A> <A HREF="#toc6">Limitations</A></H2>
 
 
+
+
+<H2><A NAME="ss6.1">6.1</A> <A HREF="#toc6.1">Realtime clock</A>
+</H2>
+
+
+<P>The realtime clock functions use the CIA1 TOD clock. As that clock only stores
+the time but not the date, the date set by <CODE>clock_settime()</CODE> ist simply stored
+inside the C library for retrieval in the same program via <CODE>clock_gettime()</CODE>.</P>
 
 
 
