@@ -4374,7 +4374,7 @@ changing values.  (See the description of <CODE>cbm_k_udtim()</CODE>.)</LI>
 of the realtime clock. <CODE>clock_id</CODE> has to be <CODE>CLOCK_REALTIME</CODE>. If <CODE>res</CODE>
 is not <CODE>NULL</CODE>, the resolution of the realtime clock is stored in the location
 pointed to by <CODE>res</CODE>. If <CODE>res</CODE> is <CODE>NULL</CODE>, the clock resolution is not returned.
-If the <CODE>time</CODE> argument of <CODE>
+If the <CODE>tp</CODE> argument of <CODE>
 <A HREF="#clock_settime">clock_settime</A></CODE> is not
 a multiple of <CODE>res</CODE>, then the value is truncated to a multiple of <CODE>res</CODE>. On
 success, zero is returned. On error, -1 is returned and <CODE>errno</CODE> is set to an
