@@ -59,7 +59,8 @@ compiler.</EM>
 <H2><A NAME="toc7">7.</A> <A HREF="atari.html#s7">Limitations</A></H2>
 
 <UL>
-<LI><A NAME="toc7.1">7.1</A> <A HREF="atari.html#ss7.1"><CODE>atarixl</CODE></A>
+<LI><A NAME="toc7.1">7.1</A> <A HREF="atari.html#ss7.1"><CODE>Realtime clock</CODE></A>
+<LI><A NAME="toc7.2">7.2</A> <A HREF="atari.html#ss7.2"><CODE>atarixl target</CODE></A>
 </UL>
 <P>
 <H2><A NAME="toc8">8.</A> <A HREF="atari.html#s8">DIO implementation</A></H2>
@@ -103,7 +104,7 @@ supports XL type or newer machines (excluding the 600XL).</P>
 <P>The <CODE>atarixl</CODE> runtime makes the whole 64K of memory available, with the
 exception of the I/O area at $D000 - $D7FF. Since the
 <CODE>atarixl</CODE> runtime has some 
-<A HREF="#limitations">limitations</A>, it is
+<A HREF="#xllimitations">limitations</A>, it is
 recommended to use the <CODE>atari</CODE> target unless lack of memory dictates the
 use of the <CODE>atarixl</CODE> target.</P>
 <P>Please note that Atari specific functions are just mentioned here, they are
@@ -738,7 +739,19 @@ interface module.</P>
 
 
 
-<H2><A NAME="limitations"></A> <A NAME="ss7.1">7.1</A> <A HREF="#toc7.1"><CODE>atarixl</CODE></A>
+<H2><A NAME="realtimeclock"></A> <A NAME="ss7.1">7.1</A> <A HREF="#toc7.1"><CODE>Realtime clock</CODE></A>
+</H2>
+
+
+<P>Access to the realtime clock is supported only when running on SpartaDOS-X.
+There needs to be a realtime clock driver installed. This is normally the case
+in the default installation (CONFIG.SYS) of SpartaDOS-X.
+A missing realtime clock driver in SpartaDOS-X is not supported, and the program
+may crash when calling the <CODE>clock_settime()</CODE> or <CODE>clock_gettime()</CODE>
+functions.</P>
+<P>The resolution of the realtime clock driver is 1 second.</P>
+
+<H2><A NAME="xllimitations"></A> <A NAME="ss7.2">7.2</A> <A HREF="#toc7.2"><CODE>atarixl target</CODE></A>
 </H2>
 
 
