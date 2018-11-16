@@ -80,7 +80,7 @@ changed between <CODE>tgi_init</CODE> and <CODE>tgi_done</CODE>.</P>
 <P><CODE>joy</CODE> - JOY driver for GEOS that supports only joystick, not current pointing device.</P>
 <P>It is safe to use these standard includes and their contents:
 <CODE>assert.h, conio.h, dio.h, errno.h, em.h, geos.h, joystick.h, modload.h, mouse.h, stdlib.h, string.h, tgi.h, time.h</CODE></P>
-<P>For <CODE>time.h</CODE> functions <CODE>systime()</CODE> and <CODE>clock()</CODE> note that the resolution is one second.</P>
+<P>For <CODE>time.h</CODE> functions <CODE>clock()</CODE> and <CODE>clock_gettime()</CODE> note that the resolution is one second.</P>
 <P>Functions from the headers above are either standard C library functions or cc65-specific, in
 either case they are not GEOS specific and so they are not described here.</P>
 <P>I am an assembler programmer and GEOSLib was designed in such way that cc65 could emit the best
