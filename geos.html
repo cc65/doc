@@ -212,6 +212,13 @@ are covered by new names, but I tried to keep them in the naming convention.</P>
 
 <P>This section covers the drawing package of GEOS along with text output routines.</P>
 
+<H3>SetNewMode</H3>
+
+<P><CODE>void SetNewMode (void)</CODE></P>
+<P>This function is intended for use by GEOS 128 only, and will exhibit undefined behavior on the
+C64.  It will toggle between the 40 column screen mode and the 80 column screen mode.  Many C128 GEOS
+programs implement a "Switch 40/80" submenu option under the <CODE>geos</CODE> menu.</P>
+
 <H3>SetPattern</H3>
 
 <P><CODE>void SetPattern (char pattern)</CODE></P>
