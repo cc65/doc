@@ -3449,7 +3449,7 @@ enabled it, so using</P>
 
 <DT><B><CODE>at_in_identifiers</CODE>
 <A NAME="at_in_identifiers"></A> </B><DD>
-<P>Accept the at character (`@') as a valid character in identifiers. The
+<P>Accept the at character ('@') as a valid character in identifiers. The
 at character is not allowed to start an identifier, even with this
 feature enabled.</P>
 
@@ -3493,13 +3493,13 @@ which results in error messages. See the following non working example:</P>
 
 <DT><B><CODE>dollar_in_identifiers</CODE>
 <A NAME="dollar_in_identifiers"></A> </B><DD>
-<P>Accept the dollar sign (`$') as a valid character in identifiers. The
+<P>Accept the dollar sign ('$') as a valid character in identifiers. The
 dollar character is not allowed to start an identifier, even with this
 feature enabled.</P>
 
 <DT><B><CODE>dollar_is_pc</CODE>
 <A NAME="dollar_is_pc"></A> </B><DD>
-<P>The dollar sign may be used as an alias for the star (`*'), which
+<P>The dollar sign may be used as an alias for the star ('*'), which
 gives the value of the current PC in expressions.
 Note: Assignment to the pseudo variable is not allowed.</P>
 
@@ -3519,7 +3519,7 @@ if they start at the beginning of a line (no leading white space).</P>
 
 <DT><B><CODE>leading_dot_in_identifiers</CODE>
 <A NAME="leading_dot_in_identifiers"></A> </B><DD>
-<P>Accept the dot (`.') as the first character of an identifier. This may be
+<P>Accept the dot ('.') as the first character of an identifier. This may be
 used for example to create macro names that start with a dot emulating
 control directives of other assemblers. Note however, that none of the
 reserved keywords built into the assembler, that starts with a dot, may be
@@ -3561,7 +3561,7 @@ effect will only enable absolute mode for the current segment. Dito for
 
 <DT><B><CODE>pc_assignment</CODE>
 <A NAME="pc_assignment"></A> </B><DD>
-<P>Allow assignments to the PC symbol (`*' or `$' if <CODE>dollar_is_pc</CODE>
+<P>Allow assignments to the PC symbol ('*' or '$' if <CODE>dollar_is_pc</CODE>
 is enabled). Such an assignment is handled identical to the <CODE>
 <A HREF="#.ORG">.ORG</A></CODE> command (which is usually not needed, so just
 removing the lines with the assignments may also be an option when porting
@@ -4769,7 +4769,7 @@ That is, the segment will reside somewhere in core memory outside the zero
 page. "zeropage" (8 bit) means that the segment will be placed in the zero
 page and direct (short) addressing is possible for data in this segment.</P>
 <P>Beware: Only labels in a segment with the zeropage attribute are marked
-as reachable by short addressing. The `*' (PC counter) operator will
+as reachable by short addressing. The '*' (PC counter) operator will
 work as in other segments and will create absolute variable values.</P>
 <P>Please note that a segment cannot have two different address sizes. A
 segment specified as zeropage cannot be declared as being absolute later.</P>
