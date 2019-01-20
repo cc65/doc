@@ -3567,6 +3567,24 @@ is enabled). Such an assignment is handled identical to the <CODE>
 removing the lines with the assignments may also be an option when porting
 code written for older assemblers).</P>
 
+<DT><B><CODE>string_escapes</CODE>
+<A NAME="string_escapes"></A> </B><DD>
+<P>Allow C-style backslash escapes within string constants to embed
+special characters. The following escapes are accepted:</P>
+<P>
+<UL>
+<LI><CODE>\\</CODE> backslash (<CODE>$5C</CODE>)</LI>
+<LI><CODE>\'</CODE> single quote (<CODE>$27</CODE>)</LI>
+<LI><CODE>\&#34;</CODE> double quote (<CODE>$22</CODE>)</LI>
+<LI><CODE>\t</CODE> tab (<CODE>$09</CODE>)</LI>
+<LI><CODE>\r</CODE> carriage return (<CODE>$0D</CODE>)</LI>
+<LI><CODE>\n</CODE> newline (<CODE>$0A</CODE>)</LI>
+<LI><CODE>\xNN</CODE>  (<CODE>$NN</CODE>)</LI>
+</UL>
+</P>
+<P>Note that <CODE>\n</CODE> maps to ASCII <CODE>$0A</CODE>, not a platform specific
+line ending character.</P>
+
 <DT><B><CODE>ubiquitous_idents</CODE>
 <A NAME="ubiquitous_idents"></A> </B><DD>
 <P>Allow the use of instructions names as names for macros and symbols. This
