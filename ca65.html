@@ -3570,8 +3570,7 @@ code written for older assemblers).</P>
 <DT><B><CODE>string_escapes</CODE>
 <A NAME="string_escapes"></A> </B><DD>
 <P>Allow C-style backslash escapes within string constants to embed
-special characters. The following escapes are accepted:</P>
-<P>
+special characters. The following escapes are accepted:
 <UL>
 <LI><CODE>\\</CODE> backslash (<CODE>$5C</CODE>)</LI>
 <LI><CODE>\'</CODE> single quote (<CODE>$27</CODE>)</LI>
@@ -3582,8 +3581,8 @@ special characters. The following escapes are accepted:</P>
 <LI><CODE>\xNN</CODE>  (<CODE>$NN</CODE>)</LI>
 </UL>
 </P>
-<P>Note that <CODE>\n</CODE> maps to ASCII <CODE>$0A</CODE>, not a platform specific
-line ending character.</P>
+<P>Note that string escapes are converted to platform-specific characters in
+the same way that other characters are converted.</P>
 
 <DT><B><CODE>ubiquitous_idents</CODE>
 <A NAME="ubiquitous_idents"></A> </B><DD>
