@@ -283,6 +283,17 @@ is <I>left out</I>, keep this in mind.</P>
 <P>The values you assign to the two symbols <CODE>__AUTOSTART__</CODE> and <CODE>__EXEHDR__</CODE>
 don't matter.</P>
 
+<H3><CODE>atari-xex.cfg</CODE></H3>
+
+
+<P>This config file allows writing multi segment binaries easily, without having to
+write the header explicitly on each segment.</P>
+<P>It is similar to the <CODE>atari-asm.cfg</CODE> above, but uses the ATARI (xex) file
+format support on LD65 instead of the standard binary output, so it does not
+have the <CODE>__AUTOSTART</CODE> nor the <CODE>__EXEHDR__</CODE> symbols.</P>
+<P>Note that each <CODE>MEMORY</CODE> area in the configuration file will have it's own
+segment in the output file with the correct headers.</P>
+
 <H3><CODE>atari-cart.cfg</CODE></H3>
 
 

@@ -981,7 +981,7 @@ look like this:</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>The only other available output format is the o65 format specified by Andre
+<P>There are two other available formats, one is the o65 format specified by Andre
 Fachat (see the 
 <A HREF="http://www.6502.org/users/andre/o65/fileformat.html">6502 binary relocation format specification</A>). It is defined like this:</P>
 <P>
@@ -993,7 +993,21 @@ Fachat (see the
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>The necessary o65 attributes are defined in a special section labeled
+<P>The other format available is the Atari (xex) segmented file format, this is
+the standard format used by Atari DOS 2.0 and upward file managers in the Atari
+8-bit computers, and it is defined like this:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        FILES {
+            %O: format = atari;
+        }
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>In the Atari segmented file format, the linker will write each <CODE>MEMORY</CODE> area
+as a new segment, including a header with the start and end address.</P>
+<P>The necessary o65 or Atari attributes are defined in a special section labeled
 <A HREF="#FORMAT">FORMAT</A>.</P>
 
 
@@ -1018,7 +1032,18 @@ has several attributes that may be defined here.</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-
+<P>The Atari file format has only one attribute, <CODE>RUNAD</CODE> that allows to specify
+a symbol as the run address of the binary. If the attribute is omiteed, no run
+address is specified.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+    FORMATS {
+        atari: runad = _start;
+    }
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
 
 
 <H2><A NAME="FEATURES"></A> <A NAME="ss5.10">5.10</A> <A HREF="#toc5.10">The FEATURES section</A>
