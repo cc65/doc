@@ -319,22 +319,22 @@ by me a long time ago.</P>
 development:</P>
 <P>
 <UL>
-<LI>    The assembler must support macros. Macros are not essential, but they
+<LI>  The assembler must support macros. Macros are not essential, but they
 make some things easier, especially when you use the assembler in the
 backend of a compiler.</LI>
-<LI>    The assembler must support the newer 65C02 and 65816 CPUs. I have been
+<LI>  The assembler must support the newer 65C02 and 65816 CPUs. I have been
 thinking about a 65816 backend for the C compiler, and even my old
 a816 assembler had support for these CPUs, so this wasn't really a
 problem.</LI>
-<LI>    The assembler must produce relocatable code. This is necessary for the
+<LI>  The assembler must produce relocatable code. This is necessary for the
 compiler support, and it is more convenient.</LI>
-<LI>    Conditional assembly must be supported. This is a must for bigger
+<LI>  Conditional assembly must be supported. This is a must for bigger
 projects written in assembler (like Elite128).</LI>
-<LI>    The assembler must support segments, and it must support more than
+<LI>  The assembler must support segments, and it must support more than
 three segments (this is the count, most other assemblers support).
 Having more than one code segments helps developing code for systems
 with a divided ROM area (like the C64).</LI>
-<LI>    The linker must be able to resolve arbitrary expressions. It should
+<LI>  The linker must be able to resolve arbitrary expressions. It should
 be able to get things like
 <BLOCKQUOTE><CODE>
 <PRE>
@@ -345,18 +345,18 @@ be able to get things like
 </CODE></BLOCKQUOTE>
 
 right.</LI>
-<LI>    True lexical nesting for symbols. This is very convenient for larger
+<LI>  True lexical nesting for symbols. This is very convenient for larger
 assembly projects.</LI>
-<LI>    "Cheap" local symbols without lexical nesting for those quick, late
+<LI>  "Cheap" local symbols without lexical nesting for those quick, late
 night hacks.</LI>
-<LI>    I liked the idea of "options" as Anre Fachats .o65 format has it, so I
+<LI>  I liked the idea of "options" as Anre Fachats .o65 format has it, so I
 introduced the concept into the object file format use by the new cc65
 binutils.</LI>
-<LI>    The assembler will be a one pass assembler. There was no real need for
+<LI>  The assembler will be a one pass assembler. There was no real need for
 this decision, but I've written several multipass assemblers, and it
 started to get boring. A one pass assembler needs much more elaborated
 data structures, and because of that it's much more fun:-)</LI>
-<LI>    Non-GPLed code that may be used in any project without restrictions or
+<LI>  Non-GPLed code that may be used in any project without restrictions or
 fear of "GPL infecting" other code.</LI>
 </UL>
 </P>
@@ -873,19 +873,19 @@ case, the assembler has to make some assumptions about the result of an
 expression:</P>
 <P>
 <UL>
-<LI>    If the result of an expression is constant, the actual value is
+<LI>  If the result of an expression is constant, the actual value is
 checked to see if it's a byte sized expression or not.</LI>
-<LI>    If the expression is explicitly casted to a byte sized expression by
+<LI>  If the expression is explicitly casted to a byte sized expression by
 one of the '&gt;', '&lt;' or '^' operators, it is a byte expression.</LI>
-<LI>    If this is not the case, and the expression contains a symbol,
+<LI>  If this is not the case, and the expression contains a symbol,
 explicitly declared as zero page symbol (by one of the .importzp or
 .exportzp instructions), then the whole expression is assumed to be
 byte sized.</LI>
-<LI>    If the expression contains symbols that are not defined, and these
+<LI>  If the expression contains symbols that are not defined, and these
 symbols are local symbols, the enclosing scopes are searched for a
 symbol with the same name. If one exists and this symbol is defined,
 its attributes are used to determine the result size.</LI>
-<LI>    In all other cases the expression is assumed to be word sized.</LI>
+<LI>  In all other cases the expression is assumed to be word sized.</LI>
 </UL>
 </P>
 <P>Note: If the assembler is not able to evaluate the expression at assembly
@@ -5394,14 +5394,14 @@ similar to the classic macro type described above, but behaviour is sometimes
 different:</P>
 <P>
 <UL>
-<LI>    Macros defined with <CODE>
+<LI>  Macros defined with <CODE>
 <A HREF="#.DEFINE">.DEFINE</A></CODE> may not
 span more than a line. You may use line continuation (see <CODE>
 <A HREF="#.LINECONT">.LINECONT</A></CODE>) to spread the definition over
 more than one line for increased readability, but the macro itself
 may not contain an end-of-line token.
 </LI>
-<LI>    Macros defined with <CODE>
+<LI>  Macros defined with <CODE>
 <A HREF="#.DEFINE">.DEFINE</A></CODE> share
 the name space with classic macros, but they are detected and replaced
 at the scanner level. While classic macros may be used in every place,
@@ -5409,7 +5409,7 @@ where a mnemonic or other directive is allowed, <CODE>
 <A HREF="#.DEFINE">.DEFINE</A></CODE> style macros are allowed anywhere in a line. So
 they are more versatile in some situations.
 </LI>
-<LI>    <CODE>
+<LI>  <CODE>
 <A HREF="#.DEFINE">.DEFINE</A></CODE> style macros may take
 parameters. While classic macros may have empty parameters, this is
 not true for <CODE>
@@ -5421,14 +5421,14 @@ To make this possible, formal parameters are enclosed in braces when
 defining the macro. If there are no parameters, the empty braces may
 be omitted.
 </LI>
-<LI>    Since <CODE>
+<LI>  Since <CODE>
 <A HREF="#.DEFINE">.DEFINE</A></CODE> style macros may not
 contain end-of-line tokens, there are things that cannot be done. They
 may not contain several processor instructions for example. So, while
 some things may be done with both macro types, each type has special
 usages. The types complement each other.
 </LI>
-<LI>    Parentheses work differently from C macros.
+<LI>  Parentheses work differently from C macros.
 The common practice of wrapping C macros in parentheses may cause
 unintended problems here, such as accidentally implying an
 indirect addressing mode. While the definition of a macro requires
@@ -6169,13 +6169,13 @@ including commercial applications, and to alter it and redistribute it
 freely, subject to the following restrictions:</P>
 <P>
 <OL>
-<LI>    The origin of this software must not be misrepresented; you must not
+<LI>  The origin of this software must not be misrepresented; you must not
 claim that you wrote the original software. If you use this software
 in a product, an acknowledgment in the product documentation would be
 appreciated but is not required.</LI>
-<LI>    Altered source versions must be plainly marked as such, and must not
+<LI>  Altered source versions must be plainly marked as such, and must not
 be misrepresented as being the original software.</LI>
-<LI>    This notice may not be removed or altered from any source
+<LI>  This notice may not be removed or altered from any source
 distribution.</LI>
 </OL>
 </P>

@@ -725,16 +725,16 @@ This condition is indicated by the <CODE>_oserror</CODE> value 82.</P>
 <P>ProDOS associates a file type and an auxiliary type with each file.
 These type specifications are separate from the file's name, unlike
 Windows which uses the file name's suffix (a.k.a.
-extension) to specify the file type. For example, <CODE>.exe</CODE>, 
+extension) to specify the file type. For example, <CODE>.exe</CODE>,
 <CODE>.doc</CODE>, or <CODE>.bat</CODE>.
-The ProDOS low-level 
-Machine-Language Interface (MLI) functions for creating and opening 
+The ProDOS low-level
+Machine-Language Interface (MLI) functions for creating and opening
 files require these types to be specified. And if they don't match
 with the file being opened, the operation may fail.</P>
 <P>In contrast, the ISO C function <CODE>fopen()</CODE> and the POSIX function
 <CODE>open()</CODE> have no parameter to specify either a file type or an
 auxiliary type. Therefore, some additional mechanism for specifying
-the file types is needed. </P>
+the file types is needed.</P>
 
 <DT><B>Specifying the File Type and Auxiliary Type</B><DD>
 <P>There are two global variables provided that allow the file type
@@ -748,7 +748,7 @@ or <CODE>open()</CODE>. They are defined in <CODE>apple2_filetype.h</CODE>:</P>
   
 </PRE>
 </CODE></BLOCKQUOTE>
-  </P>
+</P>
 <P>The header file <CODE>apple2_filetype.h</CODE> also defines many values
 that can be used to set these variables. It is included in
 <CODE>apple2.h</CODE>, which is in turn included in <CODE>apple2enh.h</CODE>.
@@ -757,23 +757,23 @@ include one of <CODE>apple2.h</CODE> or <CODE>apple2enh.h</CODE>.</P>
 
 <DT><B>Example</B><DD>
 <P>A text file cannot be created with just the
-standard C functions because they default to the binary type 
+standard C functions because they default to the binary type
 <CODE>PRODOS_T_BIN</CODE>. The <CODE>_filetype</CODE> variable must be set to
-<CODE>PRODOS_T_TXT</CODE> to create a text file. </P>
-<P>For a text file, 
+<CODE>PRODOS_T_TXT</CODE> to create a text file.</P>
+<P>For a text file,
 <CODE>_auxtype</CODE> specifies the record length. A zero record
 length text file is referred to as a sequential text file.
-This is equivalent to text files on 
+This is equivalent to text files on
 other operating systems, except that the line terminator is a
-carriage return instead of a line-feed (Linux/BSD/MacOS) or 
+carriage return instead of a line-feed (Linux/BSD/MacOS) or
 carriage return, line-feed pair (Windows).</P>
-<P>The "sequential" text file terminology is in contrast to a 
+<P>The "sequential" text file terminology is in contrast to a
 "random-access" text file which would
-have a fixed-length, non-zero record length, so that the 
+have a fixed-length, non-zero record length, so that the
 file position of any individual record can be calculated.</P>
 <P>For this example, the
 <CODE>_auxtype</CODE> does not need to be set because it defaults to
-the desired value, which is zero. To be more explicit, 
+the desired value, which is zero. To be more explicit,
 <CODE>_auxtype</CODE> can also be set to <CODE>PRODOS_AUX_T_TXT_SEQ</CODE>
 which is defined as zero.</P>
 <P>
@@ -812,7 +812,7 @@ which is defined as zero.</P>
   
 </PRE>
 </CODE></BLOCKQUOTE>
-  </P>
+</P>
 
 </DL>
 </P>
@@ -830,13 +830,13 @@ including commercial applications, and to alter it and redistribute it
 freely, subject to the following restrictions:</P>
 <P>
 <OL>
-<LI>    The origin of this software must not be misrepresented; you must not
+<LI>  The origin of this software must not be misrepresented; you must not
 claim that you wrote the original software. If you use this software
 in a product, an acknowledgment in the product documentation would be
 appreciated but is not required.</LI>
-<LI>    Altered source versions must be plainly marked as such, and must not
+<LI>  Altered source versions must be plainly marked as such, and must not
 be misrepresented as being the original software.</LI>
-<LI>    This notice may not be removed or altered from any source
+<LI>  This notice may not be removed or altered from any source
 distribution.</LI>
 </OL>
 </P>

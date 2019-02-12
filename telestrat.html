@@ -56,8 +56,8 @@
 <H2><A NAME="s1">1.</A> <A HREF="#toc1">Overview</A></H2>
 
 
-<P>This file contains an overview of the Telestrat runtime system as it comes 
-with the cc65 C compiler. It describes the memory layout, Telestrat-specific 
+<P>This file contains an overview of the Telestrat runtime system as it comes
+with the cc65 C compiler. It describes the memory layout, Telestrat-specific
 header files, available drivers, and any pitfalls specific to that platform.</P>
 <P>Please note that Telestrat-specific functions are just mentioned here, they are
 described in detail in the separate 
@@ -65,11 +65,11 @@ described in detail in the separate
 more than one platform. Please see the function reference for more
 information.</P>
 <P>Oric Telestrat is the last Oric computer (Released in 1986, mainly in France).
-This computer is an Atmos with extra hardware: RS232, cardridge(banking system), 
+This computer is an Atmos with extra hardware: RS232, cardridge(banking system),
 joysticks (2 ports) or mouse (on joystick port), FDC.</P>
 <P>Video chip, CPU, keyboard management, tape hardware are the same than Atmos.</P>
-<P>Telestrat can start in Atmos mode with Atmos Cardridge (which is only the atmos 
-Basic 1.1 ROM). </P>
+<P>Telestrat can start in Atmos mode with Atmos Cardridge (which is only the atmos
+Basic 1.1 ROM).</P>
 <P>Telestrat can start in Sedoric (Atmos OS) and Atmos mode with Stratoric Cardridge.
 This Cardridge has 3 banks of 16KB of rom with:
 <UL>
@@ -78,12 +78,12 @@ This Cardridge has 3 banks of 16KB of rom with:
 <LI>a Basic 1.0 ROM (Oric-1).</LI>
 </UL>
 </P>
-<P>The main Telestrat's configuration is the Telemon/Hyperbasic Cardridge inserted 
+<P>The main Telestrat's configuration is the Telemon/Hyperbasic Cardridge inserted
 with Stratsed in floppy drive.</P>
-<P>Anyway, there is no way to load a tape file in Telemon/Hyperbasic mode without 
+<P>Anyway, there is no way to load a tape file in Telemon/Hyperbasic mode without
 alternative program.</P>
 <P>There is also no software to write a Stratsed dsk file on PC.</P>
-<P>This Telestrat target build an Orix binary file. But, in the future, it will be possible 
+<P>This Telestrat target build an Orix binary file. But, in the future, it will be possible
 to build a Stratsed disk. Orix uses the same systems calls than Telemon mode.</P>
 <P>That is why if you need to do software for telestrat target, you have the choice to:
 <UL>
@@ -104,11 +104,11 @@ add Stratsed header on your binary,insert your binary on floppy disk (this solut
 target is a machine language program with a 20 bytes header described 
 <A HREF="http://orix.oric.org/orix-header/">here</A></P>
 <P>This header is used for Telemon 3.0.</P>
-<P>Anyway, for Telemon 2.4, there is no file management, there is no TAPE routine 
+<P>Anyway, for Telemon 2.4, there is no file management, there is no TAPE routine
 in Telemon, there is no way to load a binary easily.</P>
-<P>Stratsed (the Telestrat operating system) handles files management. Stratsed 
+<P>Stratsed (the Telestrat operating system) handles files management. Stratsed
 is loaded to memory from floppy disk. Stratsed vector are declared in asminc/telestrat.inc.
-But, reverse engineering is required to find how theses vectors works. Please, note that 
+But, reverse engineering is required to find how theses vectors works. Please, note that
 Stratsed is located in overlay memory (bank 0)</P>
 <P>There is no tool to insert a binary in a Stratsed floppy disk.</P>
 <P>The only way to load a binary (for Telemon 2.4) is to:
@@ -116,8 +116,8 @@ Stratsed is located in overlay memory (bank 0)</P>
 <LI>remove the 20 bytes header</LI>
 <LI>download 
 <A HREF="http://osdk.defence-force.org/index?page=download">osdk</A></LI>
-<LI>use Floppybuilder in OSDK to insert the binary with the tool (please read 
-FloppyBuilder manual to learn how to insert your binary and how to start Microdisc boot sector 
+<LI>use Floppybuilder in OSDK to insert the binary with the tool (please read
+FloppyBuilder manual to learn how to insert your binary and how to start Microdisc boot sector
 when Telestrat starts)</LI>
 </UL>
 </P>
@@ -227,15 +227,15 @@ structures; accessing the struct fields will access the chip registers.</P>
 </H2>
 
 
-<P>No extended memory drivers are currently available for the Telestrat. 
-This feature could be done because telestrat can manage RAM inserted in his 
-port cardridge. </P>
+<P>No extended memory drivers are currently available for the Telestrat.
+This feature could be done because telestrat can manage RAM inserted in his
+port cardridge.</P>
 
 <H2><A NAME="ss5.3">5.3</A> <A HREF="#toc5.3">Joystick drivers</A>
 </H2>
 
 
-<P>Telemon 2.4 &amp; 3.0 manages joysticks but it had been handled yet. This means that 
+<P>Telemon 2.4 &amp; 3.0 manages joysticks but it had been handled yet. This means that
 joysticks driver could be written easily.</P>
 <P>Telemon 2.4 returns in keyboard buffer the direction of the joysticks. This means that
 if you get input from keyboard by conio cgetc function, you will get direction from joysticks.</P>
@@ -244,14 +244,14 @@ if you get input from keyboard by conio cgetc function, you will get direction f
 </H2>
 
 
-<P>Telestrat manages also mouse, but it had been no handled yet in this version. 
+<P>Telestrat manages also mouse, but it had been no handled yet in this version.
 Telestrat mouse is really difficult to find.</P>
 
 <H2><A NAME="ss5.5">5.5</A> <A HREF="#toc5.5">RS232 device drivers</A>
 </H2>
 
 
-<P>Telestrat has a RS232 port, but it's not usable in cc65. It is possible to use 
+<P>Telestrat has a RS232 port, but it's not usable in cc65. It is possible to use
 RS232 port with Telemon calls (see XSOUT primitive for example)</P>
 
 <H2><A NAME="limitations"></A> <A NAME="s6">6.</A> <A HREF="#toc6">Limitations</A></H2>
@@ -292,13 +292,13 @@ including commercial applications, and to alter it and redistribute it
 freely, subject to the following restrictions:</P>
 <P>
 <OL>
-<LI>    The origin of this software must not be misrepresented; you must not
+<LI>  The origin of this software must not be misrepresented; you must not
 claim that you wrote the original software. If you use this software
 in a product, an acknowledgment in the product documentation would be
 appreciated but is not required.</LI>
-<LI>    Altered source versions must be plainly marked as such, and must not
+<LI>  Altered source versions must be plainly marked as such, and must not
 be misrepresented as being the original software.</LI>
-<LI>    This notice may not be removed or altered from any source
+<LI>  This notice may not be removed or altered from any source
 distribution.</LI>
 </OL>
 </P>
