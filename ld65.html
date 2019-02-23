@@ -1032,9 +1032,23 @@ has several attributes that may be defined here.</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>The Atari file format has only one attribute, <CODE>RUNAD</CODE> that allows to specify
-a symbol as the run address of the binary. If the attribute is omiteed, no run
-address is specified.</P>
+<P>The Atari file format has two attributes:</P>
+<P>
+<DL>
+
+<DT><B><CODE>RUNAD = symbol</CODE></B><DD>
+<P>Specify a symbol as the run address of the binary, the loader will call this
+address after all the file is loaded in memory. If the attribute is omitted,
+no run address is included in the file.</P>
+
+<DT><B><CODE>INITAD = memory_area : symbol</CODE></B><DD>
+<P>Specify a symbol as the initialization address for the given memory area.
+The binary loader will call this address just after the memory area is loaded
+into memory, before continuing loading the rest of the file.</P>
+
+</DL>
+</P>
+
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>

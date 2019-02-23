@@ -283,7 +283,7 @@ is <I>left out</I>, keep this in mind.</P>
 <P>The values you assign to the two symbols <CODE>__AUTOSTART__</CODE> and <CODE>__EXEHDR__</CODE>
 don't matter.</P>
 
-<H3><CODE>atari-xex.cfg</CODE></H3>
+<H3><CODE>atari-asm-xex.cfg</CODE></H3>
 
 
 <P>This config file allows writing multi segment binaries easily, without having to
@@ -292,7 +292,8 @@ write the header explicitly on each segment.</P>
 format support on LD65 instead of the standard binary output, so it does not
 have the <CODE>__AUTOSTART</CODE> nor the <CODE>__EXEHDR__</CODE> symbols.</P>
 <P>Note that each <CODE>MEMORY</CODE> area in the configuration file will have it's own
-segment in the output file with the correct headers.</P>
+segment in the output file with the correct headers, and you can specify and
+init address INITAD) for each memory area.</P>
 
 <H3><CODE>atari-cart.cfg</CODE></H3>
 
@@ -317,6 +318,18 @@ for C and assembly language programs.</P>
 would need to be split in more parts and the parts to be loaded manually.</P>
 <P>To write the generated file to a cassette, a utility (<CODE>w2cas.com</CODE>) to run
 on an Atari is provided in the <CODE>util</CODE> directory of <CODE>atari</CODE> target dir.</P>
+
+<H3><CODE>atari-xex.cfg</CODE></H3>
+
+
+<P>This config file shows how to write a binary using the ATARI (xex) file format
+support on LD65, this simplifies the memory areas and allows to add new memory
+areas easily without writing new headers and trailers.</P>
+<P>Note that the default C library includes the system-check chunk, so in this
+linker configuration we suppress the importing of the header and trailer for
+this chunk by defining the standard import symbols to a 0 value. For the
+initialization address of the system-check chunk, the INITAD is set directly in
+the configuration.</P>
 
 <H2><A NAME="ss4.2">4.2</A> <A HREF="#toc4.2"><CODE>atarixl</CODE> config files</A>
 </H2>
@@ -345,6 +358,15 @@ source distribution.</P>
 <A HREF="#syschkxl">&#34;system check&#34;</A> load chunk. It can
 optionally be left out, see 
 <A HREF="#nosyschk">Getting rid of the &#34;system check&#34; load chunk</A>.</P>
+
+<H3><CODE>atarixl-xex.cfg</CODE></H3>
+
+
+<P>Similar to the <CODE>atari-xex.cfg</CODE> above, this config file shows how to write a
+binary using the ATARI (xex) file format support on LD65.</P>
+<P>In addition to the suppressing of the system-check headers and trailers, this
+also suppresses the shadow-ram-preparation headers and trailers, but does this
+by defining an "UNUSED" memory area that is not written to the output file.</P>
 
 
 <H2><A NAME="s5">5.</A> <A HREF="#toc5">Platform specific header files</A></H2>
