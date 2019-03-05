@@ -374,7 +374,23 @@ by defining an "UNUSED" memory area that is not written to the output file.</P>
 
 <P>Programs containing Atari specific code may use the <CODE>atari.h</CODE>
 header file.</P>
-
+<P>This also includes access to operating system locations (e.g. hardware shadow registers) by a structure called
+"<CODE>OS</CODE>".
+The names are the usual ones you can find in system reference manuals. Example:</P>
+<P>
+<PRE>
+...
+    OS.savmsc = ScreenMemory;
+    OS.color4 = 14;                         // white frame
+    if (OS.stick0 != 15 || OS.ch != 255)    // key or stick input?
+...
+</PRE>
+</P>
+<P>Please note that memory location 762/$2FA is called "<CODE>char_</CODE>" while the orignal name "<CODE>char</CODE>" conflicts with the C keyword.</P>
+<P>If you like to use the OS names and locations for the original Atari 800 operating system, please "<CODE>#define OSA</CODE>" before including the
+<CODE>atari.h</CODE> header file.
+If you like to target the floating point register model of revision 2 machines, put a "<CODE>#define OS_REV2</CODE>" before including <CODE>atari.h</CODE>.</P>
+<P>Access to the Basic programming language zero page variables is established by the structure "<CODE>BASIC</CODE>".</P>
 
 <H2><A NAME="ss5.1">5.1</A> <A HREF="#toc5.1">Atari specific functions</A>
 </H2>
@@ -468,7 +484,7 @@ void DisplayList =
     DL_JVB
 };
 ...
-POKEW(560,(unsigned int)&amp;DisplayList);      // SDLSTL
+OS.sdlst = &amp;DisplayList;
 ...
 </PRE>
 </P>
@@ -543,7 +559,7 @@ all keyboard codes are available as defined values on C and assembler side.</P>
 <PRE>
 ...
     while (!kbhit());
-    switch (PEEK(764))
+    switch (OS.ch)
     {
         case KEY_RETURN:
         ...
