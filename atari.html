@@ -378,6 +378,7 @@ header file.</P>
 "<CODE>OS</CODE>".
 The names are the usual ones you can find in system reference manuals. Example:</P>
 <P>
+<BLOCKQUOTE><CODE>
 <PRE>
 ...
     OS.savmsc = ScreenMemory;
@@ -385,6 +386,7 @@ The names are the usual ones you can find in system reference manuals. Example:<
     if (OS.stick0 != 15 || OS.ch != 255)    // key or stick input?
 ...
 </PRE>
+</CODE></BLOCKQUOTE>
 </P>
 <P>Please note that memory location 762/$2FA is called "<CODE>char_</CODE>" while the orignal name "<CODE>char</CODE>" conflicts with the C keyword.</P>
 <P>If you like to use the OS names and locations for the original Atari 800 operating system, please "<CODE>#define OSA</CODE>" before including the
@@ -465,6 +467,7 @@ cc65 supports constructing these display lists by offering defines
 for the instructions. In conjunction with the "void"-variable extension
 of cc65, display lists can be created quite comfortable:</P>
 <P>
+<BLOCKQUOTE><CODE>
 <PRE>
 ...
 unsigned char ScreenMemory[100];
@@ -482,11 +485,13 @@ void DisplayList =
     DL_BLK4,
     DL_CHR20x8x2,
     DL_JVB,
-    };
+    &amp;DisplayList
+};
 ...
 OS.sdlst = &amp;DisplayList;
 ...
 </PRE>
+</CODE></BLOCKQUOTE>
 </P>
 <P>Please inspect the <CODE>_antic.h</CODE> header file to detemine the supported
 instruction names. Modifiers on instructions can be nested without need
@@ -529,6 +534,7 @@ package delivers the same feature.</EM></P>
 under different mappings, defining remapped strings works only flawlessly
 with static array initialization:</P>
 <P>
+<BLOCKQUOTE><CODE>
 <PRE>
 #include &lt;atari_screen_charmap.h&gt;
 char pcScreenMappingString[] = "Hello Atari!";
@@ -536,9 +542,11 @@ char pcScreenMappingString[] = "Hello Atari!";
 #include &lt;atari_atascii_charmap.h&gt;
 char pcAtasciiMappingString[] = "Hello Atari!";
 </PRE>
+</CODE></BLOCKQUOTE>
 </P>
 <P>delivers correct results, while</P>
 <P>
+<BLOCKQUOTE><CODE>
 <PRE>
 #include &lt;atari_screen_charmap.h&gt;
 char* pcScreenMappingString = "Hello Atari!";
@@ -546,6 +554,7 @@ char* pcScreenMappingString = "Hello Atari!";
 #include &lt;atari_atascii_charmap.h&gt;
 char* pcAtasciiMappingString = "Hello Atari!";
 </PRE>
+</CODE></BLOCKQUOTE>
 </P>
 <P>does not.</P>
 
@@ -556,6 +565,7 @@ char* pcAtasciiMappingString = "Hello Atari!";
 <P>For direct keyboard scanning in conjunction with e.g. the OS location "CH" (764/$2FC),
 all keyboard codes are available as defined values on C and assembler side.</P>
 <P>Example:
+<BLOCKQUOTE><CODE>
 <PRE>
 ...
     while (!kbhit());
@@ -570,6 +580,7 @@ all keyboard codes are available as defined values on C and assembler side.</P>
     }
 ...
 </PRE>
+</CODE></BLOCKQUOTE>
 </P>
 <P>You can find the C defines in the file "<CODE>atari.h</CODE>" or "<CODE>atari.inc</CODE>" for the assembler variant.</P>
 
