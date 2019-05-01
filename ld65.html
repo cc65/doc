@@ -128,23 +128,24 @@ Short options:
   -vm                   Verbose map file
 
 Long options:
-  --cfg-path path       Specify a config file search path
-  --config name         Use linker config file
-  --dbgfile name        Generate debug information
-  --define sym=val      Define a symbol
-  --end-group           End a library group
-  --force-import sym    Force an import of symbol 'sym'
-  --help                Help (this text)
-  --lib file            Link this library
-  --lib-path path       Specify a library search path
-  --mapfile name        Create a map file
-  --module-id id        Specify a module id
-  --obj file            Link this object file
-  --obj-path path       Specify an object file search path
-  --start-addr addr     Set the default start address
-  --start-group         Start a library group
-  --target sys          Set the target system
-  --version             Print the linker version
+  --allow-multiple-definition   Allow multiple definitions
+  --cfg-path path               Specify a config file search path
+  --config name                 Use linker config file
+  --dbgfile name                Generate debug information
+  --define sym=val              Define a symbol
+  --end-group                   End a library group
+  --force-import sym            Force an import of symbol 'sym'
+  --help                        Help (this text)
+  --lib file                    Link this library
+  --lib-path path               Specify a library search path
+  --mapfile name                Create a map file
+  --module-id id                Specify a module id
+  --obj file                    Link this object file
+  --obj-path path               Specify an object file search path
+  --start-addr addr             Set the default start address
+  --start-group                 Start a library group
+  --target sys                  Set the target system
+  --version                     Print the linker version
 ---------------------------------------------------------------------------
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -158,6 +159,13 @@ Long options:
 <P>Here is a description of all of the command-line options:</P>
 <P>
 <DL>
+
+<DT><B><CODE>--allow-multiple-definition</CODE></B><DD>
+<P>Normally when a global symbol is defined multiple times, ld65 will
+issue an error and not create the output file. This option lets it
+silently ignore this fact and continue. The first definition of a
+symbol will be used.</P>
+
 <P>
 <A NAME="option--start-group"></A> </P>
 <DT><B><CODE>-(, --start-group</CODE></B><DD>
