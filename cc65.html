@@ -1575,10 +1575,16 @@ a C <CODE>#define</CODE> into the Y index register, one would use</P>
             unsigned char x;
             unsigned char y;
             unsigned char color;
+            unsigned char data[32];
         } pixel_t;
         static pixel_t pixel;
         __asm__ ("ldy #%b", offsetof(pixel_t, color));
         __asm__ ("lda %v,y", pixel);
+
+        /* or to access an array member */
+        static unsigned char i;
+        __asm__ ("ldy %v", i);
+        __asm__ ("lda %v+%b,y", pixel, offsetof(pixel_t, data));
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
