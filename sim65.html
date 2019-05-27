@@ -9,10 +9,11 @@
 <H1>sim65 Users Guide</H1>
 
 <H2>
-<A HREF="mailto:polluks@sdf.lonestar.org">Stefan A. Haubenthal</A></H2>
+<A HREF="mailto:polluks@sdf.lonestar.org">Stefan A. Haubenthal</A>,<BR>
+<A HREF="mailto:bbbradsmith@users.noreply.github.com">Brad Smith</A></H2>
 <HR>
 <EM>sim65 is a simulator for 6502 and 65C02 CPUs. It allows to test target
-independed code.</EM>
+independent code.</EM>
 <HR>
 <P>
 <H2><A NAME="toc1">1.</A> <A HREF="sim65.html#s1">Overview</A></H2>
@@ -27,7 +28,13 @@ independed code.</EM>
 <H2><A NAME="toc3">3.</A> <A HREF="sim65.html#s3">Input and output</A></H2>
 
 <P>
-<H2><A NAME="toc4">4.</A> <A HREF="sim65.html#s4">Copyright</A></H2>
+<H2><A NAME="toc4">4.</A> <A HREF="sim65.html#s4">Creating a Test in C</A></H2>
+
+<P>
+<H2><A NAME="toc5">5.</A> <A HREF="sim65.html#s5">Creating a Test in Assembly</A></H2>
+
+<P>
+<H2><A NAME="toc6">6.</A> <A HREF="sim65.html#s6">Copyright</A></H2>
 
 
 <HR>
@@ -35,8 +42,8 @@ independed code.</EM>
 
 
 
-<P>sim65 is the only solution as part of the toolchain to execute code. The
-binary needs to be compiled with <CODE>--target sim6502</CODE> or <CODE>--target sim65c02</CODE>.</P>
+<P>sim65 is used as part of the toolchain to test 6502 or 65C02 code.
+The binary to test should be compiled with <CODE>--target sim6502</CODE> or <CODE>--target sim65c02</CODE>.</P>
 
 
 <H2><A NAME="s2">2.</A> <A HREF="#toc2">Usage</A></H2>
@@ -129,8 +136,69 @@ PVExit ($01)
 </P>
 
 
+<H2><A NAME="s4">4.</A> <A HREF="#toc4">Creating a Test in C</A></H2>
 
-<H2><A NAME="s4">4.</A> <A HREF="#toc4">Copyright</A></H2>
+
+<P>For a C test compiled and linked with <CODE>--target sim6502</CODE> the
+command line arguments to <CODE>sim65</CODE> will be passed to <CODE>main</CODE>,
+and the return value from <CODE>main</CODE> will become sim65's exit code.
+The <CODE>exit</CODE> function may also be used to terminate with an exit code.</P>
+<P>Exit codes are limited to 8 bits.</P>
+<P>The standard C library high level file input and output is functional,
+and can be used like a command line application in sim65.</P>
+<P>Lower level file input and output is provided by
+a set of built-in paravirtualization functions:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  int open (const char* name, int flags, ...);
+  int __fastcall__ close (int fd);
+  int __fastcall__ read (int fd, void* buf, unsigned count);
+  int __fastcall__ write (int fd, const void* buf, unsigned count);
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>These built-in functions can be used with
+<CODE>STDIN_FILENO</CODE>, <CODE>STDOUT_FILENO</CODE> and <CODE>STDERR_FILENO</CODE>
+which are mapped to sim65's corresponding file descriptors.</P>
+
+
+<H2><A NAME="s5">5.</A> <A HREF="#toc5">Creating a Test in Assembly</A></H2>
+
+
+<P>Assembly tests may similarly be assembled and linked with
+<CODE>--target sim6502</CODE> or <CODE>--target sim65c02</CODE>,
+and the sim65 library provides an <CODE>exit</CODE> symbol that the program may <CODE>JMP</CODE>
+to terminate with the current A register value as an exit code.</P>
+<P>Without using the provided target library, there are some relevant internal details:</P>
+<P>
+<UL>
+<LI>The binary input file has a 1 byte header. A value of 0 indicates 6502 simulation,
+and 1 indicates 65C02.
+</LI>
+<LI>The rest of the input file, after the header, will be loaded at <CODE>$0200</CODE>,
+and execution will begin at <CODE>$0200</CODE>.
+</LI>
+<LI>The entire 64 kilobyte address space is writeable RAM.
+Aside from the loaded binary, the reset vector at <CODE>$FFFC</CODE> will be
+pre-loaded with <CODE>$0200</CODE> as the start address.
+</LI>
+<LI>The <CODE>exit</CODE> address is <CODE>$FFF1</CODE>.
+Jumping to this address will terminate execution with the A register value as an exit code.
+</LI>
+<LI>The built-in functions are provided by 6 paravirtualization hooks present at
+<CODE>$FFF0-$FFF5</CODE>. Except for <CODE>exit</CODE>, a <CODE>JSR</CODE> to one of these
+addresses will return immediately after performing a special function,
+intended only for use with the sim65 target C library.
+</LI>
+<LI><CODE>IRQ</CODE> and <CODE>NMI</CODE> events will not be generated, though <CODE>BRK</CODE>
+can be used if the IRQ vector at <CODE>$FFFE</CODE> is manually prepared by the test code.
+</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="s6">6.</A> <A HREF="#toc6">Copyright</A></H2>
 
 
 <P>sim65 (and all cc65 binutils) are (C) Copyright 1998-2000 Ullrich von
