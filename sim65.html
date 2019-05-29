@@ -170,26 +170,37 @@ which are mapped to sim65's corresponding file descriptors.</P>
 <CODE>--target sim6502</CODE> or <CODE>--target sim65c02</CODE>,
 and the sim65 library provides an <CODE>exit</CODE> symbol that the program may <CODE>JMP</CODE>
 to terminate with the current A register value as an exit code.</P>
-<P>Without using the provided target library, there are some relevant internal details:</P>
+<P>The binary file has a 12 byte header:</P>
 <P>
 <UL>
-<LI>The binary input file has a 1 byte header. A value of 0 indicates 6502 simulation,
-and 1 indicates 65C02.
+<LI>5 byte <B>signature</B>: <CODE>$73, $69, $6D, $36, $35</CODE> or <CODE>'sim65'</CODE>
 </LI>
-<LI>The rest of the input file, after the header, will be loaded at <CODE>$0200</CODE>,
-and execution will begin at <CODE>$0200</CODE>.
+<LI>1 byte <B>version</B>: <CODE>2</CODE>
 </LI>
+<LI>1 byte <B>CPU type</B>: <CODE>0</CODE> = 6502, <CODE>1</CODE> = 65C02
+</LI>
+<LI>1 byte <B>sp address</B>: the zero page address of the C parameter stack pointer <CODE>sp</CODE> used by the paravirtualization functions
+</LI>
+<LI>1 word <B>load address</B>: where to load the data from the file into memory (default: <CODE>$0200</CODE>)
+</LI>
+<LI>1 word <B>reset address</B>: specifies where to begin execution after loading (default: <CODE>$0200</CODE>)
+</LI>
+</UL>
+</P>
+<P>Other internal details:</P>
+<P>
+<UL>
 <LI>The entire 64 kilobyte address space is writeable RAM.
 Aside from the loaded binary, the reset vector at <CODE>$FFFC</CODE> will be
-pre-loaded with <CODE>$0200</CODE> as the start address.
+pre-loaded with the given <B>reset address</B>.
 </LI>
 <LI>The <CODE>exit</CODE> address is <CODE>$FFF1</CODE>.
 Jumping to this address will terminate execution with the A register value as an exit code.
 </LI>
 <LI>The built-in functions are provided by 6 paravirtualization hooks present at
 <CODE>$FFF0-$FFF5</CODE>. Except for <CODE>exit</CODE>, a <CODE>JSR</CODE> to one of these
-addresses will return immediately after performing a special function,
-intended only for use with the sim65 target C library.
+addresses will return immediately after performing a special function.
+These use cc65 calling conventions, and are intended for use with the sim65 target C library.
 </LI>
 <LI><CODE>IRQ</CODE> and <CODE>NMI</CODE> events will not be generated, though <CODE>BRK</CODE>
 can be used if the IRQ vector at <CODE>$FFFE</CODE> is manually prepared by the test code.
