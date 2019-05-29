@@ -194,13 +194,8 @@ to terminate with the current A register value as an exit code.</P>
 Aside from the loaded binary, the reset vector at <CODE>$FFFC</CODE> will be
 pre-loaded with the given <B>reset address</B>.
 </LI>
-<LI>The <CODE>exit</CODE> address is <CODE>$FFF1</CODE>.
+<LI>The <CODE>exit</CODE> address is <CODE>$FFF9</CODE>.
 Jumping to this address will terminate execution with the A register value as an exit code.
-</LI>
-<LI>The built-in functions are provided by 6 paravirtualization hooks present at
-<CODE>$FFF0-$FFF5</CODE>. Except for <CODE>exit</CODE>, a <CODE>JSR</CODE> to one of these
-addresses will return immediately after performing a special function.
-These use cc65 calling conventions, and are intended for use with the sim65 target C library.
 </LI>
 <LI><CODE>IRQ</CODE> and <CODE>NMI</CODE> events will not be generated, though <CODE>BRK</CODE>
 can be used if the IRQ vector at <CODE>$FFFE</CODE> is manually prepared by the test code.
