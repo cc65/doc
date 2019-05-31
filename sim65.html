@@ -144,23 +144,12 @@ command line arguments to <CODE>sim65</CODE> will be passed to <CODE>main</CODE>
 and the return value from <CODE>main</CODE> will become sim65's exit code.
 The <CODE>exit</CODE> function may also be used to terminate with an exit code.</P>
 <P>Exit codes are limited to 8 bits.</P>
-<P>The standard C library high level file input and output is functional,
-and can be used like a command line application in sim65.</P>
-<P>Lower level file input and output is provided by
-a set of built-in paravirtualization functions:</P>
-<P>
-<BLOCKQUOTE><CODE>
-<PRE>
-  int open (const char* name, int flags, ...);
-  int __fastcall__ close (int fd);
-  int __fastcall__ read (int fd, void* buf, unsigned count);
-  int __fastcall__ write (int fd, const void* buf, unsigned count);
-</PRE>
-</CODE></BLOCKQUOTE>
-</P>
-<P>These built-in functions can be used with
-<CODE>STDIN_FILENO</CODE>, <CODE>STDOUT_FILENO</CODE> and <CODE>STDERR_FILENO</CODE>
-which are mapped to sim65's corresponding file descriptors.</P>
+<P>The standard C library high level file input and output is functional.
+A sim65 application can be written like a command line application,
+providing arguments to <CODE>main</CODE> and using the <CODE>stdio.h</CODE> interfaces.</P>
+<P>Internally, file input and output is provided at a lower level by
+a set of built-in paravirtualization functions (
+<A HREF="#paravirt-internal">see below</A>).</P>
 
 
 <H2><A NAME="s5">5.</A> <A HREF="#toc5">Creating a Test in Assembly</A></H2>
@@ -196,6 +185,11 @@ pre-loaded with the given <B>reset address</B>.
 </LI>
 <LI>The <CODE>exit</CODE> address is <CODE>$FFF9</CODE>.
 Jumping to this address will terminate execution with the A register value as an exit code.
+
+<A NAME="paravirt-internal"></A> </LI>
+<LI>Several bytes immediately below the vector table are reserved for paravirtualization functions.
+Except for <CODE>exit</CODE>, a <CODE>JSR</CODE> to one of these addresses will return immediately after performing a special function.
+These use cc65 calling conventions, and are intended for use with the sim65 target C library.
 </LI>
 <LI><CODE>IRQ</CODE> and <CODE>NMI</CODE> events will not be generated, though <CODE>BRK</CODE>
 can be used if the IRQ vector at <CODE>$FFFE</CODE> is manually prepared by the test code.
