@@ -926,6 +926,18 @@ Then you can jump to one of these labels as follows:
 In the jump table, no expressions are supported. The array index
 used in the goto must be a simple variable or a constant.
 </LI>
+<LI>  Binary literals, a C++14 feature and a GCC C extension, are accepted.
+They can be disabled with the <CODE>
+<A HREF="#option--standard">--standard</A></CODE> option.
+
+<BLOCKQUOTE><CODE>
+<PRE>
+        unsigned char foo = 0b101; // sets it to 5
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+
+</LI>
 </UL>
 </P>
 
