@@ -44,6 +44,7 @@
 
 <UL>
 <LI><A NAME="toc6.1">6.1</A> <A HREF="telestrat.html#ss6.1">Disk I/O</A>
+<LI><A NAME="toc6.2">6.2</A> <A HREF="telestrat.html#ss6.2">conio</A>
 </UL>
 <P>
 <H2><A NAME="toc7">7.</A> <A HREF="telestrat.html#s7">Other hints</A></H2>
@@ -265,7 +266,8 @@ RS232 port with Telemon calls (see XSOUT primitive for example)</P>
 <P>Telemon 3.0 handles fopen, fread, fclose primitives. It means that this
 function will crash the Telestrat because Telemon 2.4 does not have these
 primitives. By the way, Telemon 3.0 uses an extension "ch376 card" which
-handles sdcard and FAT 32 usb key. In the next version of Telemon, FT DOS, Sedoric, Stratsed will be handled in these 3 primitives (fopen, fread, fclose).</P>
+handles sdcard and FAT 32 usb key. In the next version of Telemon, FT DOS, 
+Sedoric, Stratsed will be handled in these 3 primitives (fopen, fread, fclose).</P>
 <P>
 <UL>
 <LI>fclose</LI>
@@ -274,7 +276,14 @@ handles sdcard and FAT 32 usb key. In the next version of Telemon, FT DOS, Sedor
 </UL>
 </P>
 
+<H2><A NAME="ss6.2">6.2</A> <A HREF="#toc6.2">conio</A>
+</H2>
 
+<P>Functions textcolor and bgcolor are available only with Telemon 3.0 (Orix). 
+Telemon 2.4 primitives can't handle any change of colors in text mode except with XINK or 
+XPAPER primitives which put on the first and second columns ink and paper attributes. 
+The only way to change color on the same line for text is to handle it in pure assembly 
+without systems calls.</P>
 
 <H2><A NAME="s7">7.</A> <A HREF="#toc7">Other hints</A></H2>
 
