@@ -624,7 +624,8 @@ segment, where this attribute is true, the linker will export three symbols.</P>
 </CODE></BLOCKQUOTE>
 </P>
 <P>Replace <CODE>NAME</CODE> by the name of the segment, in the example above, this would
-be <CODE>BSS</CODE>. These symbols may be accessed by your code.</P>
+be <CODE>BSS</CODE>. These symbols may be accessed by your code when imported using
+the <CODE>.IMPORT</CODE> directive.</P>
 <P>Now, as we've configured the linker to write the first three segments and
 create symbols for the last one, there's only one question left: Where does
 the linker put the data? It would be very convenient to have the data in a
@@ -841,7 +842,8 @@ useful for things like a software stack, or an I/O area.</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>This will define some external symbols that may be used in your code:</P>
+<P>This will define some external symbols that may be used in your code when
+imported using the <CODE>.IMPORT</CODE> directive:</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
