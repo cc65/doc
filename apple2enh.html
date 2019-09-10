@@ -629,15 +629,13 @@ over again. Rather he wants to set it just once after booting ProDOS 8.</P>
 <P>From that perspective it makes most sense to not set both the date and the time but
 rather only set the date and have the time just stay zero. Then files show up in a
 directory as <CODE>DD-MON-YY  0:00</CODE>.</P>
-<P>So <CODE>clock_settime()</CODE> checks if the current time equals 0:00. If it does <B>NOT</B>
-then a realtime clock is supposed to be active and <CODE>clock_settime()</CODE> fails with
-<CODE>ERANGE</CODE>. Otherwise <CODE>clock_settime()</CODE> sets the date - and completely ignores
-the time provided as parameter.</P>
-<P><CODE>clock_getres()</CODE> too checks if the current time equals 0:00. If it does <B>NOT</B>
-then a realtime clock is supposed to be active and <CODE>clock_getres()</CODE> returns a time
-resolution of one minute. Otherwise <CODE>clock_getres()</CODE> presumes that the only one
-who sets the RAM location is <CODE>clock_settime()</CODE> and therefore returns a time
-resolution of one day.</P>
+<P>So <CODE>clock_settime()</CODE> checks if a realtime clock is active. If it is then
+<CODE>clock_settime()</CODE> fails with <CODE>ERANGE</CODE>. Otherwise <CODE>clock_settime()</CODE>
+sets the date - and completely ignores the time provided as parameter.</P>
+<P><CODE>clock_getres()</CODE> too checks if a realtime clock is active. If it is then
+<CODE>clock_getres()</CODE> returns a time resolution of one minute. Otherwise
+<CODE>clock_getres()</CODE> presumes that the only one who sets the RAM location is
+<CODE>clock_settime()</CODE> and therefore returns a time resolution of one day.</P>
 
 
 
