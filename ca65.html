@@ -276,8 +276,10 @@ used as a standalone product.</EM>
 <UL>
 <LI><A NAME="toc15.1">15.1</A> <A HREF="ca65.html#ss15.1">Structs and unions Overview</A>
 <LI><A NAME="toc15.2">15.2</A> <A HREF="ca65.html#ss15.2">Declaration</A>
-<LI><A NAME="toc15.3">15.3</A> <A HREF="ca65.html#ss15.3">The <CODE>.TAG</CODE> keyword</A>
-<LI><A NAME="toc15.4">15.4</A> <A HREF="ca65.html#ss15.4">Limitations</A>
+<LI><A NAME="toc15.3">15.3</A> <A HREF="ca65.html#ss15.3">The storage allocator keywords</A>
+<LI><A NAME="toc15.4">15.4</A> <A HREF="ca65.html#ss15.4">The <CODE>.ORG</CODE> keyword</A>
+<LI><A NAME="toc15.5">15.5</A> <A HREF="ca65.html#ss15.5">The <CODE>.TAG</CODE> keyword</A>
+<LI><A NAME="toc15.6">15.6</A> <A HREF="ca65.html#ss15.6">Limitations</A>
 </UL>
 <P>
 <H2><A NAME="toc16">16.</A> <A HREF="ca65.html#s16">Module constructors/destructors</A></H2>
@@ -2248,17 +2250,17 @@ the given case).</P>
 </H2>
 
 
-<P><CODE>.SIZEOF</CODE> is a pseudo function that returns the size of its argument. The
-argument can be a struct/union, a struct member, a procedure, or a label. In
-case of a procedure or label, its size is defined by the amount of data
-placed in the segment where the label is relative to. If a line of code
-switches segments (for example in a macro) data placed in other segments
-does not count for the size.</P>
-<P>Please note that a symbol or scope must exist, before it is used together with
-<CODE>.SIZEOF</CODE> (this may get relaxed later, but will always be true for scopes).
-A scope has preference over a symbol with the same name, so if the last part
-of a name represents both, a scope and a symbol, the scope is chosen over the
-symbol.</P>
+<P><CODE>.SIZEOF()</CODE> is a pseudo function that returns the size of its argument.
+The argument can be a struct/union, a struct member, a scope/procedure, or a
+label. In the case of a procedure or label, its size is defined by the
+amount of data placed in the segment where the label is relative to. If a
+line of code switches segments (for example, in a macro), data placed in
+other segments does not count for the size.</P>
+<P>Please note that a symbol or scope must exist before it can be used together
+with <CODE>.SIZEOF()</CODE> (that may get relaxed later, but always will be true for
+scopes). A scope has preference over a symbol with the same name; so, if the
+last part of a name represents both a scope and a symbol, then the scope is
+chosen over the symbol.</P>
 <P>After the following code:</P>
 <P>
 <BLOCKQUOTE><CODE>
@@ -3156,7 +3158,7 @@ is read from an include file.</P>
 </H2>
 
 
-<P>End of local lexical level (see <CODE>
+<P>End of the local lexical level (see <CODE>
 <A HREF="#.PROC">.PROC</A></CODE>).</P>
 
 
@@ -3172,7 +3174,7 @@ is read from an include file.</P>
 </H2>
 
 
-<P>End of local lexical level (see <CODE>
+<P>End of the local lexical level (see <CODE>
 <A HREF="#.SCOPE">.SCOPE</A></CODE>).</P>
 
 
@@ -3204,8 +3206,8 @@ command and the separate section named
 keyword. If a name is given, a new scope is created for the enumeration,
 otherwise the enumeration members are placed in the enclosing scope.</P>
 <P>In the enumeration body, symbols are declared. The first symbol has a value
-of zero, and each following symbol will get the value of the preceding plus
-one. This behaviour may be overridden by an explicit assignment. Two symbols
+of zero, and each following symbol will get the value of the preceding, plus
+one. That behaviour may be overridden by an explicit assignment. Two symbols
 may have the same value.</P>
 <P>Example:</P>
 <P>
@@ -3220,9 +3222,9 @@ may have the same value.</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>Above example will create a new scope named <CODE>errorcodes</CODE> with three
-symbols in it that get the values 0, 1 and 2 respectively. Another way
-to write this would have been:</P>
+<P>The above example will create a new scope named <CODE>errorcodes</CODE> with three
+symbols in it that get the values 0, 1, and 2 respectively. Another way
+to write that would have been:</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
@@ -3260,12 +3262,12 @@ to write this would have been:</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>In this example, the enumeration does not have a name, which means that the
-members will be visible in the enclosing scope and can be used in this scope
+<P>In that example, the enumeration does not have a name, which means that the
+members will be visible in the enclosing scope, and can be used in that scope
 without explicit scoping. The first member (<CODE>EUNKNOWN</CODE>) has the value -1.
-The value for the following members is incremented by one, so <CODE>EOK</CODE> would
-be zero and so on. <CODE>EWOULDBLOCK</CODE> is an alias for <CODE>EGAIN</CODE>, so it has an
-override for the value using an already defined symbol.</P>
+The values for the following members are incremented by one; so, <CODE>EOK</CODE>
+would be zero, and so on. <CODE>EWOULDBLOCK</CODE> is an alias for <CODE>EAGAIN</CODE>; so,
+it has an override for the value, using an already defined symbol.</P>
 
 
 <H2><A NAME=".ERROR"></A> <A NAME="ss11.37">11.37</A> <A HREF="#toc11.37"><CODE>.ERROR</CODE></A>
@@ -5820,6 +5822,7 @@ compiler, depending on the target system selected:</P>
 </P>
 
 
+
 <H2><A NAME="structs"></A> <A NAME="s15">15.</A> <A HREF="#toc15">Structs and unions</A></H2>
 
 
@@ -5830,10 +5833,10 @@ compiler, depending on the target system selected:</P>
 
 <P>Structs and unions are special forms of 
 <A HREF="#scopes">scopes</A>.  They
-are to some degree comparable to their C counterparts. Both have a list of
-members. Each member allocates storage and may optionally have a name, which,
-in case of a struct, is the offset from the beginning and, in case of a union,
-is always zero.</P>
+are, to some degree, comparable to their C counterparts. Both have a list of
+members. Each member allocates storage, and optionally may have a name whose
+value, in the case of a struct, usually is the storage offset from the
+beginning, and in the case of a union, doesn't change, and usually is zero.</P>
 
 
 <H2><A NAME="ss15.2">15.2</A> <A HREF="#toc15.2">Declaration</A>
@@ -5841,8 +5844,7 @@ is always zero.</P>
 
 
 <P>Here is an example for a very simple struct with two members and a total size
-of 4 bytes:</P>
-<P>
+of 4 bytes:
 <BLOCKQUOTE><CODE>
 <PRE>
       .struct Point
@@ -5852,10 +5854,9 @@ of 4 bytes:</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>A union shares the total space between all its members, its size is the same
+<P>A union shares the total space between all its members; its size is the same
 as that of the largest member. The offset of all members relative to the union
-is zero.</P>
-<P>
+is zero.
 <BLOCKQUOTE><CODE>
 <PRE>
       .union  Entry
@@ -5865,12 +5866,11 @@ is zero.</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>A struct or union must not necessarily have a name. If it is anonymous, no
-local scope is opened, the identifiers used to name the members are placed
+<P>A struct or union may not necessarily have a name. If it is anonymous, no
+local scope is opened; the identifiers used to name the members are placed
 into the current scope instead.</P>
-<P>A struct may contain unnamed members and definitions of local structs. The
-storage allocators may contain a multiplier, as in the example below:</P>
-<P>
+<P>A struct may contain unnamed members and definitions of local structs/unions.
+The storage allocators may contain a multiplier, as in the example below:
 <BLOCKQUOTE><CODE>
 <PRE>
       .struct Circle
@@ -5881,17 +5881,64 @@ storage allocators may contain a multiplier, as in the example below:</P>
       .endstruct
 </PRE>
 </CODE></BLOCKQUOTE>
-</P>
+
+The size of the Circle struct is 6 (three words).</P>
 
 
-<H2><A NAME="ss15.3">15.3</A> <A HREF="#toc15.3">The <CODE>.TAG</CODE> keyword</A>
+<H2><A NAME="ss15.3">15.3</A> <A HREF="#toc15.3">The storage allocator keywords</A>
 </H2>
 
 
-<P>Using the 
-<A HREF="#.TAG">.TAG</A> keyword, it is possible to reserve space
-for an already defined struct or unions within another struct:</P>
 <P>
+<DL>
+
+<DT><B>.BYTE, .RES</B><DD>
+<P>Allocates multiples of 1 byte.  <CODE>.RES</CODE> requires an operand.</P>
+
+<DT><B>.DBYTE, .WORD, .ADDR</B><DD>
+<P>Allocates multiples of 2 bytes.</P>
+
+<DT><B>.FARADDR</B><DD>
+<P>Allocates multiples of 3 bytes.</P>
+
+<DT><B>.DWORD</B><DD>
+<P>Allocates multiples of 4 bytes.</P>
+
+</DL>
+</P>
+
+
+<H2><A NAME="ss15.4">15.4</A> <A HREF="#toc15.4">The <CODE>.ORG</CODE> keyword</A>
+</H2>
+
+
+<P>The <CODE>.ORG</CODE> keyword changes the offset value that is assigned to subsequent
+member names.  It's useful when using a struct to define the names of the
+registers in an I/O chip.  Example:
+<BLOCKQUOTE><CODE>
+<PRE>
+; 6551
+.struct ACIA            ; Asynchronous Communications Interface Adapter
+        .org    $031C
+DATA    .byte
+STATUS  .byte
+CMD     .byte           ; Command register
+CTRL    .byte           ; Control register
+.endstruct
+
+        lda     ACIA::DATA      ; Get an RS-232 character
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="ss15.5">15.5</A> <A HREF="#toc15.5">The <CODE>.TAG</CODE> keyword</A>
+</H2>
+
+
+<P>By using the 
+<A HREF="#.TAG">.TAG</A> keyword, it is possible to reserve
+space for an already defined struct or union within another struct:
 <BLOCKQUOTE><CODE>
 <PRE>
       .struct Point
@@ -5906,41 +5953,39 @@ for an already defined struct or unions within another struct:</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>Space for a struct or union may be allocated using the 
-<A HREF="#.TAG">.TAG</A> directive.</P>
-<P>
+<P>Actual space for a struct or union may be allocated by using the 
+<A HREF="#.TAG">.TAG</A> directive.
 <BLOCKQUOTE><CODE>
 <PRE>
-        C:      .tag    Circle
+C:      .tag    Circle
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
 <P>Currently, members are just offsets from the start of the struct or union. To
-access a field of a struct, the member offset has to be added to the address
-of the struct itself:</P>
-<P>
+access a field of a struct, the member offset must be added to the address of
+the struct variable itself:
 <BLOCKQUOTE><CODE>
 <PRE>
         lda     C+Circle::Radius        ; Load circle radius into A
 </PRE>
 </CODE></BLOCKQUOTE>
-</P>
-<P>This may change in a future version of the assembler.</P>
+
+That may change in a future version of the assembler.</P>
 
 
-<H2><A NAME="ss15.4">15.4</A> <A HREF="#toc15.4">Limitations</A>
+<H2><A NAME="ss15.6">15.6</A> <A HREF="#toc15.6">Limitations</A>
 </H2>
 
 
-<P>Structs and unions are currently implemented as nested symbol tables (in fact,
+<P>Structs and unions currently are implemented as nested symbol tables (in fact,
 they were a by-product of the improved scoping rules). Currently, the
-assembler has no idea of types. This means that the 
-<A HREF="#.TAG">.TAG</A> keyword will only allocate space. You won't be able to initialize
+assembler has no idea of types. That means that the 
+<A HREF="#.TAG">.TAG</A> keyword only will allocate space. You won't be able to initialize
 variables declared with 
-<A HREF="#.TAG">.TAG</A>, and adding an embedded
+<A HREF="#.TAG">.TAG</A>; and, adding an embedded
 structure to another structure with 
 <A HREF="#.TAG">.TAG</A> will not make
-this structure accessible by using the '::' operator.</P>
+that added structure accessible by using the '::' operator.</P>
 
 
 
