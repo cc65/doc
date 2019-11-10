@@ -2339,15 +2339,15 @@ disabled.</P>
 <BLOCKQUOTE>
 <DL>
 <DT><B>Function</B><DD>
-<P>Terminates a program abnormally.</P>
+<P>Terminate a program abnormally.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
 <A HREF="#stdlib.h">stdlib.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
 <P><CODE>void abort (void);</CODE></P>
 <DT><B>Description</B><DD>
-<P><CODE>abort</CODE> raises <CODE>SIGABRT</CODE>, writes a termination message
-on stderr, then terminates the program with an exit code of 3.</P>
+<P><CODE>abort()</CODE> raises <CODE>SIGABRT</CODE>, writes a termination message
+on <CODE>stderr</CODE>, then terminates the program with an exit code of 3.</P>
 <DT><B>Availability</B><DD>
 <P>ISO 9899</P>
 <DT><B>See also</B><DD>
@@ -2407,16 +2407,16 @@ used in presence of a prototype.</LI>
 <BLOCKQUOTE>
 <DL>
 <DT><B>Function</B><DD>
-<P>Test a condition and possibly abort.</P>
+<P>Test a condition, and possibly abort.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
 <A HREF="#assert.h">assert.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
 <P><CODE>void assert (int cond);</CODE></P>
 <DT><B>Description</B><DD>
-<P><CODE>assert</CODE> is a macro that expands to an <CODE>id</CODE>
-statement. If the condition evaluates to zero (false), assert prints a message
-on stderr and aborts the program.</P>
+<P><CODE>assert()</CODE> is a macro that expands to an <CODE>if</CODE> statement.
+If the condition evaluates to zero (false), <CODE>assert()</CODE> raises <CODE>SIGABRT</CODE>,
+prints a message on <CODE>stderr</CODE>, then exits the program with an exit code of 2.</P>
 <DT><B>Notes</B><DD>
 <P>
 <UL>
@@ -2428,7 +2428,8 @@ on stderr and aborts the program.</P>
 <DT><B>See also</B><DD>
 <P>
 <A HREF="#abort">abort</A>,
-<A HREF="#exit">exit</A></P>
+<A HREF="#exit">exit</A>,
+<A HREF="#raise">raise</A></P>
 <DT><B>Example</B><DD>
 <P>None.</P>
 </DL>
@@ -9464,16 +9465,16 @@ calling convention.</LI>
 <DT><B>Declaration</B><DD>
 <P><CODE>int __fastcall__ raise (int sig);</CODE></P>
 <DT><B>Description</B><DD>
-<P><CODE>raise</CODE> sends the given signal to the program. If the
+<P><CODE>raise()</CODE> sends the given signal to the program. If the
 program has installed a signal handler for the signal, this signal handler
 will be executed. If no handler has been installed, the default action for
 the raised signal will be taken. The function returns zero on success,
-nonzero otherwise.</P>
+non-zero otherwise.</P>
 <DT><B>Notes</B><DD>
 <P>
 <UL>
-<LI>The function is only available as fastcall function, so it may only
-be used in presence of a prototype.</LI>
+<LI>The function is available only as a fastcall function,
+so it may be used only in the presence of a prototype.</LI>
 </UL>
 </P>
 <DT><B>Availability</B><DD>
@@ -9481,6 +9482,7 @@ be used in presence of a prototype.</LI>
 <DT><B>See also</B><DD>
 <P>
 <A HREF="#abort">abort</A>,
+<A HREF="#assert">assert</A>,
 <A HREF="#signal">signal</A></P>
 <DT><B>Example</B><DD>
 <P>None.</P>
