@@ -114,7 +114,7 @@ run-time stack.</P>
 
 <DT><B>Bank RAM</B><DD>
 <P>Bank RAM is located at $A000 - $BFFF.  It's an eight-Kibibyte
-window into a half Mibibyte or two Mibibytes of banked RAM.</P>
+window into a half Mebibyte or two Mebibytes of banked RAM.</P>
 
 <DT><B>Bank ROM</B><DD>
 <P>Bank ROM is located at $C000 - $FFFF.  It's a sixteen-Kibibyte
@@ -309,8 +309,9 @@ point to <CODE>cX16-std.joy (cx16_std_joy)</CODE>.</P>
 <DL>
 <DT><B><CODE>cX16-std.joy (cX16_std_joy)</CODE></B><DD>
 <P>Supports up to two NES (and SNES) controllers connected to the joystick ports
-of the CX16.  It reads the four directions, and the A, B, Select, and Start
-buttons.  Buttons A and B are the primary and secondary fire buttons.</P>
+of the CX16.  It reads the four directions, and the <B>A</B>, <B>B</B>,
+<B>Select</B>, and <B>Start</B> buttons.  Buttons <B>A</B> and <B>B</B> are
+the first and second fire buttons.</P>
 </DL>
 </P>
 
@@ -327,6 +328,8 @@ point to <CODE>cX16-std.mou (cx16_std_mou)</CODE>.</P>
 <DT><B><CODE>cX16-std.mou (cX16_std_mou)</CODE></B><DD>
 <P>Supports a standard 3-button mouse connected to the PS/2 mouse port of the
 Commander X16.</P>
+<P>Currently (r35), this driver doesn't support <CODE>mouse_move()</CODE>
+and <CODE>mouse_setbox()</CODE>.</P>
 </DL>
 </P>
 
