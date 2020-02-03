@@ -304,7 +304,6 @@ symbols in a special section in the object file.</P>
 <LI><CODE>strcmp()</CODE></LI>
 <LI><CODE>strcpy()</CODE></LI>
 <LI><CODE>strlen()</CODE></LI>
-<LI>most of the functions declared in <CODE>&lt;ctype.h&gt;</CODE></LI>
 </UL>
 </P>
 <P>Note: This has two consequences:
@@ -315,9 +314,7 @@ using <CODE>--eagerly-inline-funcs</CODE> actually will break things.
 
 </LI>
 <LI>The inlined string and memory functions will not handle strings or
-memory areas larger than 255 bytes.  Similarly, the inlined <CODE>is..()</CODE>
-functions will not work with values outside the char. range (such as
-<CODE>EOF</CODE>).
+memory areas larger than 255 bytes.
 
 </LI>
 </UL>
