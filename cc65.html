@@ -900,6 +900,25 @@ size zero, even if it is initialized.
 
 
 </LI>
+<LI>  cc65 supports <CODE>_Static_assert</CODE> from C11 and C2X.  This is similar
+to <CODE>#error</CODE> but happens at a later stage of translation, so types
+can be used.
+
+<BLOCKQUOTE><CODE>
+<PRE>
+        /* C11 version with message. */
+        _Static_assert (sizeof (int) == 2, "Expected 2-bytes ints.");
+
+        /* C2X version without message. */
+        _Static_assert (sizeof (int) == 2);
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+
+
+<CODE>_Static_assert</CODE> is also available as the macro <CODE>static_assert</CODE> in
+<CODE>assert.h</CODE>.
+</LI>
 <LI>  Computed gotos, a GCC extension, has limited support. With it you can
 use fast jump tables from C. You can take the address of a label with
 a double ampersand, putting them in a static const array of type void *.
