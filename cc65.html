@@ -487,10 +487,10 @@ the source file.</P>
 <DT><B><CODE>-Cl, --static-locals</CODE></B><DD>
 <P>Use static storage for local variables instead of storage on the stack.
 Since the stack is emulated in software, this gives shorter and usually
-faster code, but the code is no longer reentrant. The difference between
-<CODE>-Cl</CODE> and declaring local variables as static yourself is, that
-initializer code is executed each time, the function is entered. So when
-using</P>
+faster code, but the code is no longer reentrant as required for recursion.
+The difference between <CODE>-Cl</CODE> and declaring local variables as static
+yourself is, that initializer code is executed each time, the function is
+entered. So when using</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
