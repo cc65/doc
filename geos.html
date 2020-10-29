@@ -801,19 +801,20 @@ checked with <CODE>ChkDkGEOS</CODE> and the disk name is updated in the internal
 
 <P><CODE>struct filehandle *Get1stDirEntry (void)</CODE></P>
 <P><CODE>struct filehandle *GetNxtDirEntry (void)</CODE></P>
-<P>These two functions are best suited for scanning the whole directory for particular files. Note that
-the returned filehandles describe all file slots in the directory - even those with deleted files.
-The return value can be obtained by casting both sides to <CODE>unsigned</CODE> - as in the <CODE>SetNextFree</CODE>
-function or read directly after a call to those two functions from <CODE>r5</CODE>. The current sector number
-is in <CODE>r1</CODE> and the sector data itself is in <CODE>diskBlkBuf</CODE>.</P>
+<P>Those two functions are best suited for scanning the whole directory for particular files. Note that
+the returned filehandles describe all file slots in the directory -- even those with deleted files.
+The return value is <CODE>NULL</CODE> if there are no more slots, or if there was a disk error.  The
+<CODE>_oserror</CODE> variable is non-zero if it was a disk error (see <CODE>geos/gdisk.h</CODE>).  The current
+directory track and sector numbers are in <CODE>r1L</CODE> and <CODE>r1H</CODE>.  The sector data itself is in
+<CODE>diskBlkBuf</CODE>.</P>
 
 <H3>FindFile</H3>
 
 <P><CODE>char FindFile (char *fName)</CODE></P>
-<P>This function scans the whole directory for the given filename. It returns either 0 (success) or 5
-(FILE_NOT_FOUND, defined in <CODE>gdisk.h</CODE>) or any other fatal disk read error. After a successful
-<CODE>FindFile</CODE> you will have <CODE>struct filehandle</CODE> at <CODE>dirEntryBuf</CODE> filled with the file's data and
-other registers set as described in <CODE>GetNxtDirEntry</CODE>.</P>
+<P>This function scans the whole directory for the given filename. It returns either 0 (success), 5
+(FILE_NOT_FOUND, defined in <CODE>geos/gdisk.h</CODE>), or any other fatal disk read error. After a successful
+<CODE>FindFile()</CODE>, you will have <CODE>struct filehandle</CODE> at <CODE>dirEntryBuf</CODE> filled with the file's data, and
+other registers set as described in <CODE>GetNxtDirEntry()</CODE>.</P>
 
 <H3>FindFTypes</H3>
 
