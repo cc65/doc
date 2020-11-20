@@ -127,6 +127,7 @@ common to all CBM platforms.</P>
 <P>There are currently no special VIC20 functions.</P>
 
 
+
 <H2><A NAME="ss4.2">4.2</A> <A HREF="#toc4.2">CBM-specific functions</A>
 </H2>
 
@@ -205,35 +206,7 @@ is explained in <CODE>_6522.h</CODE>.</P>
 </H2>
 
 
-<P>
-<DL>
-
-<DT><B><CODE>vic20-hi.tgi (vic20_hi_tgi)</CODE></B><DD>
-<P>This driver features a resolution of 160&times;192 with two colors.  The
-background can be chosen from a sixteen-color palette.  The foreground can
-be chosen from an eight-color palette.</P>
-<P>The driver will use memory from addresses $1000 to $1FFF as a graphics
-buffer.  Therefore, the VIC-20 must have, at least, 8K of expansion RAM.</P>
-<P>Programs that use this driver must be linked by the <CODE>vic20-tgi.cfg</CODE>
-configuration file.  It will link a special header into the program.
-That header will do the housekeeping that's needed by TGI.</P>
-<P>An example command line:
-<BLOCKQUOTE><CODE>
-<PRE>
-  cl65 -D DYN_DRV=0 -t vic20 -C vic20-tgi.cfg samples/mandelbrot.c
-  
-</PRE>
-</CODE></BLOCKQUOTE>
-</P>
-<P>When the program starts, it will move itself up in RAM, to make room for the
-buffer.  When the program finishes, it will reset the BASIC interpreter.
-That means that graphics pictures won't be preserved between the executions
-of programs.  Also, the graphics buffer shares RAM with the text screen.  If
-a picture must be saved, then a program must put it somewhere else (such as
-a disk file) before returning to the text mode.</P>
-
-</DL>
-</P>
+<P>No graphics drivers are currently available for the VIC20.</P>
 
 
 <H2><A NAME="ss5.2">5.2</A> <A HREF="#toc5.2">Extended memory drivers</A>

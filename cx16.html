@@ -69,12 +69,9 @@ compiler.</EM>
 <H2><A NAME="s1">1.</A> <A HREF="#toc1">Overview</A></H2>
 
 
-<P>The Commander X16 is a modern small computer with firmware that is based partly
-on the ROMs in Commodore's VIC-20 and 64C.  It has a couple of I/O chips
-(WDC65C22 VIA) that are like the ones in the VIC-20.  It supports file storage
-on Secure Digital cards.  It allows two joysticks and a mouse.  It has three
-sound devices.  Its VGA screen has twice the range of the C64 (similar to the
-C128's 80-column screen), with 256 colors.</P>
+<P>The Commander X16 is a modern small computer with firmware that is based on
+the ROMs in Commodore's VIC-20 and 64C.  It has a couple of I/O chips
+(WDC65C22 VIA) that are like the ones in the VIC-20.</P>
 <P>This file contains an overview of the CX16 run-time system as it comes with the
 cc65 C compiler.  It describes the memory layout, CX16-specific header files,
 available drivers, and any pitfalls specific to that platform.</P>
@@ -170,7 +167,7 @@ cl65 -o file.prg -t cx16 -C cx16-asm.cfg source.s
 <P>To generate code that loads to $A000:
 <BLOCKQUOTE><CODE>
 <PRE>
-cl65 -o file.prg -Wl -S,$A000 -t cx16 -C cx16-asm.cfg source.s
+cl65 -o file.prg -Wl -S,$A000 -t cX16 -C cX16-asm.cfg source.s
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
@@ -285,26 +282,14 @@ into banked RAM.</P>
 <H2><A NAME="s6">6.</A> <A HREF="#toc6">Loadable drivers</A></H2>
 
 
-<P>The names in the parentheses denote the symbols to be used for static linking
-of the drivers.  The names fit into the 8.3 character limit of the SD-Card's
-FAT32 file-system.</P>
+<P>The names in the parentheses denote the symbols to be used for static linking of the drivers.</P>
 
 
 <H2><A NAME="ss6.1">6.1</A> <A HREF="#toc6.1">Graphics drivers</A>
 </H2>
 
 
-<P>The default drivers, <CODE>tgi_stddrv (tgi_static_stddrv)</CODE>,
-point to <CODE>cx320p1.tgi (cx320p1_tgi)</CODE>.</P>
-<P>
-<DL>
-<DT><B><CODE>cx320p1.tgi (cx320p1_tgi)</CODE></B><DD>
-<P>This driver features a resolution of 320 across and 200 down with 256 colors,
-and a slightly adjustable palette (the order of the colors can be changed in
-a way that's compatible with some of the other color drivers).</P>
-</DL>
-</P>
-
+<P>No graphics drivers are available currently for the CX16.</P>
 
 
 <H2><A NAME="ss6.2">6.2</A> <A HREF="#toc6.2">Extended memory drivers</A>
@@ -319,10 +304,10 @@ a way that's compatible with some of the other color drivers).</P>
 
 
 <P>The default drivers, <CODE>joy_stddrv (joy_static_stddrv)</CODE>,
-point to <CODE>cx16-std.joy (cx16_std_joy)</CODE>.</P>
+point to <CODE>cX16-std.joy (cx16_std_joy)</CODE>.</P>
 <P>
 <DL>
-<DT><B><CODE>cx16-std.joy (cx16_std_joy)</CODE></B><DD>
+<DT><B><CODE>cX16-std.joy (cX16_std_joy)</CODE></B><DD>
 <P>Supports up to two NES (and SNES) controllers connected to the joystick ports
 of the CX16.  It reads the four directions, and the <B>A</B>, <B>B</B>,
 <B>Select</B>, and <B>Start</B> buttons.  Buttons <B>A</B> and <B>B</B> are
@@ -337,14 +322,14 @@ the first and second fire buttons.</P>
 
 
 <P>The default drivers, <CODE>mouse_stddrv (mouse_static_stddrv)</CODE>,
-point to <CODE>cx16-std.mou (cx16_std_mou)</CODE>.</P>
+point to <CODE>cX16-std.mou (cx16_std_mou)</CODE>.</P>
 <P>
 <DL>
-<DT><B><CODE>cx16-std.mou (cx16_std_mou)</CODE></B><DD>
+<DT><B><CODE>cX16-std.mou (cX16_std_mou)</CODE></B><DD>
 <P>Supports a standard 3-button mouse connected to the PS/2 mouse port of the
 Commander X16.</P>
-<P>Currently, this driver doesn't support <CODE>mouse_move()</CODE> and
-<CODE>mouse_setbox()</CODE>.</P>
+<P>Currently (r35), this driver doesn't support <CODE>mouse_move()</CODE>
+and <CODE>mouse_setbox()</CODE>.</P>
 </DL>
 </P>
 

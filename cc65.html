@@ -487,10 +487,10 @@ the source file.</P>
 <DT><B><CODE>-Cl, --static-locals</CODE></B><DD>
 <P>Use static storage for local variables instead of storage on the stack.
 Since the stack is emulated in software, this gives shorter and usually
-faster code, but the code is no longer reentrant as required for recursion.
-The difference between <CODE>-Cl</CODE> and declaring local variables as static
-yourself is, that initializer code is executed each time, the function is
-entered. So when using</P>
+faster code, but the code is no longer reentrant. The difference between
+<CODE>-Cl</CODE> and declaring local variables as static yourself is, that
+initializer code is executed each time, the function is entered. So when
+using</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
@@ -900,30 +900,6 @@ size zero, even if it is initialized.
 
 
 </LI>
-<LI>  cc65 supports <CODE>_Static_assert</CODE> from C11 and C2X.  This is similar
-to <CODE>#error</CODE> but happens at a later stage of translation, so types
-can be used.
-
-<BLOCKQUOTE><CODE>
-<PRE>
-        /* C11 version with message. */
-        _Static_assert (sizeof (int) == 2, "Expected 2-bytes ints.");
-
-        /* C2X version without message. */
-        _Static_assert (sizeof (int) == 2);
-        
-</PRE>
-</CODE></BLOCKQUOTE>
-
-
-<CODE>_Static_assert</CODE> is also available as the macro <CODE>static_assert</CODE> in
-<CODE>assert.h</CODE>.
-</LI>
-<LI>  cc65 supports bit-fields of any integral type that is int-sized or
-smaller, and enumerated types with those types as their underlying
-type.  (Only <CODE>int</CODE>, <CODE>signed int</CODE>, and <CODE>unsigned int</CODE> are
-required by the standard.)
-</LI>
 <LI>  Computed gotos, a GCC extension, has limited support. With it you can
 use fast jump tables from C. You can take the address of a label with
 a double ampersand, putting them in a static const array of type void *.
@@ -1138,15 +1114,14 @@ eager inlining of known functions if inlining of standard functions is enabled.<
 
 
 <P>This pragma changes the name used for the BSS segment (the BSS segment
-is used to store variables with static storage duration and no explicit
-initializer). The argument is a string enclosed in double quotes.</P>
+is used to store uninitialized data). The argument is a string enclosed
+in double quotes.</P>
 <P>Note: The default linker configuration file does only map the standard
 segments. If you use other segments, you have to create a new linker
 configuration file.</P>
 <P>Beware: The startup code will zero only the default BSS segment. If you
 use another BSS segment, you have to do that yourself, otherwise
-variables with static storage duration and no explicit initializer will
-not have the value zero.</P>
+uninitialized variables do not have the value zero.</P>
 <P>The <CODE>#pragma</CODE> understands the push and pop parameters as explained above.</P>
 <P>Example:
 <BLOCKQUOTE><CODE>

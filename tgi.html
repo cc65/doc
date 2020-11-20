@@ -111,13 +111,11 @@ of range.</LI>
 <A HREF="#tgi_setcolor">tgi_setcolor</A></P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 /* Draw the upper half of an ellipse */
 tgi_setcolor(TGI_COLOR_BLUE);
 tgi_arc (50, 50, 40, 20, 0, 180);
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -155,12 +153,10 @@ be used in presence of a prototype.</LI>
 <P>Other tgi function</P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 tgi_setcolor(TGI_COLOR_GREEN);
 tgi_bar(10, 10, 100, 60);
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -201,12 +197,10 @@ be used in presence of a prototype.</LI>
 <A HREF="#tgi_setcolor">tgi_setcolor</A></P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 tgi_setcolor(TGI_COLOR_BLACK);
 tgi_circle(50, 40, 40);
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -304,12 +298,10 @@ be used in presence of a prototype.</LI>
 <A HREF="#tgi_setcolor">tgi_setcolor</A></P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 tgi_setcolor(TGI_COLOR_RED);
 tgi_ellipse (50, 40, 40, 20);
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -429,11 +421,9 @@ after this painting in TGI_COLOR_GREEN will actually be blue.</P>
 <P>Other tgi functions</P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 color = tgi_getcolor();
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -455,46 +445,19 @@ color = tgi_getcolor();
 <DT><B>Declaration</B><DD>
 <P><CODE>unsigned char tgi_getcolorcount (void);</CODE></P>
 <DT><B>Description</B><DD>
-<P>TGI platforms use indexed color palettes. This function
+<P>Tgi platforms use indexed color palettes. This function
 returns the number of entries we can use in the palette.</P>
-<P><CODE>tgi_setcolor()</CODE> can accept numbers from <CODE>0</CODE> to <CODE>255</CODE>.  That is 256
-possible colors, but an <CODE>(unsigned char)</CODE> cannot hold that number.
-Therefore, the number zero is used to indicate when a palette has 256 entries.
-A portable program should test for that number, and do appropriate actions.
-A program might assign the count to an <CODE>unsigned int</CODE> (and change a zero to
-a 256).  Or, it might rely on the fact that <CODE>(unsigned char)</CODE> will
-"wrap-around" when it is incremented beyond 255.</P>
 <DT><B>Availability</B><DD>
 <P>cc65</P>
 <DT><B>See also</B><DD>
+<P>Other tgi functions</P>
+<DT><B>Example</B><DD>
 <P>
-<A HREF="#tgi_getcolor">tgi_getcolor()</A>,
-<A HREF="#tgi_getdefpalette">tgi_getdefpalette()</A>,
-<A HREF="#tgi_getmaxcolor">tgi_getmaxcolor()</A>,
-<A HREF="#tgi_getpalette">tgi_getpalette()</A>,
-<A HREF="#tgi_setcolor">tgi_setcolor()</A>,
-<A HREF="#tgi_setpalette">tgi_setpalette()</A></P>
-<DT><B>Examples</B><DD>
-<P>
-<BLOCKQUOTE><CODE>
 <PRE>
 if (tgi_getcolorcount() == 2) {
   printf("Only monochrome graphics is supported\n");
 }
-
-static unsigned char num_colors;
-static unsigned char color;
-...
-num_colors = tgi_getcolorcount();
-...
-++color;
-if (num_colors == 0) {
-  tgi_setcolor(color);
-} else {
-  tgi_setcolor(color % num_colors);
-}
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -612,13 +575,7 @@ be used in presence of a prototype.</LI>
 <DT><B>Availability</B><DD>
 <P>cc65</P>
 <DT><B>See also</B><DD>
-<P>
-<A HREF="#tgi_getcolor">tgi_getcolor()</A>,
-<A HREF="#tgi_getcolorcount">tgi_getcolorcount()</A>,
-<A HREF="#tgi_getdefpalette">tgi_getdefpalette()</A>,
-<A HREF="#tgi_getpalette">tgi_getpalette()</A>,
-<A HREF="#tgi_setcolor">tgi_setcolor()</A>,
-<A HREF="#tgi_setpalette">tgi_setpalette()</A></P>
+<P>Other tgi functions</P>
 <DT><B>Example</B><DD>
 <P>None.</P>
 </DL>
@@ -962,12 +919,10 @@ screens. If you want the screen cleared, call <CODE>
 <P>Other tgi functions.</P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 tgi_install(tgi_static_stddrv); //Include the driver statically instead of loading it.
 tgi_init(); //Set up the default palette and clear the screen.
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -1008,12 +963,10 @@ used in presence of a prototype.</LI>
 <A HREF="#tgi_unload">tgi_unload</A></P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 tgi_install(tgi_static_stddrv); //Include the driver statically instead of loading it.
 tgi_init(); //Set up the default palette and clear the screen.
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -1090,7 +1043,6 @@ be used in presence of a prototype.</LI>
 <P>Other tgi functions.</P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 #define tgi_sprite(spr) tgi_ioctl(0, (void*)(spr))
 #define tgi_flip() tgi_ioctl(1, (void*)0)
@@ -1105,7 +1057,6 @@ if (!tgi_busy()) {
   tgi_updatedisplay();
 }
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -1370,13 +1321,11 @@ of range.</LI>
 <A HREF="#tgi_setcolor">tgi_setcolor</A></P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 /* Draw the closed upper half of an ellipse */
 tgi_setcolor(TGI_COLOR_BLUE);
 tgi_pieslice (50, 50, 40, 20, 0, 180);
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -1462,14 +1411,12 @@ be used in presence of a prototype.</LI>
 <P>Other tgi functions.</P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 tgi_setcolor(TGI_COLOR_BLACK);
 tgi_bar(0,0,30,30);
 tgi_setcolor(TGI_COLOR_WHITE);
 tgi_bar(10,10,20,20);
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -1508,7 +1455,6 @@ be used in presence of a prototype.</LI>
 <P>Other tgi functions.</P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 tgi_setdrawpage(1);
 tgi_outtextxy(10, 10, "Hello World");
@@ -1518,7 +1464,6 @@ tgi_outtextxy(10, 10, "Creating next frame");
 ...
 tgi_setviewpage(0); // Show page 0
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
@@ -1698,7 +1643,6 @@ be used in presence of a prototype.</LI>
 <P>Other tgi functions.</P>
 <DT><B>Example</B><DD>
 <P>
-<BLOCKQUOTE><CODE>
 <PRE>
 tgi_setdrawpage(1);
 tgi_outtextxy(10, 10, "Hello World");
@@ -1708,7 +1652,6 @@ tgi_outtextxy(10, 10, "Creating next frame");
 ...
 tgi_setviewpage(0); // Show page 0
 </PRE>
-</CODE></BLOCKQUOTE>
 </P>
 </DL>
 </BLOCKQUOTE>
