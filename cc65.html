@@ -791,12 +791,13 @@ places.
 
 
 </LI>
-<LI>  There are two pseudo variables named <CODE>__A__, __AX__</CODE> and <CODE>__EAX__</CODE>.
-Both refer to the primary register that is used by the compiler to
-evaluate expressions or return function results. <CODE>__AX__</CODE> is of
-type <CODE>unsigned int</CODE> and <CODE>__EAX__</CODE> of type <CODE>long unsigned int</CODE>
-respectively. The pseudo variables may be used as lvalue and rvalue as
-every other variable. They are most useful together with short
+<LI>  There are three pseudo variables named <CODE>__A__</CODE>, <CODE>__AX__</CODE> and
+<CODE>__EAX__</CODE>. They all refer to the primary register that is used
+by the compiler to evaluate expressions or return function results.
+<CODE>__A__</CODE> is of type <CODE>unsigned char</CODE>, <CODE>__AX__</CODE> is of type
+<CODE>unsigned int</CODE> and <CODE>__EAX__</CODE> of type <CODE>long unsigned int</CODE>
+respectively. The pseudo variables may be used as lvalue and rvalue
+as every other variable. They are most useful together with short
 sequences of assembler code. For example, the macro
 
 <BLOCKQUOTE><CODE>
