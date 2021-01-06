@@ -587,6 +587,8 @@ is enabled.</P>
 <P>Warn about a <CODE>
 <A HREF="#pragma-charmap">#pragma charmap()</A></CODE>
 that changes a character's code number from/to 0x00.</P>
+<DT><B><CODE>return-type</CODE></B><DD>
+<P>Warn about no return statement in function returning non-void.</P>
 <DT><B><CODE>struct-param</CODE></B><DD>
 <P>Warn when passing structs by value.</P>
 <DT><B><CODE>unknown-pragma</CODE></B><DD>
@@ -789,7 +791,7 @@ places.
 
 
 </LI>
-<LI>  There are two pseudo variables named <CODE>__AX__</CODE> and <CODE>__EAX__</CODE>.
+<LI>  There are two pseudo variables named <CODE>__A__, __AX__</CODE> and <CODE>__EAX__</CODE>.
 Both refer to the primary register that is used by the compiler to
 evaluate expressions or return function results. <CODE>__AX__</CODE> is of
 type <CODE>unsigned int</CODE> and <CODE>__EAX__</CODE> of type <CODE>long unsigned int</CODE>
