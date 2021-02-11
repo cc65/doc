@@ -55,10 +55,11 @@ configurable and uses configuration files for high flexibility.</EM>
 <H2><A NAME="toc6">6.</A> <A HREF="ld65.html#s6">Special segments</A></H2>
 
 <UL>
-<LI><A NAME="toc6.1">6.1</A> <A HREF="ld65.html#ss6.1">ONCE</A>
+<LI><A NAME="toc6.1">6.1</A> <A HREF="ld65.html#ss6.1">INIT</A>
 <LI><A NAME="toc6.2">6.2</A> <A HREF="ld65.html#ss6.2">LOWCODE</A>
-<LI><A NAME="toc6.3">6.3</A> <A HREF="ld65.html#ss6.3">STARTUP</A>
-<LI><A NAME="toc6.4">6.4</A> <A HREF="ld65.html#ss6.4">ZPSAVE</A>
+<LI><A NAME="toc6.3">6.3</A> <A HREF="ld65.html#ss6.3">ONCE</A>
+<LI><A NAME="toc6.4">6.4</A> <A HREF="ld65.html#ss6.4">STARTUP</A>
+<LI><A NAME="toc6.5">6.5</A> <A HREF="ld65.html#ss6.5">ZPSAVE</A>
 </UL>
 <P>
 <H2><A NAME="toc7">7.</A> <A HREF="ld65.html#s7">Copyright</A></H2>
@@ -1008,9 +1009,8 @@ Fachat (see the
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>The other format available is the Atari (xex) segmented file format, this is
-the standard format used by Atari DOS 2.0 and upward file managers in the Atari
-8-bit computers, and it is defined like this:</P>
+<P>The other format available is the Atari segmented file format (xex), this is
+the standard format used by Atari DOS 2.0 and upwards, and it is defined like this:</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
@@ -1236,14 +1236,15 @@ __STACKSIZE__=xxx</CODE> on the command line.</P>
 the compiler and the libraries that come with it. If you replace the builtin
 config files, you will need the following information.</P>
 
-<H2><A NAME="ss6.1">6.1</A> <A HREF="#toc6.1">ONCE</A>
+<H2><A NAME="ss6.1">6.1</A> <A HREF="#toc6.1">INIT</A>
 </H2>
 
 
-<P>The ONCE segment is used for initialization code run only once before
-execution reaches main() - provided that the program runs in RAM. You
-may for example add the ONCE segment to the heap in really memory
-constrained systems.</P>
+<P>The INIT segment is some kind of 'bss' segment since it contains
+uninitialized data. Unlike <CODE>.bss</CODE> itself, its contents aren't
+initialized to zero at program startup . It's mostly used by
+constructors in the startup code. An example for the use of the INIT
+segment is saving/restoring the zero page area used by cc65.</P>
 
 <H2><A NAME="ss6.2">6.2</A> <A HREF="#toc6.2">LOWCODE</A>
 </H2>
@@ -1252,7 +1253,16 @@ constrained systems.</P>
 <P>For the LOWCODE segment, it is guaranteed that it won't be banked out, so it
 is reachable at any time by interrupt handlers or similar.</P>
 
-<H2><A NAME="ss6.3">6.3</A> <A HREF="#toc6.3">STARTUP</A>
+<H2><A NAME="ss6.3">6.3</A> <A HREF="#toc6.3">ONCE</A>
+</H2>
+
+
+<P>The ONCE segment is used for initialization code run only once before
+execution reaches main() - provided that the program runs in RAM. You
+may for example add the ONCE segment to the heap in really memory
+constrained systems.</P>
+
+<H2><A NAME="ss6.4">6.4</A> <A HREF="#toc6.4">STARTUP</A>
 </H2>
 
 
@@ -1260,7 +1270,7 @@ is reachable at any time by interrupt handlers or similar.</P>
 and the libraries. It is placed in its own segment because it needs to be
 loaded at the lowest possible program address on several platforms.</P>
 
-<H2><A NAME="ss6.4">6.4</A> <A HREF="#toc6.4">ZPSAVE</A>
+<H2><A NAME="ss6.5">6.5</A> <A HREF="#toc6.5">ZPSAVE</A>
 </H2>
 
 
