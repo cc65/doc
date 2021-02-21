@@ -1108,7 +1108,8 @@ tables.</P>
 
 <DT><B><CODE>segment</CODE></B><DD>
 <P>This attribute tells the linker into which segment the table should be
-placed. If the segment does not exist, it is created.</P>
+placed. If the segment does not exist in any object file, it is created
+in the final object code.</P>
 
 
 <DT><B><CODE>type</CODE></B><DD>
@@ -1150,7 +1151,7 @@ requested symbol.</P>
 </P>
 <P>Without specifying the <CODE>CONDES</CODE> feature, the linker will not create any
 tables, even if there are <CODE>condes</CODE> entries in the object files.</P>
-<P>For more information see the <CODE>.CONDES</CODE> command in the 
+<P>For more information, see the <CODE>.CONDES</CODE> command in the 
 <A HREF="ca65.html">ca65 manual</A>.</P>
 
 
