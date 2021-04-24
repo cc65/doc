@@ -126,8 +126,8 @@ used as a standalone product.</EM>
 <LI><A NAME="toc10.20">10.20</A> <A HREF="ca65.html#ss10.20"><CODE>.REF, .REFERENCED</CODE></A>
 <LI><A NAME="toc10.21">10.21</A> <A HREF="ca65.html#ss10.21"><CODE>.RIGHT</CODE></A>
 <LI><A NAME="toc10.22">10.22</A> <A HREF="ca65.html#ss10.22"><CODE>.SIZEOF</CODE></A>
-<LI><A NAME="toc10.23">10.23</A> <A HREF="ca65.html#ss10.23"><CODE>.STRAT</CODE></A>
-<LI><A NAME="toc10.24">10.24</A> <A HREF="ca65.html#ss10.24"><CODE>.SPRINTF</CODE></A>
+<LI><A NAME="toc10.23">10.23</A> <A HREF="ca65.html#ss10.23"><CODE>.SPRINTF</CODE></A>
+<LI><A NAME="toc10.24">10.24</A> <A HREF="ca65.html#ss10.24"><CODE>.STRAT</CODE></A>
 <LI><A NAME="toc10.25">10.25</A> <A HREF="ca65.html#ss10.25"><CODE>.STRING</CODE></A>
 <LI><A NAME="toc10.26">10.26</A> <A HREF="ca65.html#ss10.26"><CODE>.STRLEN</CODE></A>
 <LI><A NAME="toc10.27">10.27</A> <A HREF="ca65.html#ss10.27"><CODE>.TCOUNT</CODE></A>
@@ -2404,30 +2404,7 @@ segment.</P>
 </P>
 
 
-<H2><A NAME=".STRAT"></A> <A NAME="ss10.23">10.23</A> <A HREF="#toc10.23"><CODE>.STRAT</CODE></A>
-</H2>
-
-
-<P>Builtin function. The function accepts a string and an index as
-arguments and returns the value of the character at the given position
-as an integer value. The index is zero based.</P>
-<P>Example:</P>
-<P>
-<BLOCKQUOTE><CODE>
-<PRE>
-        .macro  M       Arg
-                ; Check if the argument string starts with '#'
-                .if (.strat (Arg, 0) = '#')
-                ...
-                .endif
-        .endmacro
-  
-</PRE>
-</CODE></BLOCKQUOTE>
-</P>
-
-
-<H2><A NAME=".SPRINTF"></A> <A NAME="ss10.24">10.24</A> <A HREF="#toc10.24"><CODE>.SPRINTF</CODE></A>
+<H2><A NAME=".SPRINTF"></A> <A NAME="ss10.23">10.23</A> <A HREF="#toc10.23"><CODE>.SPRINTF</CODE></A>
 </H2>
 
 
@@ -2444,6 +2421,29 @@ are: Length modifiers, variable width.</P>
 
         ; Generate an identifier:
         .ident (.sprintf ("%s%03d", "label", num)):
+  
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME=".STRAT"></A> <A NAME="ss10.24">10.24</A> <A HREF="#toc10.24"><CODE>.STRAT</CODE></A>
+</H2>
+
+
+<P>Builtin function. The function accepts a string and an index as
+arguments and returns the value of the character at the given position
+as an integer value. The index is zero based.</P>
+<P>Example:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        .macro  M       Arg
+                ; Check if the argument string starts with '#'
+                .if (.strat (Arg, 0) = '#')
+                ...
+                .endif
+        .endmacro
   
 </PRE>
 </CODE></BLOCKQUOTE>
