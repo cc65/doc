@@ -229,22 +229,23 @@ used as a standalone product.</EM>
 <LI><A NAME="toc11.90">11.90</A> <A HREF="ca65.html#ss11.90"><CODE>.PUSHCHARMAP</CODE></A>
 <LI><A NAME="toc11.91">11.91</A> <A HREF="ca65.html#ss11.91"><CODE>.PUSHCPU</CODE></A>
 <LI><A NAME="toc11.92">11.92</A> <A HREF="ca65.html#ss11.92"><CODE>.PUSHSEG</CODE></A>
-<LI><A NAME="toc11.93">11.93</A> <A HREF="ca65.html#ss11.93"><CODE>.RELOC</CODE></A>
-<LI><A NAME="toc11.94">11.94</A> <A HREF="ca65.html#ss11.94"><CODE>.REPEAT</CODE></A>
-<LI><A NAME="toc11.95">11.95</A> <A HREF="ca65.html#ss11.95"><CODE>.RES</CODE></A>
-<LI><A NAME="toc11.96">11.96</A> <A HREF="ca65.html#ss11.96"><CODE>.RODATA</CODE></A>
-<LI><A NAME="toc11.97">11.97</A> <A HREF="ca65.html#ss11.97"><CODE>.SCOPE</CODE></A>
-<LI><A NAME="toc11.98">11.98</A> <A HREF="ca65.html#ss11.98"><CODE>.SEGMENT</CODE></A>
-<LI><A NAME="toc11.99">11.99</A> <A HREF="ca65.html#ss11.99"><CODE>.SET</CODE></A>
-<LI><A NAME="toc11.100">11.100</A> <A HREF="ca65.html#ss11.100"><CODE>.SETCPU</CODE></A>
-<LI><A NAME="toc11.101">11.101</A> <A HREF="ca65.html#ss11.101"><CODE>.SMART</CODE></A>
-<LI><A NAME="toc11.102">11.102</A> <A HREF="ca65.html#ss11.102"><CODE>.STRUCT</CODE></A>
-<LI><A NAME="toc11.103">11.103</A> <A HREF="ca65.html#ss11.103"><CODE>.TAG</CODE></A>
-<LI><A NAME="toc11.104">11.104</A> <A HREF="ca65.html#ss11.104"><CODE>.UNDEF, .UNDEFINE</CODE></A>
-<LI><A NAME="toc11.105">11.105</A> <A HREF="ca65.html#ss11.105"><CODE>.UNION</CODE></A>
-<LI><A NAME="toc11.106">11.106</A> <A HREF="ca65.html#ss11.106"><CODE>.WARNING</CODE></A>
-<LI><A NAME="toc11.107">11.107</A> <A HREF="ca65.html#ss11.107"><CODE>.WORD</CODE></A>
-<LI><A NAME="toc11.108">11.108</A> <A HREF="ca65.html#ss11.108"><CODE>.ZEROPAGE</CODE></A>
+<LI><A NAME="toc11.93">11.93</A> <A HREF="ca65.html#ss11.93"><CODE>.REFERTO, .REFTO</CODE></A>
+<LI><A NAME="toc11.94">11.94</A> <A HREF="ca65.html#ss11.94"><CODE>.RELOC</CODE></A>
+<LI><A NAME="toc11.95">11.95</A> <A HREF="ca65.html#ss11.95"><CODE>.REPEAT</CODE></A>
+<LI><A NAME="toc11.96">11.96</A> <A HREF="ca65.html#ss11.96"><CODE>.RES</CODE></A>
+<LI><A NAME="toc11.97">11.97</A> <A HREF="ca65.html#ss11.97"><CODE>.RODATA</CODE></A>
+<LI><A NAME="toc11.98">11.98</A> <A HREF="ca65.html#ss11.98"><CODE>.SCOPE</CODE></A>
+<LI><A NAME="toc11.99">11.99</A> <A HREF="ca65.html#ss11.99"><CODE>.SEGMENT</CODE></A>
+<LI><A NAME="toc11.100">11.100</A> <A HREF="ca65.html#ss11.100"><CODE>.SET</CODE></A>
+<LI><A NAME="toc11.101">11.101</A> <A HREF="ca65.html#ss11.101"><CODE>.SETCPU</CODE></A>
+<LI><A NAME="toc11.102">11.102</A> <A HREF="ca65.html#ss11.102"><CODE>.SMART</CODE></A>
+<LI><A NAME="toc11.103">11.103</A> <A HREF="ca65.html#ss11.103"><CODE>.STRUCT</CODE></A>
+<LI><A NAME="toc11.104">11.104</A> <A HREF="ca65.html#ss11.104"><CODE>.TAG</CODE></A>
+<LI><A NAME="toc11.105">11.105</A> <A HREF="ca65.html#ss11.105"><CODE>.UNDEF, .UNDEFINE</CODE></A>
+<LI><A NAME="toc11.106">11.106</A> <A HREF="ca65.html#ss11.106"><CODE>.UNION</CODE></A>
+<LI><A NAME="toc11.107">11.107</A> <A HREF="ca65.html#ss11.107"><CODE>.WARNING</CODE></A>
+<LI><A NAME="toc11.108">11.108</A> <A HREF="ca65.html#ss11.108"><CODE>.WORD</CODE></A>
+<LI><A NAME="toc11.109">11.109</A> <A HREF="ca65.html#ss11.109"><CODE>.ZEROPAGE</CODE></A>
 </UL>
 <P>
 <H2><A NAME="toc12">12.</A> <A HREF="ca65.html#s12">Macros</A></H2>
@@ -4057,7 +4058,9 @@ referenced before, and false otherwise.</P>
 </CODE></BLOCKQUOTE>
 </P>
 <P>See also: <CODE>
-<A HREF="#.REFERENCED">.REFERENCED</A></CODE></P>
+<A HREF="#.REFERENCED">.REFERENCED</A></CODE>, and
+<CODE>
+<A HREF="#.REFERTO">.REFERTO</A></CODE></P>
 
 
 <H2><A NAME=".IMPORT"></A> <A NAME="ss11.63">11.63</A> <A HREF="#toc11.63"><CODE>.IMPORT</CODE></A>
@@ -4741,7 +4744,52 @@ full, when this command is issued.</P>
 <A HREF="#.POPSEG">.POPSEG</A></CODE></P>
 
 
-<H2><A NAME=".RELOC"></A> <A NAME="ss11.93">11.93</A> <A HREF="#toc11.93"><CODE>.RELOC</CODE></A>
+<H2><A NAME=".REFERTO"></A> <A NAME="ss11.93">11.93</A> <A HREF="#toc11.93"><CODE>.REFERTO, .REFTO</CODE></A>
+</H2>
+
+
+<P>Mark a symbol as referenced.</P>
+<P>It is useful in combination with the <CODE>
+<A HREF="#.IFREF">.IFREF</A></CODE>
+command. A subroutine with two entry points can be created. When the first
+entry point is called, it sets some default value as an argument, and falls
+through into the second entry point. <CODE>.REFERTO</CODE> helps to ensure that
+the second part is included into binary when only the first entry point is
+actually used from the code.</P>
+<P>Example:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        .ifref NegateValue              ; If this subroutine is used
+        NegateValue:                    ; Define it
+                lda     #0
+                sec
+                sbc     Value
+            .ifref ResetValue           ; If the ResetValue is also used
+                jmp     SetValue        ; Jump over it
+            .else
+                .refto  SetValue        ; Ensure that SetValue will be included
+            .endif
+        .endif
+
+        .ifref ResetValue               ; If this subroutine is used
+        ResetValue:                     ; Define it
+                lda     #0              ; Set a default value
+                .refto  SetValue        ; Ensure that SetValue will be included
+        .endif
+
+        .ifref SetValue                 ; If this or previous subroutine is used
+        SetValue:
+                sta     Value
+                rts
+        .endif
+  
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME=".RELOC"></A> <A NAME="ss11.94">11.94</A> <A HREF="#toc11.94"><CODE>.RELOC</CODE></A>
 </H2>
 
 
@@ -4749,7 +4797,7 @@ full, when this command is issued.</P>
 <A HREF="#.ORG">.ORG</A></CODE> command.</P>
 
 
-<H2><A NAME=".REPEAT"></A> <A NAME="ss11.94">11.94</A> <A HREF="#toc11.94"><CODE>.REPEAT</CODE></A>
+<H2><A NAME=".REPEAT"></A> <A NAME="ss11.95">11.95</A> <A HREF="#toc11.95"><CODE>.REPEAT</CODE></A>
 </H2>
 
 
@@ -4782,7 +4830,7 @@ characters of the string are XORed by the value $55.</P>
 <A HREF="#.ENDREPEAT">.ENDREPEAT</A></CODE></P>
 
 
-<H2><A NAME=".RES"></A> <A NAME="ss11.95">11.95</A> <A HREF="#toc11.95"><CODE>.RES</CODE></A>
+<H2><A NAME=".RES"></A> <A NAME="ss11.96">11.96</A> <A HREF="#toc11.96"><CODE>.RES</CODE></A>
 </H2>
 
 
@@ -4804,7 +4852,7 @@ linker configuration file (default: zero).</P>
 </P>
 
 
-<H2><A NAME=".RODATA"></A> <A NAME="ss11.96">11.96</A> <A HREF="#toc11.96"><CODE>.RODATA</CODE></A>
+<H2><A NAME=".RODATA"></A> <A NAME="ss11.97">11.97</A> <A HREF="#toc11.97"><CODE>.RODATA</CODE></A>
 </H2>
 
 
@@ -4824,7 +4872,7 @@ readonly data like string constants.</P>
 <A HREF="#.SEGMENT">.SEGMENT</A></CODE> command.</P>
 
 
-<H2><A NAME=".SCOPE"></A> <A NAME="ss11.97">11.97</A> <A HREF="#toc11.97"><CODE>.SCOPE</CODE></A>
+<H2><A NAME=".SCOPE"></A> <A NAME="ss11.98">11.98</A> <A HREF="#toc11.98"><CODE>.SCOPE</CODE></A>
 </H2>
 
 
@@ -4862,7 +4910,7 @@ had any need for local macro definitions.</P>
 <A HREF="#.PROC">.PROC</A></CODE></P>
 
 
-<H2><A NAME=".SEGMENT"></A> <A NAME="ss11.98">11.98</A> <A HREF="#toc11.98"><CODE>.SEGMENT</CODE></A>
+<H2><A NAME=".SEGMENT"></A> <A NAME="ss11.99">11.99</A> <A HREF="#toc11.99"><CODE>.SEGMENT</CODE></A>
 </H2>
 
 
@@ -4908,7 +4956,7 @@ segment specified as zeropage cannot be declared as being absolute later.</P>
 <A HREF="#.ZEROPAGE">.ZEROPAGE</A></CODE></P>
 
 
-<H2><A NAME=".SET"></A> <A NAME="ss11.99">11.99</A> <A HREF="#toc11.99"><CODE>.SET</CODE></A>
+<H2><A NAME=".SET"></A> <A NAME="ss11.100">11.100</A> <A HREF="#toc11.100"><CODE>.SET</CODE></A>
 </H2>
 
 
@@ -4916,7 +4964,7 @@ segment specified as zeropage cannot be declared as being absolute later.</P>
 <A HREF="#variables">Numeric variables</A> for a full description.</P>
 
 
-<H2><A NAME=".SETCPU"></A> <A NAME="ss11.100">11.100</A> <A HREF="#toc11.100"><CODE>.SETCPU</CODE></A>
+<H2><A NAME=".SETCPU"></A> <A NAME="ss11.101">11.101</A> <A HREF="#toc11.101"><CODE>.SETCPU</CODE></A>
 </H2>
 
 
@@ -4949,7 +4997,7 @@ namely: 6502, 6502X, 6502DTV, 65SC02, 65C02, 65816, 4510 and HuC6280.</P>
 <A HREF="#.PSC02">.PSC02</A></CODE></P>
 
 
-<H2><A NAME=".SMART"></A> <A NAME="ss11.101">11.101</A> <A HREF="#toc11.101"><CODE>.SMART</CODE></A>
+<H2><A NAME=".SMART"></A> <A NAME="ss11.102">11.102</A> <A HREF="#toc11.102"><CODE>.SMART</CODE></A>
 </H2>
 
 
@@ -4993,7 +5041,7 @@ memory model used.</LI>
 <A HREF="#.I8">.I8</A></CODE></P>
 
 
-<H2><A NAME=".STRUCT"></A> <A NAME="ss11.102">11.102</A> <A HREF="#toc11.102"><CODE>.STRUCT</CODE></A>
+<H2><A NAME=".STRUCT"></A> <A NAME="ss11.103">11.103</A> <A HREF="#toc11.103"><CODE>.STRUCT</CODE></A>
 </H2>
 
 
@@ -5007,7 +5055,7 @@ memory model used.</LI>
 <A HREF="#.UNION">.UNION</A></CODE></P>
 
 
-<H2><A NAME=".TAG"></A> <A NAME="ss11.103">11.103</A> <A HREF="#toc11.103"><CODE>.TAG</CODE></A>
+<H2><A NAME=".TAG"></A> <A NAME="ss11.104">11.104</A> <A HREF="#toc11.104"><CODE>.TAG</CODE></A>
 </H2>
 
 
@@ -5029,7 +5077,7 @@ memory model used.</LI>
 </P>
 
 
-<H2><A NAME=".UNDEFINE"></A> <A NAME="ss11.104">11.104</A> <A HREF="#toc11.104"><CODE>.UNDEF, .UNDEFINE</CODE></A>
+<H2><A NAME=".UNDEFINE"></A> <A NAME="ss11.105">11.105</A> <A HREF="#toc11.105"><CODE>.UNDEF, .UNDEFINE</CODE></A>
 </H2>
 
 
@@ -5043,7 +5091,7 @@ section
 <A HREF="#macros">Macros</A>.</P>
 
 
-<H2><A NAME=".UNION"></A> <A NAME="ss11.105">11.105</A> <A HREF="#toc11.105"><CODE>.UNION</CODE></A>
+<H2><A NAME=".UNION"></A> <A NAME="ss11.106">11.106</A> <A HREF="#toc11.106"><CODE>.UNION</CODE></A>
 </H2>
 
 
@@ -5057,7 +5105,7 @@ section
 <A HREF="#.STRUCT">.STRUCT</A></CODE></P>
 
 
-<H2><A NAME=".WARNING"></A> <A NAME="ss11.106">11.106</A> <A HREF="#toc11.106"><CODE>.WARNING</CODE></A>
+<H2><A NAME=".WARNING"></A> <A NAME="ss11.107">11.107</A> <A HREF="#toc11.107"><CODE>.WARNING</CODE></A>
 </H2>
 
 
@@ -5095,7 +5143,7 @@ the source file.</P>
 <A HREF="#.OUT">.OUT</A></CODE></P>
 
 
-<H2><A NAME=".WORD"></A> <A NAME="ss11.107">11.107</A> <A HREF="#toc11.107"><CODE>.WORD</CODE></A>
+<H2><A NAME=".WORD"></A> <A NAME="ss11.108">11.108</A> <A HREF="#toc11.108"><CODE>.WORD</CODE></A>
 </H2>
 
 
@@ -5112,7 +5160,7 @@ but not necessarily constant) expressions.</P>
 </P>
 
 
-<H2><A NAME=".ZEROPAGE"></A> <A NAME="ss11.108">11.108</A> <A HREF="#toc11.108"><CODE>.ZEROPAGE</CODE></A>
+<H2><A NAME=".ZEROPAGE"></A> <A NAME="ss11.109">11.109</A> <A HREF="#toc11.109"><CODE>.ZEROPAGE</CODE></A>
 </H2>
 
 
