@@ -1514,7 +1514,14 @@ It must preserve the CPU's <CODE>A</CODE> and <CODE>X</CODE> registers if it wra
 <CODE>__fastcall__</CODE> functions that have parameters.  It must preserve
 the <CODE>Y</CODE> register if it wraps any variadic functions (they have "<CODE>...</CODE>"
 in their prototypes).</P>
-<P>The identifier is an 8-bit number that's set into <CODE>tmp4</CODE>.</P>
+<P>The identifier is an 8-bit number that's set into <CODE>tmp4</CODE>. If the identifier
+is "bank", then a <CODE>
+<A HREF="ca65.html#.BANK">.bank</A></CODE> operator will be used
+to determine the number from the bank attribute defined in the linker config,
+see 
+<A HREF="ld65.html#MEMORY">Other MEMORY area attributes</A>. Note that
+this currently implies that only the least significant 8 bits of the bank attribute
+can be used.</P>
 <P>The address of a wrapped function is passed in <CODE>ptr4</CODE>.  The wrapper can
 call that function by using "<CODE>jsr callptr4</CODE>".</P>
 <P>This feature is useful, for example, with banked memory, to switch banks
