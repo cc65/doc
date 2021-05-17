@@ -5681,7 +5681,7 @@ loaded.</LI>
 <P><CODE>
 <A HREF="#em.h">em.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
-<P><CODE>unsigned char _fastcall__ em_install (void* driver);</CODE></P>
+<P><CODE>unsigned char _fastcall__ em_install (const void* driver);</CODE></P>
 <DT><B>Description</B><DD>
 <P>The function installs an already loaded extended memory driver
 and returns an error code. The function may be used to install a driver linked
@@ -7734,7 +7734,7 @@ There's no way to check for the number of actually connected joysticks.</LI>
 <P><CODE>
 <A HREF="#joystick.h">joystick.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
-<P><CODE>unsigned char __fastcall__ joy_install (void* driver);</CODE></P>
+<P><CODE>unsigned char __fastcall__ joy_install (const void* driver);</CODE></P>
 <DT><B>Description</B><DD>
 <P>The function installs a driver that was already loaded into
 memory (or linked statically to the program). It returns an error code
@@ -10074,7 +10074,7 @@ while (ser_get(&amp;ch) == SER_ERR_NO_DATA)
 <P><CODE>
 <A HREF="#serial.h">serial.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
-<P><CODE>unsigned char __fastcall__ ser_install (void* driver);</CODE></P>
+<P><CODE>unsigned char __fastcall__ ser_install (const void* driver);</CODE></P>
 <DT><B>Description</B><DD>
 <P>The function installs a driver that was already loaded into
 memory (or linked statically to the program). It returns an error code
