@@ -117,8 +117,8 @@ the C functions available in the standard library.</EM>
 <LI><A NAME="toc3.33">3.33</A> <A HREF="funcref.html#ss3.33">atmos_zap</A>
 <LI><A NAME="toc3.34">3.34</A> <A HREF="funcref.html#ss3.34">atoi</A>
 <LI><A NAME="toc3.35">3.35</A> <A HREF="funcref.html#ss3.35">atol</A>
-<LI><A NAME="toc3.36">3.36</A> <A HREF="funcref.html#ss3.36">bios_playsound</A>
-<LI><A NAME="toc3.37">3.37</A> <A HREF="funcref.html#ss3.37">bgcolor</A>
+<LI><A NAME="toc3.36">3.36</A> <A HREF="funcref.html#ss3.36">bgcolor</A>
+<LI><A NAME="toc3.37">3.37</A> <A HREF="funcref.html#ss3.37">bios_playsound</A>
 <LI><A NAME="toc3.38">3.38</A> <A HREF="funcref.html#ss3.38">bordercolor</A>
 <LI><A NAME="toc3.39">3.39</A> <A HREF="funcref.html#ss3.39">bsearch</A>
 <LI><A NAME="toc3.40">3.40</A> <A HREF="funcref.html#ss3.40">bzero</A>
@@ -2911,58 +2911,7 @@ used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="bios_playsound"></A> <A NAME="ss3.36">3.36</A> <A HREF="#toc3.36">bios_playsound</A>
-</H2>
-
-
-<P>
-<BLOCKQUOTE>
-<DL>
-<DT><B>Function</B><DD>
-<P>Play sound sequence.</P>
-<DT><B>Header</B><DD>
-<P><CODE>
-<A HREF="#creativision.h">creativision.h</A></CODE></P>
-<DT><B>Declaration</B><DD>
-<P><CODE>void __fastcall__ bios_playsound(void *a, unsigned char b);</CODE></P>
-<DT><B>Description</B><DD>
-<P>The function may play chords based on a BASIC statement,
-note and duration are defined in the manual chapter 13 on page 102 resp. 103.</P>
-<DT><B>Notes</B><DD>
-<P>
-<UL>
-<LI>BASIC has a fixed tempo of 18.</LI>
-<LI>The function is only available as fastcall function, so it may only be
-used in presence of a prototype.</LI>
-</UL>
-</P>
-<DT><B>Availability</B><DD>
-<P>Creativision</P>
-<DT><B>See also</B><DD>
-<P>
-<A HREF="#psg_delay">psg_delay</A>,
-<A HREF="#psg_outb">psg_outb</A></P>
-<DT><B>Example</B><DD>
-<P>
-<PRE>
-static const unsigned char notes[] = {
-  0x77, 0x4F, 0x37,
-  0x4B, 0x05, 0xBB,
-  0x4F, 0x27, 0x83,
-  0x93, 0x9B, 0x93,
-  0x17, 0x4F, 0x96,
-  0xAB, 0x17, 0x4F,
-  0x0E
-};
-bios_playsound (notes, sizeof notes);
-</PRE>
-</P>
-</DL>
-</BLOCKQUOTE>
-</P>
-
-
-<H2><A NAME="bgcolor"></A> <A NAME="ss3.37">3.37</A> <A HREF="#toc3.37">bgcolor</A>
+<H2><A NAME="bgcolor"></A> <A NAME="ss3.36">3.36</A> <A HREF="#toc3.36">bgcolor</A>
 </H2>
 
 
@@ -2997,6 +2946,61 @@ used in presence of a prototype.</LI>
 <A HREF="#textcolor">textcolor</A></P>
 <DT><B>Example</B><DD>
 <P>None.</P>
+</DL>
+</BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="bios_playsound"></A> <A NAME="ss3.37">3.37</A> <A HREF="#toc3.37">bios_playsound</A>
+</H2>
+
+
+<P>
+<BLOCKQUOTE>
+<DL>
+<DT><B>Function</B><DD>
+<P>Play a sequence of musical notes.</P>
+<DT><B>Header</B><DD>
+<P><CODE>
+<A HREF="#creativision.h">creativision.h</A></CODE></P>
+<DT><B>Declaration</B><DD>
+<P><CODE>void __fastcall__ bios_playsound (const void *a, unsigned char b);</CODE></P>
+<DT><B>Description</B><DD>
+<P>The function plays chords based on a BASIC statement. Notes and
+durations are defined in the BASIC manual, chapter 13 on pages 102 resp. 103.</P>
+<DT><B>Notes</B><DD>
+<P>
+<UL>
+<LI>BASIC has a fixed tempo of 18.</LI>
+<LI>The function is only available as fastcall function, so it may only be
+used in presence of a prototype.</LI>
+</UL>
+</P>
+<DT><B>Availability</B><DD>
+<P>cc65</P>
+<DT><B>See also</B><DD>
+<P>
+<A HREF="#psg_delay">psg_delay</A>,
+<A HREF="#psg_outb">psg_outb</A></P>
+<DT><B>Example</B><DD>
+<P>
+<PRE>
+#include &lt;creativision.h>
+void main (void)
+{
+  static const unsigned char notes[] = {
+    0x77, 0x4F, 0x37,
+    0x4B, 0x05, 0xBB,
+    0x4F, 0x27, 0x83,
+    0x93, 0x9B, 0x93,
+    0x17, 0x4F, 0x96,  // played backwards
+    0xAB, 0x17, 0x4F,  // three-note chords
+    0x0E               // tempo
+  };
+  bios_playsound (notes, sizeof notes);
+}
+</PRE>
+</P>
 </DL>
 </BLOCKQUOTE>
 </P>
@@ -3154,7 +3158,7 @@ be used in presence of a prototype.</LI>
 </UL>
 </P>
 <DT><B>Availability</B><DD>
-<P>C128</P>
+<P>cc65</P>
 <DT><B>Example</B><DD>
 <P>None.</P>
 </DL>
@@ -9493,7 +9497,7 @@ be used in presence of a prototype.</LI>
 <P><CODE>
 <A HREF="#creativision.h">creativision.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
-<P><CODE>void __fastcall__ psg_delay(unsigned char b);</CODE></P>
+<P><CODE>void __fastcall__ psg_delay (unsigned char b);</CODE></P>
 <DT><B>Description</B><DD>
 <P>The function specifies how long each note or pause between
 notes should last.</P>
@@ -9505,7 +9509,7 @@ used in presence of a prototype.</LI>
 </UL>
 </P>
 <DT><B>Availability</B><DD>
-<P>Creativision</P>
+<P>cc65</P>
 <DT><B>See also</B><DD>
 <P>
 <A HREF="#psg_outb">psg_outb</A>,
@@ -9525,14 +9529,15 @@ used in presence of a prototype.</LI>
 <BLOCKQUOTE>
 <DL>
 <DT><B>Function</B><DD>
-<P>Output a byte.</P>
+<P>Output a byte to the PSG.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
 <A HREF="#creativision.h">creativision.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
-<P><CODE>void __fastcall__ psg_outb(unsigned char b);</CODE></P>
+<P><CODE>void __fastcall__ psg_outb (unsigned char b);</CODE></P>
 <DT><B>Description</B><DD>
-<P>The function will send a PSG byte and wait for acknowledge.</P>
+<P>The function sends a byte to the Programmable Sound
+Generator, then waits for the PSG to acknowledge.</P>
 <DT><B>Notes</B><DD>
 <P>
 <UL>
@@ -9541,7 +9546,7 @@ used in presence of a prototype.</LI>
 </UL>
 </P>
 <DT><B>Availability</B><DD>
-<P>Creativision</P>
+<P>cc65</P>
 <DT><B>See also</B><DD>
 <P>
 <A HREF="#psg_delay">psg_delay</A>,
@@ -9549,9 +9554,15 @@ used in presence of a prototype.</LI>
 <DT><B>Example</B><DD>
 <P>
 <PRE>
-psg_outb (0x80); // Latch frequency
-psg_outb (0x07); // Frequency byte 2 
-psg_outb (0x90); // Channel 0 full volume
+#include &lt;creativision.h>
+void main (void)
+{
+  psg_outb (0x80); // Latch frequency
+  psg_outb (0x07); // Frequency byte 2
+  psg_outb (0x90); // Channel 0 full volume
+  psg_delay (100);
+  psg_silence ();
+}
 </PRE>
 </P>
 </DL>
@@ -9567,21 +9578,22 @@ psg_outb (0x90); // Channel 0 full volume
 <BLOCKQUOTE>
 <DL>
 <DT><B>Function</B><DD>
-<P>Set volume off on each channel.</P>
+<P>Set volume off on each PSG channel.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
 <A HREF="#creativision.h">creativision.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
-<P><CODE>void psg_silence(void);</CODE></P>
+<P><CODE>void psg_silence (void);</CODE></P>
 <DT><B>Description</B><DD>
-<P>The function sends $9F, $BF, $DF, $FF to the PSG.</P>
+<P>The function resets the Programmable Sound Generator,
+then sends $9F, $BF, $DF, $FF to the PSG.</P>
 <DT><B>Notes</B><DD>
 <P>
 <UL>
 </UL>
 </P>
 <DT><B>Availability</B><DD>
-<P>Creativision</P>
+<P>cc65</P>
 <DT><B>See also</B><DD>
 <P>
 <A HREF="#psg_delay">psg_delay</A>,
