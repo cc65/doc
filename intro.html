@@ -12,6 +12,7 @@
 <A HREF="mailto:uz@cc65.org">Ullrich von Bassewitz</A>,<BR>
 <A HREF="mailto:cbmnut@hushmail.com">CbmNut</A>,<BR>
 <A HREF="mailto:greg.king5@verizon.net">Greg King</A>,<BR>
+<A HREF="mailto:groepaz@gmx.net">Groepaz</A>,<BR>
 <A HREF="mailto:stephan.muehlstrasser@web.de">Stephan M&uuml;hlstrasser</A></H2>
 <HR>
 <EM>How to use the cc65 C language system -- an introduction.</EM>
@@ -45,9 +46,12 @@
 <LI><A NAME="toc6.3">6.3</A> <A HREF="intro.html#ss6.3">Atmos</A>
 <LI><A NAME="toc6.4">6.4</A> <A HREF="intro.html#ss6.4">Commander X16</A>
 <LI><A NAME="toc6.5">6.5</A> <A HREF="intro.html#ss6.5">Commodore</A>
-<LI><A NAME="toc6.6">6.6</A> <A HREF="intro.html#ss6.6">GEOS</A>
-<LI><A NAME="toc6.7">6.7</A> <A HREF="intro.html#ss6.7">Ohio Scientific Challenger 1P</A>
-<LI><A NAME="toc6.8">6.8</A> <A HREF="intro.html#ss6.8">Contributions wanted</A>
+<LI><A NAME="toc6.6">6.6</A> <A HREF="intro.html#ss6.6">Gamate</A>
+<LI><A NAME="toc6.7">6.7</A> <A HREF="intro.html#ss6.7">GEOS</A>
+<LI><A NAME="toc6.8">6.8</A> <A HREF="intro.html#ss6.8">Nintendo Entertainment System</A>
+<LI><A NAME="toc6.9">6.9</A> <A HREF="intro.html#ss6.9">Ohio Scientific Challenger 1P</A>
+<LI><A NAME="toc6.10">6.10</A> <A HREF="intro.html#ss6.10">PC Engine/TurboGrafx 16</A>
+<LI><A NAME="toc6.11">6.11</A> <A HREF="intro.html#ss6.11">Contributions wanted</A>
 </UL>
 
 <HR>
@@ -536,11 +540,8 @@ Substitute the name of a Commodore computer for that <CODE>&lt;sys&gt;</CODE>:
 </P>
 <P>Start the desired version of the emulator (CBM610 programs run on
 the CBM II [<CODE>xcbm2</CODE>] emulator).</P>
-<P>In the Windows versions of VICE, choose <B>File&gt;Autoboot disk/tape
-image...</B>, choose your executable, and click <B>OK</B>.</P>
-<P>In the Unix versions, hold down the mouse's first button. Move the pointer to
-<B>Smart-attach disk/tape...</B>, and release the button. Choose your
-executable, and click <B>Autostart</B>.</P>
+<P>Choose <B>File&gt;Autostart disk/tape image...</B>, choose your executable, 
+and click <B>OK</B>.</P>
 <P>The file has a 14-byte header which corresponds to a PRG-format BASIC program,
 consisting of a single line, similar to this:</P>
 <P>
@@ -587,7 +588,38 @@ RUN "HELLO"
 prompt.</P>
 
 
-<H2><A NAME="ss6.6">6.6</A> <A HREF="#toc6.6">GEOS</A>
+<H2><A NAME="ss6.6">6.6</A> <A HREF="#toc6.6">Gamate</A>
+</H2>
+
+
+<P>Before you can run the cartridge image produced by the linker, the binary has to
+be patched using the <B>gamate-fixcart</B> tool that is included in the cc65
+package in the util/gamata directory.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+gamate-fixcart &lt;image.bin>
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+<H3>MESS</H3>
+
+<P>Available at 
+<A HREF="https://www.mamedev.org">https://www.mamedev.org</A>:</P>
+<P>MESS (Multiple Emulator Super System) is a multi system emulator that emulates
+various cc65 targets. It once started as a MAME fork, but was marged into MAME
+again at some point.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+mess gamate -debug -window -skip_gameinfo -cart &lt;image.bin>
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="ss6.7">6.7</A> <A HREF="#toc6.7">GEOS</A>
 </H2>
 
 <P>Available at <I>Click Here Software's</I> 
@@ -626,17 +658,8 @@ feature on.
 </P>
 <P>
 <BLOCKQUOTE>
-VICE even has different ways that depend on which operating system is running
-the emulator.
-<UL>
-<LI>In Windows, you must click on <B>Options</B> (in an always visible menu).
-Then, you must click on <B>True drive emulation</B>.</LI>
-<LI>In Unix, you must <EM>hold down</EM> the second button on your mouse.  Move
-the pointer down to <B>Drive settings</B>.  Then, move the pointer over to
-<B>Enable true drive emulation</B>.  (If there is a check-mark in front of
-those words, that feature already is turned on -- then, move the pointer
-off of that menu.) Release the mouse button.</LI>
-</UL>
+In VICE, got to <B>Settings</B> -> <B>Settings</B>, then <B>Peripherial devices</B> ->
+<B>Drive</B>. Then, you must enable the <B>True drive emulation</B> checkbox.
 </BLOCKQUOTE>
 </P>
 <P>Find the <B>CONVERT</B> program on the boot disk [tap the 6-key; then, you
@@ -659,9 +682,40 @@ directory notePad.  Look at the eight file-positions on each page until you see
 <B>hello1</B>.  Double-click on its icon.</P>
 <P>The output is shown in a GEOS dialog box; click <B>OK</B> when you have finished
 reading it.</P>
+<P>Alternatively you can use the <B>c1541</B> program that comes with VICE to write the
+file to a disk image directly in GEOS format, so it can be used in GEOS directly
+without having to use the <B>CONVERT</B> program.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+c1541 -attach geos.d64 -geoswrite hello1
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
 
 
-<H2><A NAME="ss6.7">6.7</A> <A HREF="#toc6.7">Ohio Scientific Challenger 1P</A>
+<H2><A NAME="ss6.8">6.8</A> <A HREF="#toc6.8">Nintendo Entertainment System</A>
+</H2>
+
+
+
+<H3>Mednafen (NES)</H3>
+
+<P>Available at 
+<A HREF="https://mednafen.github.io/releases/">https://mednafen.github.io/releases/</A>:</P>
+<P>Mednafen is a multi system emulator that emulates a couple of the supported
+targets of cc65: Apple II/II+, Atari Lynx, Nintendo Entertainment System and
+PC Engine/TurboGrafx 16.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+mednafen -force_module nes &lt;image.bin>
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="ss6.9">6.9</A> <A HREF="#toc6.9">Ohio Scientific Challenger 1P</A>
 </H2>
 
 <P>The <CODE>osic1p</CODE> runtime library returns to the boot prompt when the main()
@@ -792,7 +846,40 @@ Press &lt;RETURN>.
 <P>After hitting the RETURN key, you should see the boot prompt again.</P>
 
 
-<H2><A NAME="ss6.8">6.8</A> <A HREF="#toc6.8">Contributions wanted</A>
+<H2><A NAME="ss6.10">6.10</A> <A HREF="#toc6.10">PC Engine/TurboGrafx 16</A>
+</H2>
+
+
+<P>For the cartridge image produced by the linker to work in emulators and on real
+hardware, its content must be rearranged so the first 8k block becomes the last
+8k block in the image.</P>
+<P>For example, for a 32k image this can be done using <B>dd</B> as follows:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+dd if=infile.bin bs=8K skip=3 > outfile.pce
+dd if=infile.bin bs=8K count=3 >> outfile.pce
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+<H3>Mednafen</H3>
+
+<P>Available at 
+<A HREF="https://mednafen.github.io/releases/">https://mednafen.github.io/releases/</A>:</P>
+<P>Mednafen is a multi system emulator that emulates a couple of the supported
+targets of cc65: Apple II/II+, Atari Lynx, Nintendo Entertainment System and
+PC Engine/TurboGrafx 16.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+mednafen -force_module pce &lt;image.pce>
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="ss6.11">6.11</A> <A HREF="#toc6.11">Contributions wanted</A>
 </H2>
 
 

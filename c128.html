@@ -411,9 +411,9 @@ the C128.</P>
 <DL>
 
 <DT><B><CODE>c128-swlink.ser (c128_swlink_ser)</CODE></B><DD>
-<P>Driver for the SwiftLink cartridge. Supports up to 38400 BPS, hardware flow
-control (RTS/CTS), and interrupt-driven receives. Note that, because of the
-peculiarities of the 6551 chip, together with the use of the NMI, transmits
+<P>Driver for the SwiftLink cartridge. Supports up to 38400 baud, requires hardware
+flow control (RTS/CTS) and does interrupt driven receives. Note that, because of
+the peculiarities of the 6551 chip, together with the use of the NMI, transmits
 are not interrupt driven; and, the transceiver blocks if the receiver asserts
 flow control because of a full buffer.</P>
 <P>The driver uses the RS232 variables and buffers of the kernal (buffers at

@@ -545,8 +545,8 @@ mode only.</P>
 
 <DT><B><CODE>a2.ssc.ser (a2_ssc_ser)</CODE></B><DD>
 <P>Driver for the Apple&nbsp;II Super Serial Card. Supports up to 19200 baud,
-hardware flow control (RTS/CTS) and interrupt driven receives. Note
-that because of the peculiarities of the 6551 chip transmits are not
+requires hardware flow control (RTS/CTS) and does interrupt driven receives.
+Note that because of the peculiarities of the 6551 chip transmits are not
 interrupt driven, and the transceiver blocks if the receiver asserts
 flow control because of a full buffer.</P>
 <P>The driver defaults to slot 2. Call <CODE>ser_apple2_slot()</CODE> prior to
