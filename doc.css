@@ -1,13 +1,15 @@
 body {
-    font-family:        arial, helvetica, sans-serif;
-    font-size:          100%;
-    text-align:         justify;
-    margin-left:        110px;
-    margin-top:         10px;
-    margin-right:       30px;
-    margin-bottom:      10px;
-    background-image:   url(doc.png);
-    background-repeat:  repeat-y;
+    font-family:            arial, helvetica, sans-serif;
+    font-size:              100%;
+    text-align:             justify;
+    margin:                 0px;
+    padding-left:           110px;
+    padding-top:            10px;
+    padding-right:          30px;
+    padding-bottom:         10px;
+    background-image:       url(doc.png);
+    background-repeat:      repeat-y;
+    background-position:    left top;
 }
 
 h1, h2, h2 a:link, h2 a:active, h2 a:visited {
@@ -28,6 +30,6 @@ h2 {
     font-size:          160%;
     text-shadow:        1px 1px 3px #303030;
     letter-spacing:     1px;
-    margin-top:         2em;
-    margin-bottom:      1em;
+    padding-top:        2em;
+    padding-bottom:     1em;
 }
