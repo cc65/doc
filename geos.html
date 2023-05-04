@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>GEOSLib docs</TITLE>
 </HEAD>
 <BODY>
@@ -228,7 +229,7 @@ see them together in the filling box in GeoPaint.</P>
 <H3>GraphicsString</H3>
 
 <P><CODE>void GraphicsString (const void *myGString)</CODE></P>
-<P>One of the more powerfull routines of GEOS. This function calls other graphic functions depending
+<P>One of the more powerful routines of GEOS. This function calls other graphic functions depending
 on the given command string. See the structures chapter for a more detailed description.</P>
 
 <H3>Rectangle functions</H3>
@@ -620,7 +621,7 @@ dangerous.</P>
 <P>For some purposes you might consider using the <CODE>dio.h</CODE> interface to disk access. It is native.</P>
 <P>All GEOS disk functions return an error code in the X register. In some cases this is returned by the
 GEOSLib function (if its type is <CODE>char</CODE>), but in all cases the last error is saved in the <CODE>__oserror</CODE>
-location. If it is nonzero - an error occured. See <CODE>gdisk.h</CODE> for the list of possible errorcodes.
+location. If it is nonzero - an error occurred. See <CODE>gdisk.h</CODE> for the list of possible errorcodes.
 You need to include <CODE>errno.h</CODE> to get <CODE>__oserror</CODE>, together with the standard <CODE>errno</CODE>. The
 latter gives less verbose, but still usable information and can be used with <CODE>strerror</CODE>.
 Probably you will get more information using <CODE>_stroserror</CODE> in a similar way.</P>
@@ -1212,7 +1213,7 @@ new value in <CODE>curDevice</CODE>, in the other case new disk driver is loaded
 <P><CODE>char get_tv (void)</CODE></P>
 <P>This function returns the PAL/NTSC flag combined (by logical OR) with the 40/80 columns flag. This is
 not the best way to check if the screen has 40 or 80 columns since a PAL/NTSC check is always
-performed and it can take as long as a full raster frame. If you just want to know if the 
+performed and it can take as long as a full raster frame. If you just want to know if the
 screen has 40 or 80 columns use the expression <CODE>graphMode &amp; 0x80</CODE> which returns <CODE>0</CODE> for
 40 columns and <CODE>0x80</CODE> for 80 columns. Remember that this value can be changed during
 runtime. It is unclear if this will work for GEOS 64 so you probably do not want to test

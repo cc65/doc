@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>cc65 Users Guide</TITLE>
 </HEAD>
 <BODY>
@@ -261,6 +262,195 @@ brackets).</P>
 <P>Enables debug mode, for debugging the behavior of cc65.</P>
 
 
+<DT><B><CODE>--debug-tables name</CODE></B><DD>
+<P>Writes symbol table information to a file, which includes details on structs, unions
+functions, and global variables. For example, given the following code:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  struct l {
+      unsigned char m;
+      unsigned char n;
+  };
+
+  struct hello {
+      unsigned char j;
+      unsigned char k;
+      struct l l;
+  };
+
+  struct sub {
+      unsigned char x;
+      unsigned char y;
+  };
+
+  union xy {
+      struct sub xy;
+      unsigned int mem;
+  };
+
+  typedef struct hello thingy;
+
+  unsigned char single;
+
+  unsigned char test_local_vars_main(void) {
+      static unsigned char wahoo;
+      static unsigned char bonanza = 0x42;
+      unsigned char i;
+      unsigned int j;
+      unsigned int *random;
+      unsigned char *lol;
+      signed char whoa;
+      struct hello wow;
+      thingy *cool;
+      union xy xy;
+
+      return 0;
+  }
+  
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>The following output would be produced:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  SC_FUNC: _test_local_vars_main: Symbol table
+  ============================================
+  __fixargs__:
+      Flags: SC_CONST SC_DEF
+      Type:  unsigned int
+  __argsize__:
+      Flags: SC_CONST SC_DEF
+      Type:  unsigned char
+  wahoo:
+      AsmName: M0001
+      Flags: SC_STATIC SC_DEF SC_REF
+      Type:  unsigned char
+  bonanza:
+      AsmName: M0002
+      Flags: SC_STATIC SC_DEF SC_REF
+      Type:  unsigned char
+  i:
+      Flags: SC_AUTO SC_DEF SC_REF
+      Type:  unsigned char
+  j:
+      Flags: SC_AUTO SC_DEF SC_REF
+      Type:  unsigned int
+  random:
+      Flags: SC_AUTO SC_DEF SC_REF
+      Type:  unsigned int *
+  lol:
+      Flags: SC_AUTO SC_DEF SC_REF
+      Type:  unsigned char *
+  whoa:
+      Flags: SC_AUTO SC_DEF SC_REF
+      Type:  signed char
+  wow:
+      Flags: SC_AUTO SC_DEF SC_REF
+      Type:  struct hello
+  cool:
+      Flags: SC_AUTO SC_DEF SC_REF
+      Type:  struct hello *
+  xy:
+      Flags: SC_AUTO SC_DEF SC_REF
+      Type:  union xy
+
+
+
+
+  Global symbol table
+  ===================
+  thingy:
+      AsmName: _thingy
+      Flags: SC_TYPEDEF 0x100000
+      Type:  struct hello
+  single:
+      AsmName: _single
+      Flags: SC_STATIC SC_EXTERN SC_STORAGE SC_DEF SC_REF 0x100000
+      Type:  unsigned char
+  test_local_vars_main:
+      AsmName: _test_local_vars_main
+      Flags: SC_FUNC SC_STATIC SC_EXTERN SC_DEF 0x100000
+      Type:  unsigned char (void)
+
+
+
+
+  Global tag table
+  ================
+  l:
+      Flags: SC_STRUCT SC_DEF
+      Type:  (none)
+  hello:
+      Flags: SC_STRUCT SC_DEF
+      Type:  (none)
+  sub:
+      Flags: SC_STRUCT SC_DEF
+      Type:  (none)
+  xy:
+      Flags: SC_UNION SC_DEF
+      Type:  (none)
+
+
+
+
+  Global struct and union definitions
+  =========================
+
+  SC_STRUCT: l
+  ============
+  m:
+      Flags: SC_STRUCTFIELD
+      Type:  unsigned char
+  n:
+      Flags: SC_STRUCTFIELD
+      Type:  unsigned char
+
+
+
+
+  SC_STRUCT: hello
+  ================
+  j:
+      Flags: SC_STRUCTFIELD
+      Type:  unsigned char
+  k:
+      Flags: SC_STRUCTFIELD
+      Type:  unsigned char
+  l:
+      Flags: SC_STRUCTFIELD
+      Type:  struct l
+
+
+
+
+  SC_STRUCT: sub
+  ==============
+  x:
+      Flags: SC_STRUCTFIELD
+      Type:  unsigned char
+  y:
+      Flags: SC_STRUCTFIELD
+      Type:  unsigned char
+
+
+
+
+  SC_UNION: xy
+  ============
+  xy:
+      Flags: SC_STRUCTFIELD
+      Type:  struct sub
+  mem:
+      Flags: SC_STRUCTFIELD
+      Type:  unsigned int
+  
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
 <DT><B><CODE>--debug-opt name</CODE></B><DD>
 <P>The named file contains a list of specific optimization steps to enable or disable.
 Each line contains the name of an optimization step with either a
@@ -439,7 +629,7 @@ will. c99 mode is actually c89 mode with a few selected C99 extensions.</P>
 <DT><B><CODE>-t target, --target target</CODE></B><DD>
 <P>This option is used to set the target system. The target system determines
 the character set that is used for strings and character constants and the
-default CPU. The CPU setting can be overriden by use of the <CODE>
+default CPU. The CPU setting can be overridden by use of the <CODE>
 <A HREF="#option--cpu">--cpu</A></CODE> option.</P>
 <P>The following target systems are supported:</P>
 <P>
@@ -596,7 +786,7 @@ that changes a character's code number from/to 0x00.</P>
 <DT><B><CODE>return-type</CODE></B><DD>
 <P>Warn about no return statement in function returning non-void.</P>
 <DT><B><CODE>struct-param</CODE></B><DD>
-<P>Warn when passing structs by value.</P>
+<P>Warn when passing structs by value. (Disabled by default.)</P>
 <DT><B><CODE>unknown-pragma</CODE></B><DD>
 <P>Warn about #pragmas that aren't recognized by cc65.</P>
 <DT><B><CODE>unreachable-code</CODE></B><DD>
@@ -666,9 +856,8 @@ and the one defined by the ISO standard:</P>
 <LI>  The datatypes "float" and "double" are not available.
 
 </LI>
-<LI>  C Functions may not return structs (or unions), and structs may not
-be passed as parameters by value. However, struct assignment *is*
-possible.
+<LI>  C Functions may pass and return structs (or unions) by value, but only
+of 1, 2 or 4 byte sizes.
 
 </LI>
 <LI>  Most of the C library is available with only the fastcall calling
@@ -1027,8 +1216,18 @@ computers (called B series in the US).</P>
 
 <DT><B><CODE>__CC65__</CODE></B><DD>
 <P>This macro is always defined. Its value is the version number of the
-compiler in hex.  For example, version 2.14 of the compiler has this macro
-defined as <CODE>0x02E0</CODE>.</P>
+compiler in hex: <CODE>(VER_MAJOR * 0x100) + VER_MINOR</CODE>. The upper 8 bits
+are the major-, the lower 8 bits are the  minor version. For example, version
+47.11 of the compiler would have this macro defined as <CODE>0x2f0b</CODE>.</P>
+<P>Note: until 2.19 this macro was defined as <CODE>(VER_MAJOR * 0x100) + VER_MINOR * 0x10</CODE> -
+which resulted in broken values starting at version 2.16 of the compiler. For
+this reason the value of this macro is considered purely informal - you should
+not use it to check for a specific compiler version and use different code
+according to the detected version - please update your code to work with the
+recent version of the compiler instead (There is very little reason to not use
+the most recent version - and even less to support older versions in your code).</P>
+<P>Should you still insist on doing this for some reason - look at <CODE>checkversion.c</CODE>
+in the samples directory for some preprocessor kludges that might help.</P>
 
 <DT><B><CODE>__CC65_STD__</CODE></B><DD>
 <P>This macro is defined to one of the following depending on the <CODE>
@@ -1097,17 +1296,32 @@ translation unit in the form "Mmm dd yyyy".</P>
 <DT><B><CODE>__PLUS4__</CODE></B><DD>
 <P>This macro is defined if the target is the Commodore Plus/4 (-t plus4).</P>
 
-<DT><B><CODE>__STDC_HOSTED__</CODE></B><DD>
-<P>This macro is expands to the integer constant 1.</P>
-
 <DT><B><CODE>__SIM6502__</CODE></B><DD>
 <P>This macro is defined if the target is sim65 in 6502 mode (-t sim6502).</P>
 
 <DT><B><CODE>__SIM65C02__</CODE></B><DD>
 <P>This macro is defined if the target is sim65 in 65C02 mode (-t sim65c02).</P>
 
+<DT><B><CODE>__STDC_HOSTED__</CODE></B><DD>
+<P>This macro expands to the integer constant 1.</P>
+
+<DT><B><CODE>__STDC_NO_ATOMICS__</CODE></B><DD>
+<P>This macro expands to the integer constant 1 if the language standard is cc65 (--standard cc65).</P>
+
+<DT><B><CODE>__STDC_NO_COMPLEX__</CODE></B><DD>
+<P>This macro expands to the integer constant 1 if the language standard is cc65 (--standard cc65).</P>
+
+<DT><B><CODE>__STDC_NO_THREADS__</CODE></B><DD>
+<P>This macro expands to the integer constant 1 if the language standard is cc65 (--standard cc65).</P>
+
+<DT><B><CODE>__STDC_NO_VLA__</CODE></B><DD>
+<P>This macro expands to the integer constant 1 if the language standard is cc65 (--standard cc65).</P>
+
 <DT><B><CODE>__SUPERVISION__</CODE></B><DD>
 <P>This macro is defined if the target is the Supervision (-t supervision).</P>
+
+<DT><B><CODE>__SYM1__</CODE></B><DD>
+<P>This macro is defined if the target is the Sym-1 (-t sym1).</P>
 
 <DT><B><CODE>__TELESTRAT__</CODE></B><DD>
 <P>This macro is defined if the target is the Telestrat (-t telestrat).</P>
@@ -1350,7 +1564,7 @@ remembered and output as a whole when translation is finished.</P>
 
 
 <P>This pragma is used to display informational messages at compile-time.</P>
-<P>The message intented to be displayed must be a string literal.</P>
+<P>The message intended to be displayed must be a string literal.</P>
 <P>Example:
 <BLOCKQUOTE><CODE>
 <PRE>
@@ -1486,7 +1700,7 @@ most cases faster, but non-reentrant code.</P>
 <CODE>
 <A HREF="#option-W">-W</A></CODE> compiler option for a list). The name is
 followed either by "pop", which restores the last pushed state, or by "on" or
-"off", optionally preceeded by "push" to push the current state before
+"off", optionally preceded by "push" to push the current state before
 changing it.</P>
 <P>Example:
 <BLOCKQUOTE><CODE>
@@ -1813,7 +2027,7 @@ behavior as implementation-defined.</P>
 
       Anyone may copy or redistribute these programs, provided that:
 
-  1:  You don't charge anything for the copy.  It is permissable to
+  1:  You don't charge anything for the copy.  It is permissible to
       charge a nominal fee for media, etc.
 
   2:  All source code and documentation for the programs is made

@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>Commander X16-specific information for cc65</TITLE>
 </HEAD>
 <BODY>
@@ -270,14 +271,22 @@ access to hardware located in the address space. Some variables are
 structures, accessing the struct fields will access the chip registers.</P>
 <P>
 <DL>
-<DT><B><CODE>VERA</CODE></B><DD>
-<P>The <CODE>VERA</CODE> structure allows access
-to the Video Enhanced Retro Adapter chip.</P>
+
+<DT><B><CODE>RAM_BANK</CODE></B><DD>
+<P>A register that controls which bank of high RAM is visible in the
+<CODE>BANK_RAM</CODE> window.</P>
+
+<DT><B><CODE>ROM_BANK</CODE></B><DD>
+<P>A register that controls which bank of ROM is active at the moment.</P>
 
 <DT><B><CODE>VIA1, VIA2</CODE></B><DD>
 <P>Access to the two VIA (Versatile Interface Adapter) chips is available via
 the <CODE>VIA1</CODE> and <CODE>VIA2</CODE> variables. The structure behind those variables
 is explained in <CODE>_6522.h</CODE>.</P>
+
+<DT><B><CODE>VERA</CODE></B><DD>
+<P>The <CODE>VERA</CODE> structure allows access
+to the Video Enhanced Retro Adapter chip.</P>
 
 <DT><B><CODE>BANK_RAM</CODE></B><DD>
 <P>A character array that mirrors the eight-Kibibyte window, at $A000,
@@ -292,7 +301,7 @@ into banked RAM.</P>
 
 
 <P>The names in the parentheses denote the symbols to be used for static linking
-of the drivers.  The names fit into the 8.3 character limit of the SD-Card's
+of the drivers.  The names fit into the old 8.3-character limit of the SD-Card's
 FAT32 file-system.</P>
 
 
@@ -305,7 +314,7 @@ point to <CODE>cx320p1.tgi (cx320p1_tgi)</CODE>.</P>
 <P>
 <DL>
 <DT><B><CODE>cx320p1.tgi (cx320p1_tgi)</CODE></B><DD>
-<P>This driver features a resolution of 320 across and 200 down with 256 colors,
+<P>This driver features a resolution of 320 across and 240 down with 256 colors,
 and a slightly adjustable palette (the order of the colors can be changed in
 a way that's compatible with some of the other color drivers).</P>
 </DL>
@@ -329,10 +338,10 @@ point to <CODE>cx16-std.joy (cx16_std_joy)</CODE>.</P>
 <P>
 <DL>
 <DT><B><CODE>cx16-std.joy (cx16_std_joy)</CODE></B><DD>
-<P>Supports up to two NES (and SNES) controllers connected to the joystick ports
-of the CX16.  It reads the four directions, and the <B>A</B>, <B>B</B>,
-<B>Select</B>, and <B>Start</B> buttons.  Buttons <B>A</B> and <B>B</B> are
-the first and second fire buttons.</P>
+<P>Supports the keyboard emulation of a controller and up to four SNES (and NES)
+controllers connected to the joystick ports of the CX16.  It reads the four
+directions, and the <B>A</B>, <B>B</B>, <B>Select</B>, and <B>Start</B> buttons.
+Buttons <B>A</B> and <B>B</B> are the first and second fire buttons.</P>
 </DL>
 </P>
 

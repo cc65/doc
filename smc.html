@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>ca65 Macros for Self Modifying Code</TITLE>
 </HEAD>
 <BODY>
@@ -102,7 +103,7 @@ coexist (even if you should abstain from doing so).
 <LI>  The macro '<CODE>SMC_StoreValue</CODE>' takes care, that the store
 operation will occur on the value-position of a SMC-instruction. As
 you will see, other macros influence other instruction part positions.
-There is no consistency check, if the targeted SMC instruction acually
+There is no consistency check, if the targeted SMC instruction actually
 contains a value. Storing a 'value' on an immplied SMC instruction
 would corrupt the following memory cell!</LI>
 </OL>
@@ -275,7 +276,7 @@ SMC LoadDefault, { LDX #25 }
 <P>
 <A NAME="Load value"></A> </P>
 <DT><B><CODE>SMC_LoadValue label (, register)</CODE></B><DD>
-<P>Retreives the value of a SMC line.</P>
+<P>Retrieves the value of a SMC line.</P>
 <P>Example:
 <BLOCKQUOTE><CODE>
 <PRE>
@@ -627,7 +628,7 @@ into a single instruction line. These can be changed of course too.</P>
 <P>Line 10,11: These lines construct a branch operation for line 8: The
 X-register will be used to change it from 'inc StoreAccuFirstSection+2'
 (high-byte operation) to 'beq restoreCode'. Please note: To calculate the
-relaive branch offset, we introduced a second label
+relative branch offset, we introduced a second label
 ('RestoreCodeBranchBaseAdr') for to calculate it. Some could also use the
 internal name of the SMC label, but you should abstain to do so - it may be
 changed in the future...</P>

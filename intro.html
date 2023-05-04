@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>cc65 Compiler Intro</TITLE>
 </HEAD>
 <BODY>
@@ -486,7 +487,7 @@ RUN
 <P>Available at 
 <A HREF="https://github.com/commanderx16/x16-emulator/releases">https://github.com/commanderx16/x16-emulator/releases</A>:</P>
 <P>Emulates the Commander X16 Single Board Computer, with sound, SD card images,
-VGA and NTSC video, and a NES game controller emulation.  Includes a monitor. 
+VGA and NTSC video, and a NES game controller emulation.  Includes a monitor.
 It runs on all SDL2 platforms.</P>
 <P>Compile the tutorial with
 <BLOCKQUOTE><CODE>
@@ -540,7 +541,7 @@ Substitute the name of a Commodore computer for that <CODE>&lt;sys&gt;</CODE>:
 </P>
 <P>Start the desired version of the emulator (CBM610 programs run on
 the CBM II [<CODE>xcbm2</CODE>] emulator).</P>
-<P>Choose <B>File&gt;Autostart disk/tape image...</B>, choose your executable, 
+<P>Choose <B>File&gt;Autostart disk/tape image...</B>, choose your executable,
 and click <B>OK</B>.</P>
 <P>The file has a 14-byte header which corresponds to a PRG-format BASIC program,
 consisting of a single line, similar to this:</P>
@@ -594,7 +595,7 @@ prompt.</P>
 
 <P>Before you can run the cartridge image produced by the linker, the binary has to
 be patched using the <B>gamate-fixcart</B> tool that is included in the cc65
-package in the util/gamata directory.</P>
+package in the util/gamate/ directory.</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
@@ -658,7 +659,7 @@ feature on.
 </P>
 <P>
 <BLOCKQUOTE>
-In VICE, got to <B>Settings</B> -> <B>Settings</B>, then <B>Peripherial devices</B> ->
+In VICE, got to <B>Settings</B> -> <B>Settings</B>, then <B>Peripheral devices</B> ->
 <B>Drive</B>. Then, you must enable the <B>True drive emulation</B> checkbox.
 </BLOCKQUOTE>
 </P>

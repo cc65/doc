@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>cc65 internals</TITLE>
 </HEAD>
 <BODY>
@@ -12,23 +13,112 @@
 <A HREF="mailto:bbbradsmith@users.noreply.github.com">Brad Smith</A></H2>
 <HR>
 <EM>Internal details of cc65 code generation,
-such as calling assembly functions from C.</EM>
+such as the expected linker configuration,
+and calling assembly functions from C.</EM>
 <HR>
 <P>
-<H2><A NAME="toc1">1.</A> <A HREF="cc65-intern.html#s1">Calling assembly functions from C</A></H2>
+<H2><A NAME="toc1">1.</A> <A HREF="cc65-intern.html#s1">Linker configuration</A></H2>
 
 <UL>
-<LI><A NAME="toc1.1">1.1</A> <A HREF="cc65-intern.html#ss1.1">Calling conventions</A>
-<LI><A NAME="toc1.2">1.2</A> <A HREF="cc65-intern.html#ss1.2">Prologue, before the function call</A>
-<LI><A NAME="toc1.3">1.3</A> <A HREF="cc65-intern.html#ss1.3">Epilogue, after the function call</A>
+<LI><A NAME="toc1.1">1.1</A> <A HREF="cc65-intern.html#ss1.1"><CODE>ZEROPAGE</CODE> segment</A>
+<LI><A NAME="toc1.2">1.2</A> <A HREF="cc65-intern.html#ss1.2"><CODE>STARTUP</CODE> segment</A>
+<LI><A NAME="toc1.3">1.3</A> <A HREF="cc65-intern.html#ss1.3"><CODE>CODE</CODE> segment</A>
+<LI><A NAME="toc1.4">1.4</A> <A HREF="cc65-intern.html#ss1.4"><CODE>BSS</CODE> segment</A>
+<LI><A NAME="toc1.5">1.5</A> <A HREF="cc65-intern.html#ss1.5"><CODE>DATA</CODE> segment</A>
+<LI><A NAME="toc1.6">1.6</A> <A HREF="cc65-intern.html#ss1.6"><CODE>RODATA</CODE> segment</A>
+<LI><A NAME="toc1.7">1.7</A> <A HREF="cc65-intern.html#ss1.7"><CODE>FEATURES</CODE> table</A>
+</UL>
+<P>
+<H2><A NAME="toc2">2.</A> <A HREF="cc65-intern.html#s2">Calling assembly functions from C</A></H2>
+
+<UL>
+<LI><A NAME="toc2.1">2.1</A> <A HREF="cc65-intern.html#ss2.1">Calling conventions</A>
+<LI><A NAME="toc2.2">2.2</A> <A HREF="cc65-intern.html#ss2.2">Prologue, before the function call</A>
+<LI><A NAME="toc2.3">2.3</A> <A HREF="cc65-intern.html#ss2.3">Epilogue, after the function call</A>
 </UL>
 
 <HR>
-<H2><A NAME="s1">1.</A> <A HREF="#toc1">Calling assembly functions from C</A></H2>
+<H2><A NAME="s1">1.</A> <A HREF="#toc1">Linker configuration</A></H2>
+
+
+<P>The C libraries and code generation depend directly on a suitable linker configuration.
+There are premade configuration files in the <CODE>cfg/</CODE> directory, normally chosen by the
+linker's selected target. These can be used as a template for customization.</P>
+<P>The C libraries depend on several special segments to be defined in your linker configuration.
+Generated code will also use some of them by default.
+Some platform libraries have additional special segments.</P>
+<P>Memory areas are free to be defined in a way that is appropriate to each platform,
+and the segments they contain are used as a layer of semantics and abstraction,
+to allow much of the reorganization to be done with the linker config,
+rather than requiring platform-specific code source changes.</P>
+
+<H2><A NAME="ss1.1">1.1</A> <A HREF="#toc1.1"><CODE>ZEROPAGE</CODE> segment</A>
+</H2>
+
+
+<P>Used by the C library and generated code for efficient internal and temporary state storage,
+also called "pseudo-registers".</P>
+
+<H2><A NAME="ss1.2">1.2</A> <A HREF="#toc1.2"><CODE>STARTUP</CODE> segment</A>
+</H2>
+
+
+<P>Used by each platform instance of the C library in <CODE>crt0.s</CODE> to contain the entry point
+of the program.</P>
+<P>The startup module will export <CODE>__STARTUP__ : absolute = 1</CODE> to force the linker to
+always include <CODE>crt0.s</CODE> from the library.</P>
+
+<H2><A NAME="ss1.3">1.3</A> <A HREF="#toc1.3"><CODE>CODE</CODE> segment</A>
+</H2>
+
+
+<P>The default segment for generated code, and most C library code will be located here.</P>
+<P>Use <CODE>#pragma code-name</CODE> to redirect generated code to another segment.</P>
+
+<H2><A NAME="ss1.4">1.4</A> <A HREF="#toc1.4"><CODE>BSS</CODE> segment</A>
+</H2>
+
+
+<P>Used for uninitialized variables.
+Originally an acronym for "Block Started by Symbol", but the meaning of this is now obscure.</P>
+<P>Use <CODE>#pragma bss-name</CODE> to redirect uninitialized variables to another segment.</P>
+
+<H2><A NAME="ss1.5">1.5</A> <A HREF="#toc1.5"><CODE>DATA</CODE> segment</A>
+</H2>
+
+
+<P>Used for initialized variables.</P>
+<P>On some platforms, this may be initialized as part of the program loading process,
+but on others it may have a separate <CODE>LOAD</CODE> and <CODE>RUN</CODE> address,
+allowing <CODE>copydata</CODE> to copy the initialization from the loaded location
+into their run destination in RAM.</P>
+<P>Use <CODE>#pragma data-name</CODE> to redirect initialized variables to another segment.</P>
+
+<H2><A NAME="ss1.6">1.6</A> <A HREF="#toc1.6"><CODE>RODATA</CODE> segment</A>
+</H2>
+
+
+<P>Used for read-only (constant) data.</P>
+<P>Use <CODE>#pragma rodata-name</CODE> to redirect constant data to another segment.</P>
+
+<H2><A NAME="ss1.7">1.7</A> <A HREF="#toc1.7"><CODE>FEATURES</CODE> table</A>
+</H2>
+
+
+<P>This currently defines table locations for the <CODE>CONDES</CODE>
+constructor, destructor, and interruptor features.
+Some platform libraries use these.</P>
+<P>The constructors will be called with <CODE>initlib</CODE> at startup,
+and the destructors with <CODE>donelib</CODE> at program exit.
+Interruptors are called with <CODE>callirq</CODE>.</P>
 
 
 
-<H2><A NAME="ss1.1">1.1</A> <A HREF="#toc1.1">Calling conventions</A>
+<H2><A NAME="s2">2.</A> <A HREF="#toc2">Calling assembly functions from C</A></H2>
+
+
+
+<H2><A NAME="ss2.1">2.1</A> <A HREF="#toc2.1">Calling conventions</A>
 </H2>
 
 
@@ -57,7 +147,7 @@ promotions will apply. This means that with no prototype, <CODE>char</CODE> will
 to <CODE>int</CODE> and be pushed as 2 bytes. "K &amp; R"-style forward declarations may be used,
 but they will function the same as if no prototype was used.</P>
 
-<H2><A NAME="ss1.2">1.2</A> <A HREF="#toc1.2">Prologue, before the function call</A>
+<H2><A NAME="ss2.2">2.2</A> <A HREF="#toc2.2">Prologue, before the function call</A>
 </H2>
 
 
@@ -109,7 +199,7 @@ void cdecl foo(unsigned bar, unsigned char baz);
 </CODE></BLOCKQUOTE>
 </P>
 
-<H2><A NAME="ss1.3">1.3</A> <A HREF="#toc1.3">Epilogue, after the function call</A>
+<H2><A NAME="ss2.3">2.3</A> <A HREF="#toc2.3">Epilogue, after the function call</A>
 </H2>
 
 

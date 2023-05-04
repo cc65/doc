@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>ld65 Users Guide</TITLE>
 </HEAD>
 <BODY>
@@ -148,6 +149,7 @@ Long options:
   --start-group                 Start a library group
   --target sys                  Set the target system
   --version                     Print the linker version
+  --warnings-as-errors          Treat warnings as errors
 ---------------------------------------------------------------------------
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -222,6 +224,7 @@ systems are currently supported:</P>
 <LI>apple2</LI>
 <LI>apple2enh</LI>
 <LI>atari2600</LI>
+<LI>atari7800</LI>
 <LI>atari</LI>
 <LI>atarixl</LI>
 <LI>atmos</LI>
@@ -369,6 +372,12 @@ It adds a directory to the search path for object files. An object file
 passed to the linker that has no path in its name is searched in the current
 directory, in the list of directories specified using <CODE>--obj-path</CODE>, in
 directories given by environment variables, and in a built-in default directory.</P>
+
+<P>
+<A NAME="option--warnings-as-errors"></A> </P>
+<DT><B><CODE>--warnings-as-errors</CODE></B><DD>
+<P>An error will be generated if any warnings were produced.</P>
+
 
 </DL>
 </P>
@@ -970,7 +979,7 @@ also for a segment. The value must be an integer between 0 and 255. It is used
 as the fill value for space reserved by the assembler's <CODE>.ALIGN</CODE> and <CODE>.RES</CODE>
 commands. It is also used as the fill value for space between sections (part of a
 segment that comes from one object file) caused by alignment, but not for
-space that preceeds the first section.</P>
+space that precedes the first section.</P>
 <P>To suppress the warning, the linker issues if it encounters a segment that is
 not found in any of the input files, use "<CODE>optional=yes</CODE>" as an additional
 segment attribute. Be careful when using this attribute, because a missing

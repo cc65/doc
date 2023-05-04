@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>Oric Telestrat-specific information for cc65</TITLE>
 </HEAD>
 <BODY>
@@ -109,7 +110,7 @@ target is a machine language program with a 20 bytes header described
 in Telemon, there is no way to load a binary easily.</P>
 <P>Stratsed (the Telestrat operating system) handles files management. Stratsed
 is loaded to memory from floppy disk. Stratsed vector are declared in asminc/telestrat.inc.
-But, reverse engineering is required to find how theses vectors works. Please, note that
+But, reverse engineering is required to find how these vectors works. Please, note that
 Stratsed is located in overlay memory (bank 0)</P>
 <P>There is no tool to insert a binary in a Stratsed floppy disk.</P>
 <P>The only way to load a binary (for Telemon 2.4) is to:
@@ -238,8 +239,8 @@ port cardridge.</P>
 
 <P>Telemon 2.4 returns in keyboard buffer the direction of the joysticks. This means that
 if you get input from keyboard by conio cgetc function, you will get direction from joysticks.</P>
-<P>Anyway, if you don't want to use ROM, you can use joysticks standard drivers in your code. </P>
-<P>The standard driver manages two joysticks. Only one button is managed for theses joysticks. </P>
+<P>Anyway, if you don't want to use ROM, you can use joysticks standard drivers in your code.</P>
+<P>The standard driver manages two joysticks. Only one button is managed for these joysticks.</P>
 <P>Telestrat can handle one button for the left port, and three buttons for the right port (but this port was designed for a mouse).</P>
 <P>If you find a Telestrat mouse (which is almost impossible :), these driver will work too because there is some extra hardware in the mouse to send direction.</P>
 
@@ -268,7 +269,7 @@ RS232 port with Telemon calls (see XSOUT primitive for example)</P>
 <P>Telemon 3.0 handles fopen, fread, fclose primitives. It means that this
 function will crash the Telestrat because Telemon 2.4 does not have these
 primitives. By the way, Telemon 3.0 uses an extension "ch376 card" which
-handles sdcard and FAT 32 usb key. In the next version of Telemon, FT DOS, 
+handles sdcard and FAT 32 usb key. In the next version of Telemon, FT DOS,
 Sedoric, Stratsed will be handled in these 3 primitives (fopen, fread, fclose).</P>
 <P>
 <UL>
@@ -281,10 +282,10 @@ Sedoric, Stratsed will be handled in these 3 primitives (fopen, fread, fclose).<
 <H2><A NAME="ss6.2">6.2</A> <A HREF="#toc6.2">conio</A>
 </H2>
 
-<P>Functions textcolor and bgcolor are available only with Telemon 3.0 (Orix). 
-Telemon 2.4 primitives can't handle any change of colors in text mode except with XINK or 
-XPAPER primitives which put on the first and second columns ink and paper attributes. 
-The only way to change color on the same line for text is to handle it in pure assembly 
+<P>Functions textcolor and bgcolor are available only with Telemon 3.0 (Orix).
+Telemon 2.4 primitives can't handle any change of colors in text mode except with XINK or
+XPAPER primitives which put on the first and second columns ink and paper attributes.
+The only way to change color on the same line for text is to handle it in pure assembly
 without systems calls.</P>
 
 <H2><A NAME="s7">7.</A> <A HREF="#toc7">Other hints</A></H2>

@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>Atari specific information for cc65</TITLE>
 </HEAD>
 <BODY>
@@ -194,7 +195,7 @@ runtime stack.</P>
 <P>The startup code rearranges the memory as follows:</P>
 <P>
 <OL>
-<LI>Sceen memory and display list are moved below the program start address.</LI>
+<LI>Screen memory and display list are moved below the program start address.</LI>
 <LI>The ROM is disabled, making the memory in the areas [$C000-$CFFF]
 and [$D800-$FFF9] available.</LI>
 <LI>Character generator data is copied from ROM to the CHARGEN location specified in the
@@ -207,7 +208,7 @@ areas available, [$D800-$DFFF] and [$E400-$FFF9].</LI>
 <P>With the default load address of $2400 this gives a usable memory range of
 [$2400-$CFFF].</P>
 <P>Please note that the first load chunk (which checks the system
-compatibilty and available memory) will always be loaded at
+compatibility and available memory) will always be loaded at
 $2E00, regardless of the specified start address. This address
 can only be changed by a custom linker config file.</P>
 <P>Special locations:</P>
@@ -388,7 +389,7 @@ The names are the usual ones you can find in system reference manuals. Example:<
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>Please note that memory location 762/$2FA is called "<CODE>char_</CODE>" while the orignal name "<CODE>char</CODE>" conflicts with the C keyword.</P>
+<P>Please note that memory location 762/$2FA is called "<CODE>char_</CODE>" while the original name "<CODE>char</CODE>" conflicts with the C keyword.</P>
 <P>If you like to use the OS names and locations for the original Atari 800 operating system, please "<CODE>#define OSA</CODE>" before including the
 <CODE>atari.h</CODE> header file.
 If you like to target the floating point register model of revision 2 machines, put a "<CODE>#define OS_REV2</CODE>" before including <CODE>atari.h</CODE>.</P>
@@ -416,6 +417,7 @@ See the
 <LI>_scroll</LI>
 <LI>_setcolor</LI>
 <LI>_setcolor_low</LI>
+<LI>_sound</LI>
 <LI>waitvsync</LI>
 </UL>
 </P>
@@ -494,14 +496,14 @@ OS.sdlst = &amp;DisplayList;
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>Please inspect the <CODE>_antic.h</CODE> header file to detemine the supported
+<P>Please inspect the <CODE>_antic.h</CODE> header file to determine the supported
 instruction names. Modifiers on instructions can be nested without need
 for an order:</P>
 <P><CODE>DL_LMS(DL_HSCROL(DL_VSCROL(DL_DLI(DL_MAP80x4x2))))</CODE></P>
 <P>Please mind that ANTIC has memory alignment requirements for "player
 missile graphics"-data, font data, display lists and screen memory. Creation
 of a special linker configuration with appropriate aligned segments and
-switching to that segment in the c-code is usually neccessary. A more memory
+switching to that segment in the c-code is usually necessary. A more memory
 hungry solution consists in using the "<CODE>posix_memalign()</CODE>" function in
 conjunction with copying your data to the allocated memory.</P>
 
@@ -531,21 +533,7 @@ strings typically support the "<CODE>mem...()</CODE>" functions.</P>
 package delivers the same feature.</EM></P>
 <P>You can switch back to the ATASCII mapping by including
 "<CODE>atari_atascii_charmap.h</CODE>".</P>
-<P>A final note: Since cc65 has currently some difficulties with string merging
-under different mappings, defining remapped strings works only flawlessly
-with static array initialization:</P>
-<P>
-<BLOCKQUOTE><CODE>
-<PRE>
-#include &lt;atari_screen_charmap.h&gt;
-char pcScreenMappingString[] = "Hello Atari!";
-
-#include &lt;atari_atascii_charmap.h&gt;
-char pcAtasciiMappingString[] = "Hello Atari!";
-</PRE>
-</CODE></BLOCKQUOTE>
-</P>
-<P>delivers correct results, while</P>
+<P>Example:</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
@@ -557,7 +545,6 @@ char* pcAtasciiMappingString = "Hello Atari!";
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>does not.</P>
 
 <H2><A NAME="ss5.5">5.5</A> <A HREF="#toc5.5">Keyboard codes</A>
 </H2>
@@ -842,6 +829,10 @@ for sectors 1 to 3, regardless of the type of diskette.</P>
 
 <P>The console I/O is speed optimized therefore support for XEP80 hardware
 or f80.com software is missing. Of course you may use stdio.h functions.</P>
+<P><CODE>cprintf</CODE> targets a 40 character line. On a 20-column display this has
+the unexpected effect of a blank line after your text. On such displays you can either
+use for example <CODE>gotoxy(20,0)</CODE> to target the "next" line, or you can switch to <CODE>write()</CODE>
+function which does not have this side effect.</P>
 
 
 <H2><A NAME="techdetail"></A> <A NAME="s10">10.</A> <A HREF="#toc10">Technical details</A></H2>
@@ -1286,8 +1277,8 @@ ld65: Error: Missing memory area assignment for segment 'MAINHDR'
 </CODE></BLOCKQUOTE>
 </P>
 <P>The old "HEADER" memory description contained six bytes: $FFFF
-and the first and last memory addess of the program. For the "system
-check" load chunk this had to be split into two memory assigments. The
+and the first and last memory address of the program. For the "system
+check" load chunk this had to be split into two memory assignments The
 "HEADER" now only contains the $FFFF. The main program's first
 and last memory address were moved to a new segment, called "MAINHDR",
 which in the new linker config file goes into its own memory area (also

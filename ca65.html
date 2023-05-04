@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>ca65 Users Guide</TITLE>
 </HEAD>
 <BODY>
@@ -425,6 +426,7 @@ Long options:
   --target sys                  Set the target system
   --verbose                     Increase verbosity
   --version                     Print the assembler version
+  --warnings-as-errors          Treat warnings as errors
 ---------------------------------------------------------------------------
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -480,7 +482,7 @@ mortals:-)</P>
 <DT><B><CODE>--feature name</CODE></B><DD>
 <P>Enable an emulation feature. This is identical as using <CODE>.FEATURE</CODE>
 in the source with two exceptions: Feature names must be lower case, and
-each feature must be specified by using an extra <CODE>--feature</CODE> option,
+each feature must be specified by using a separate <CODE>--feature</CODE> option,
 comma separated lists are not allowed.</P>
 <P>See the discussion of the <CODE>
 <A HREF="#.FEATURE">.FEATURE</A></CODE>
@@ -588,7 +590,7 @@ default for the target system is "none", which means that no translation
 will take place. The assembler supports the same target systems as the
 compiler, see there for a list.</P>
 <P>Depending on the target, the default CPU type is also set. This can be
-overriden by using the <CODE>
+overridden by using the <CODE>
 <A HREF="#option--cpu">--cpu</A></CODE> option.</P>
 
 <P>
@@ -641,6 +643,12 @@ or bugfixes, please include the version number.</P>
 even warn about such things like unused imported symbols. The default
 warning level is 1, and it would probably be silly to set it to
 something lower.</P>
+
+<P>
+<A NAME="option--warnings-as-errors"></A> </P>
+<DT><B><CODE>--warnings-as-errors</CODE></B><DD>
+<P>An error will be generated if any warnings were produced.</P>
+
 
 </DL>
 </P>
@@ -729,6 +737,17 @@ it is ignored).</P>
 <A HREF="#.P4510">.P4510</A></CODE> command was given).</LI>
 </UL>
 </P>
+<P>On 6502-derived platforms the <CODE>BRK</CODE> instruction has an optional signature
+byte. If omitted, the assembler will only produce only 1 byte.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+                brk                     ; 1-byte:  $00
+                brk     $34             ; 2-bytes: $00 $34
+                brk     #$34            ; 2-bytes: $00 $34
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
 
 
 <H2><A NAME="ss4.2">4.2</A> <A HREF="#toc4.2">65816 mode</A>
@@ -748,6 +767,19 @@ mnemonics:</P>
 <LI><CODE>TDA</CODE> is an alias for <CODE>TDC</CODE></LI>
 <LI><CODE>TSA</CODE> is an alias for <CODE>TSC</CODE></LI>
 </UL>
+</P>
+<P>The <CODE>MVN</CODE> and <CODE>MVP</CODE> instructions accept two different argument forms.
+Either two bank bytes may be given with a <CODE>#</CODE> prefix,
+or two far addresses whose high byte will be used.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+                mvn     #^src, #^dst       ; bank of src to bank of dst
+                mvn     src, dst           ; bank of src to bank of dst
+                mvp     #$12, #$78         ; bank $12 to $78
+                mvp     $123456, $789ABC   ; bank $12 to $78
+</PRE>
+</CODE></BLOCKQUOTE>
 </P>
 
 
@@ -2573,7 +2605,7 @@ that just compares the type of tokens, have a look at the <CODE>
 </H2>
 
 
-<P>Valid only in 65816 mode. Switch the accumulator to 16 bit.</P>
+<P>Valid only in 65816 mode. Assume the accumulator is 16 bit.</P>
 <P>Note: This command will not emit any code, it will tell the assembler to
 create 16 bit operands for immediate accumulator addressing mode.</P>
 <P>See also: <CODE>
@@ -2584,7 +2616,7 @@ create 16 bit operands for immediate accumulator addressing mode.</P>
 </H2>
 
 
-<P>Valid only in 65816 mode. Switch the accumulator to 8 bit.</P>
+<P>Valid only in 65816 mode. Assume the accumulator is 8 bit.</P>
 <P>Note: This command will not emit any code, it will tell the assembler to
 create 8 bit operands for immediate accu addressing mode.</P>
 <P>See also: <CODE>
@@ -2679,14 +2711,15 @@ alignment to the example above</P>
 </CODE></BLOCKQUOTE>
 </P>
 <P>the assembler will force a segment alignment to the least common multiple of
-15, 18 and 251 - which is 22590. To protect the user against errors, the
-assembler will issue a warning when the combined alignment exceeds 256. The
-command line option <CODE>
-<A HREF="#option--large-alignment">--large-alignment</A></CODE> will disable this warning.</P>
-<P>Please note that with alignments that are a power of two (which were the
-only alignments possible in older versions of the assembler), the problem is
-less severe, because the least common multiple of powers to the same base is
-always the larger one.</P>
+15, 18 and 251 - which is 22590. To protect the user against errors, when the
+combined alignment is larger than the explicitly requested alignments,
+the assembler will issue a warning if it also exceeds 256. The command line
+option <CODE>
+<A HREF="#option--large-alignment">--large-alignment</A></CODE>
+will disable this warning.</P>
+<P>Please note that with only alignments that are a power of two, a warning will
+never occur, because the least common multiple of powers to the same base is
+always simply the larger one.</P>
 
 
 
@@ -2861,7 +2894,7 @@ character mapping definition.</P>
 <P>Switch on or off case sensitivity on identifiers. The default is off
 (that is, identifiers are case sensitive), but may be changed by the
 -i switch on the command line.
-The command must be followed by a '+' or '-' character to switch the
+The command can be followed by a '+' or '-' character to switch the
 option on or off respectively.</P>
 <P>Example:</P>
 <P>
@@ -3047,7 +3080,7 @@ sequence of (word ranged) expressions.</P>
 <P>Switch on or off debug info generation. The default is off (that is,
 the object file will not contain debug infos), but may be changed by the
 -g switch on the command line.
-The command must be followed by a '+' or '-' character to switch the
+The command can be followed by a '+' or '-' character to switch the
 option on or off respectively.</P>
 <P>Example:</P>
 <P>
@@ -3190,7 +3223,23 @@ is read from an include file.</P>
 </H2>
 
 
-<P>Marks the end of a macro definition.</P>
+<P>Marks the end of a macro definition. Note, <CODE>.ENDMACRO</CODE> should be on
+its own line to successfully end the macro definition. It is possible to use
+<CODE>
+<A HREF="#.DEFINE">.DEFINE</A></CODE> to create a symbol that references
+<CODE>.ENDMACRO</CODE> without ending the macro definition.</P>
+<P>Example:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        .macro  new_mac
+                .define startmac .macro
+                .define endmac .endmacro
+        .endmacro
+  
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
 <P>See: <CODE>
 <A HREF="#.DELMACRO">.DELMACRO</A></CODE>,
 <CODE>
@@ -3475,17 +3524,22 @@ set before assembling a source file.</P>
 <P>This directive may be used to enable one or more compatibility features
 of the assembler. While the use of <CODE>.FEATURE</CODE> should be avoided when
 possible, it may be useful when porting sources written for other
-assemblers. There is no way to switch a feature off, once you have
-enabled it, so using</P>
+assemblers. After the feature name an optional '+' or '-' may specify whether
+to enable or disable the feature (enable if omitted). Multiple features may be
+enabled, separated by commas. Examples:</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-        .FEATURE        xxx
+        ; enable c_comments
+        .feature   c_comments
+        .feature   c_comments +
+        ; enable force_range, disable underline_in_numbers, enable labels_without_colons
+        .feature   force_range, underline_in_numbers -, labels_without_colons +
+        .feature   force_range +, underline_in_numbers off, labels_without_colons on
   
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>will enable the feature until end of assembly is reached.</P>
 <P>The following features are available:</P>
 <P>
 <DL>
@@ -3574,6 +3628,21 @@ control directives of other assemblers. Note however, that none of the
 reserved keywords built into the assembler, that starts with a dot, may be
 overridden. When using this feature, you may also get into trouble if
 later versions of the assembler define new keywords starting with a dot.</P>
+
+<DT><B><CODE>long_jsr_jmp_rts</CODE>
+<A NAME="long_jsr_jmp_rts"></A> </B><DD>
+<P>Affects 65816 mode only.</P>
+<P>Allows <CODE>jsr</CODE> and <CODE>jmp</CODE> to produce long jumps if the target
+address has been previously declared in a <CODE>far</CODE> segment,
+or imported as <CODE>far</CODE>.
+Otherwise <CODE>jsl</CODE> and <CODE>jml</CODE> must be used instead.</P>
+<P>Also allows <CODE>
+<A HREF="#.SMART">.SMART</A></CODE> to convert <CODE>rts</CODE>
+to a long return <CODE>rtl</CODE> when the enclosing scope or memory model
+indicates returning from a <CODE>far</CODE> procedure.</P>
+<P>This permits compatibility with the old behavior of this assembler, or other
+assemblers which similarly allowed <CODE>jsr</CODE> and <CODE>jmp</CODE> to be used
+this way.</P>
 
 <DT><B><CODE>loose_char_term</CODE>
 <A NAME="loose_char_term"></A> </B><DD>
@@ -3839,7 +3908,7 @@ the operator '>' prepended to each expression in its list.</P>
 </H2>
 
 
-<P>Valid only in 65816 mode. Switch the index registers to 16 bit.</P>
+<P>Valid only in 65816 mode. Assume the index registers are 16 bit.</P>
 <P>Note: This command will not emit any code, it will tell the assembler to
 create 16 bit operands for immediate operands.</P>
 <P>See also the <CODE>
@@ -3851,7 +3920,7 @@ create 16 bit operands for immediate operands.</P>
 </H2>
 
 
-<P>Valid only in 65816 mode. Switch the index registers to 8 bit.</P>
+<P>Valid only in 65816 mode. Assume the index registers are 8 bit.</P>
 <P>Note: This command will not emit any code, it will tell the assembler to
 create 8 bit operands for immediate operands.</P>
 <P>See also the <CODE>
@@ -3921,7 +3990,7 @@ FALSE.</P>
 
 
 <P>Conditional assembly: Check if a symbol is defined. Must be followed by
-a symbol name. The condition is true if the the given symbol is already
+a symbol name. The condition is true if the given symbol is already
 defined, and false otherwise.</P>
 <P>See also: <CODE>
 <A HREF="#.DEFINED">.DEFINED</A></CODE></P>
@@ -3964,7 +4033,7 @@ will evaluate to FALSE if an empty parameter was given.</P>
 
 
 <P>Conditional assembly: Check if a symbol is defined. Must be followed by
-a symbol name. The condition is true if the the given symbol is not
+a symbol name. The condition is true if the given symbol is not
 defined, and false otherwise.</P>
 <P>See also: <CODE>
 <A HREF="#.DEFINED">.DEFINED</A></CODE></P>
@@ -3975,7 +4044,7 @@ defined, and false otherwise.</P>
 
 
 <P>Conditional assembly: Check if a symbol is referenced. Must be followed
-by a symbol name. The condition is true if if the the given symbol was
+by a symbol name. The condition is true if the given symbol was
 not referenced before, and false otherwise.</P>
 <P>See also: <CODE>
 <A HREF="#.REFERENCED">.REFERENCED</A></CODE></P>
@@ -4040,7 +4109,7 @@ not referenced before, and false otherwise.</P>
 
 
 <P>Conditional assembly: Check if a symbol is referenced. Must be followed
-by a symbol name. The condition is true if if the the given symbol was
+by a symbol name. The condition is true if the given symbol was
 referenced before, and false otherwise.</P>
 <P>This command may be used to build subroutine libraries in include files
 (you may use separate object modules for this purpose too).</P>
@@ -4191,7 +4260,7 @@ before a newline. The option is off by default.
 Note: Line continuations do not work in a comment. A backslash at the
 end of a comment is treated as part of the comment and does not trigger
 line continuation.
-The command must be followed by a '+' or '-' character to switch the
+The command can be followed by a '+' or '-' character to switch the
 option on or off respectively.</P>
 <P>Example:</P>
 <P>
@@ -4211,7 +4280,7 @@ option on or off respectively.</P>
 </H2>
 
 
-<P>Enable output to the listing. The command must be followed by a boolean
+<P>Enable output to the listing. The command can be followed by a boolean
 switch ("on", "off", "+" or "-") and will enable or disable listing
 output.
 The option has no effect if the listing is not enabled by the command line
@@ -4586,7 +4655,7 @@ source. Instead, the value set with the last <CODE>.PAGELENGTH</CODE> is used.</
 </H2>
 
 
-<P>Enable the 6502DTV instruction set. This is a superset of the 6502 
+<P>Enable the 6502DTV instruction set. This is a superset of the 6502
 instruction set.</P>
 <P>See: <CODE>
 <A HREF="#.P02">.P02</A></CODE></P>
@@ -4702,7 +4771,7 @@ had any need for local macro definitions.</P>
 entries.</P>
 <P><CODE>.PUSHCHARMAP</CODE> allows together with <CODE>
 <A HREF="#.POPCHARMAP">.POPCHARMAP</A></CODE> to switch to another character mapping and to restore the old
-characther mapping later, without knowledge of the current mapping.</P>
+character mapping later, without knowledge of the current mapping.</P>
 <P>The assembler will print an error message if the character mapping stack is already full,
 when this command is issued.</P>
 <P>See: <CODE>
@@ -5001,7 +5070,7 @@ namely: 6502, 6502X, 6502DTV, 65SC02, 65C02, 65816, 4510 and HuC6280.</P>
 </H2>
 
 
-<P>Switch on or off smart mode. The command must be followed by a '+' or '-'
+<P>Switch on or off smart mode. The command can be followed by a '+' or '-'
 character to switch the option on or off respectively. The default is off
 (that is, the assembler doesn't try to be smart), but this default may be
 changed by the -s switch on the command line.</P>
@@ -5015,7 +5084,9 @@ the operand is an imported symbol), a warning is issued. Beware: Since
 the assembler cannot trace the execution flow this may lead to false
 results in some cases. If in doubt, use the <CODE>.Inn</CODE> and <CODE>.Ann</CODE>
 instructions to tell the assembler about the current settings.</LI>
-<LI>In 65816 mode, replace a <CODE>RTS</CODE> instruction by <CODE>RTL</CODE> if it is
+<LI>In 65816 mode, if the <CODE>
+<A HREF="#long_jsr_jmp_rts">long_jsr_jmp_rts</A></CODE> feature is enabled,
+smart mode will replace a <CODE>RTS</CODE> instruction by <CODE>RTL</CODE> if it is
 used within a procedure declared as <CODE>far</CODE>, or if the procedure has
 no explicit address specification, but it is <CODE>far</CODE> because of the
 memory model used.</LI>
@@ -5279,8 +5350,11 @@ macro actually takes in the definition. You may also leave intermediate
 parameters empty. Empty parameters are replaced by empty space (that is,
 they are removed when the macro is expanded). If you have a look at our
 macro definition above, you will see, that replacing the "addr" parameter
-by nothing will lead to wrong code in most lines. To help you, writing
-macros with a variable parameter list, there are some control commands:</P>
+by nothing will lead to wrong code in most lines.</P>
+<P>The names "a", "x" and "y" should be avoided for macro parameters, as these
+will usually conflict with the 6502 registers.</P>
+<P>For writing macros with a variable parameter list, control commands are
+available:</P>
 <P><CODE>
 <A HREF="#.IFBLANK">.IFBLANK</A></CODE> tests the rest of the line and
 returns true, if there are any tokens on the remainder of the line. Since
@@ -5292,15 +5366,15 @@ opposite.</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-.macro  ldaxy   a, x, y
-.ifnblank       a
-        lda     #a
+.macro  ldaxy   i, j, k
+.ifnblank       i
+        lda     #i
 .endif
-.ifnblank       x
-        ldx     #x
+.ifnblank       j
+        ldx     #j
 .endif
-.ifnblank       y
-        ldy     #y
+.ifnblank       k
+        ldy     #k
 .endif
 .endmacro
 </PRE>
@@ -5943,6 +6017,7 @@ compiler, depending on the target system selected:</P>
 <LI><CODE>__APPLE2ENH__</CODE> - Target system is <CODE>apple2enh</CODE></LI>
 <LI><CODE>__ATARI2600__</CODE> - Target system is <CODE>atari2600</CODE></LI>
 <LI><CODE>__ATARI5200__</CODE> - Target system is <CODE>atari5200</CODE></LI>
+<LI><CODE>__ATARI7800__</CODE> - Target system is <CODE>atari7800</CODE></LI>
 <LI><CODE>__ATARI__</CODE> - Target system is <CODE>atari</CODE> or <CODE>atarixl</CODE></LI>
 <LI><CODE>__ATARIXL__</CODE> - Target system is <CODE>atarixl</CODE></LI>
 <LI><CODE>__ATMOS__</CODE> - Target system is <CODE>atmos</CODE></LI>
@@ -5966,6 +6041,7 @@ compiler, depending on the target system selected:</P>
 <LI><CODE>__SIM6502__</CODE> - Target system is <CODE>sim6502</CODE></LI>
 <LI><CODE>__SIM65C02__</CODE> - Target system is <CODE>sim65c02</CODE></LI>
 <LI><CODE>__SUPERVISION__</CODE> - Target system is <CODE>supervision</CODE></LI>
+<LI><CODE>__SYM1__</CODE> - Target system is <CODE>sym1</CODE></LI>
 <LI><CODE>__VIC20__</CODE> - Target system is <CODE>vic20</CODE></LI>
 </UL>
 </P>

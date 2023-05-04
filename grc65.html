@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>grc65 -- GEOS Resource Compiler</TITLE>
 </HEAD>
 <BODY>
@@ -12,7 +13,7 @@
 <A HREF="mailto:ytm@elysium.pl">Maciej 'YTM/Elysium' Witkowiak</A>,<BR>
 <A HREF="mailto:greg.king5@verizon.net">Greg King</A></H2>
 <HR>
-<EM>This document describes a compiler that can create GEOS headers and menues for
+<EM>This document describes a compiler that can create GEOS headers and menus for
 cc65-compiled programs.</EM>
 <HR>
 <P>
@@ -62,7 +63,7 @@ application is the header, that is:  an icon, some strings, and some addresses.
 Optional resources might be menu definitions, other headers (e.g., for data
 files of an app.), dialog definitions, etc.  Without an application's header,
 GEOS is unable to load and start it.</P>
-<P>Currently, <B>grc65</B> supports only menues and the required header definition,
+<P>Currently, <B>grc65</B> supports only menus and the required header definition,
 along with support for building applications with VLIR-structured overlays.</P>
 <P><B>grc65</B> generates output in two formats: C header and <B>ca65</B> source (.s).
 That is because the application header data must be in assembly format, while
@@ -463,7 +464,7 @@ for addresses.</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-; Note that MENU can define both menues and submenues.
+; Note that MENU can define both menus and submenus.
 ; If you want to use any C operators (such as "|", "&amp;", etc.), do it WITHOUT
 ; any spaces between the arguments (the parser is simple and weak).
 

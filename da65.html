@@ -2,7 +2,8 @@
 <HTML>
 <HEAD>
  <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
- <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.71">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.82">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <TITLE>da65 Users Guide</TITLE>
 </HEAD>
 <BODY>
@@ -48,7 +49,10 @@ feeding into ca65, the macro assembler supplied with the cc65 C compiler.</EM>
 <LI><A NAME="toc4.7">4.7</A> <A HREF="da65.html#ss4.7">An Info File Example</A>
 </UL>
 <P>
-<H2><A NAME="toc5">5.</A> <A HREF="da65.html#s5">Copyright</A></H2>
+<H2><A NAME="toc5">5.</A> <A HREF="da65.html#s5">Helper scripts</A></H2>
+
+<P>
+<H2><A NAME="toc6">6.</A> <A HREF="da65.html#s6">Copyright</A></H2>
 
 
 <HR>
@@ -154,14 +158,14 @@ output file in form of comments.</P>
 <LI>6502dtv</LI>
 <LI>65sc02</LI>
 <LI>65c02</LI>
+<LI>65816</LI>
 <LI>huc6280</LI>
 <LI>4510</LI>
 </UL>
 </P>
-<P>6502x is for the NMOS 6502 with unofficial opcodes. 6502dtv is for the 
-emulated CPU of the C64DTV device. huc6280 is the CPU of the PC engine. 
-4510 is the CPU of the Commodore C65. Support for the 65816 currently 
-is not available.</P>
+<P>6502x is for the NMOS 6502 with unofficial opcodes. 6502dtv is for the
+emulated CPU of the C64DTV device. huc6280 is the CPU of the PC engine.
+4510 is the CPU of the Commodore C65. 65816 is the CPU of the SNES.</P>
 
 <P>
 <A NAME="option--formfeeds"></A> </P>
@@ -191,7 +195,7 @@ output.</P>
 <A NAME="option--info"></A> </P>
 <DT><B><CODE>-i name, --info name</CODE></B><DD>
 <P>Specify an info file. The info file contains global options that may
-override or replace command line options plus informations about the code
+override or replace command line options plus information about the code
 that has to be disassembled. See the separate section 
 <A HREF="#infofile">Info File Format</A>.</P>
 
@@ -288,16 +292,17 @@ for this CPU. Invalid opcodes are translated into <CODE>.byte</CODE> commands.</
 <A HREF="#option--cpu">--cpu</A></CODE>, the
 disassembler may be told to recognize either the 65SC02 or 65C02 CPUs. The
 latter understands the same opcodes as the former, plus 16 additional bit
-manipulation and bit test-and-branch commands. Using 6502x as CPU the illegal 
-opcodes of 6502 CPU are detected and displayed. 6502dtv setting recognizes the 
+manipulation and bit test-and-branch commands. Using 6502x as CPU the illegal
+opcodes of 6502 CPU are detected and displayed. 6502dtv setting recognizes the
 emulated CPU instructons of the C64DTV device.</P>
 
 <P>When disassembling 4510 code, due to handling of 16-bit wide branches, da65
 can produce output that can not be re-assembled, when one or more of those
 branches point outside of the disassembled memory. This can happen when text
 or binary data is processed.</P>
-<P>While there is some code for the 65816 in the sources, it is currently
-unsupported.</P>
+<P>The 65816 support requires annotating ranges with the M and X flag states.
+This can be recorded with an emulator that supports Code and Data Logging,
+for example. Disassemble one bank at a time.</P>
 
 
 <H2><A NAME="ss3.2">3.2</A> <A HREF="#toc3.2">Attribute map</A>
@@ -517,7 +522,8 @@ as argument. See the description of the <CODE>
 <DT><B><CODE>END</CODE></B><DD>
 <P>This gives the end address of the range. The end address is inclusive, that
 means, it is part of the range. Of course, it may not be smaller than the
-start address.</P>
+start address. Optionally, the end may be given as a decimal offset instead
+of an absolute address, "+3", to specify it as a size.</P>
 
 <DT><B><CODE>NAME</CODE></B><DD>
 <P>This is a convenience attribute. It takes a string argument and will cause
@@ -577,6 +583,16 @@ generated with <CODE>SKIP</CODE> ranges will need manual rework.</P>
 
 </DL>
 </P>
+
+<DT><B><CODE>UNIT</CODE></B><DD>
+<P>Split the table into sections of this size. For example, if you have a
+ByteTable of size 48, but it has logical groups of size 16, specifying
+16 for UNIT adds newlines after every 16 bytes. UNIT is always in bytes.</P>
+
+<DT><B><CODE>ADDRMODE</CODE></B><DD>
+<P>When disassembling 65816 code, this specifies the M and X flag states
+for this range. It's a string argument of the form "mx", capital letters
+mean the flag is enabled.</P>
 
 </DL>
 </P>
@@ -769,7 +785,25 @@ directives explained above:</P>
 
 
 
-<H2><A NAME="s5">5.</A> <A HREF="#toc5">Copyright</A></H2>
+<H2><A NAME="s5">5.</A> <A HREF="#toc5">Helper scripts</A></H2>
+
+
+<P><CODE>util/parse-bsnes-log.awk</CODE> is a supplied script for 65816 disassembly,
+to parse bsnes-plus Code-Data log files and output the RANGE sections
+for your info file. For typical usage, you'd check the S-CPU log and trace
+log mask boxes in the bsnes-plus debugger, play through the game, then grep
+for the bank you're disassembling, and pass that to this script.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+grep ^83 my-game-log | parse-bsnes-log.awk
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+
+<H2><A NAME="s6">6.</A> <A HREF="#toc6">Copyright</A></H2>
 
 
 <P>da65 (and all cc65 binutils) is (C) Copyright 1998-2011, Ullrich von
