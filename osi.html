@@ -257,7 +257,21 @@ cl65 -o hello -t osic1p osic1p-screen-s3-32x28.o hello.c
 <UL>
 <LI><CODE>osic1p-screen-s3-32x28.o</CODE>: 32 columns by 28 lines mode
 for Briel Superboard ///</LI>
+<LI><CODE>osic1p-screen-c1p-48x12.s</CODE>: 48 columns by 12 lines mode
+for Challenger 1P</LI>
 </UL>
+</P>
+<P>On the Briel Superboard /// you enter 32 column mode by holding down
+the BREAK key on powerup.</P>
+<P>On the Challenger 1P you can enable 48 column mode by writing a 1 to
+bit 0 of address $D800, and writing a 0 to go back to 24 column mode.
+You can use code like the following to do this:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+*(char*)0xd800 = 1; /* Switch to 48 column mode */
+</PRE>
+</CODE></BLOCKQUOTE>
 </P>
 
 <H2><A NAME="s9">9.</A> <A HREF="#toc9">Limitations</A></H2>
