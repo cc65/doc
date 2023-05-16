@@ -70,6 +70,10 @@ The binary to test should be compiled with <CODE>--target sim6502</CODE> or <COD
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
+<P>sim65 will exit with the error code of the simulated program,
+which is limited to an 8-bit result 0-255.</P>
+<P>An error in sim65, like bad arguments or an internal problem will exit with <CODE>1</CODE>.</P>
+<P>A timeout from <CODE>-x</CODE> will exist with <CODE>2</CODE>.</P>
 
 
 <H2><A NAME="ss2.1">2.1</A> <A HREF="#toc2.1">Command line options in detail</A>
@@ -157,9 +161,17 @@ a set of built-in paravirtualization functions (
 
 
 <P>Assembly tests may similarly be assembled and linked with
-<CODE>--target sim6502</CODE> or <CODE>--target sim65c02</CODE>,
-and the sim65 library provides an <CODE>exit</CODE> symbol that the program may <CODE>JMP</CODE>
-to terminate with the current A register value as an exit code.</P>
+<CODE>--target sim6502</CODE> or <CODE>--target sim65c02</CODE>.
+Define and export <CODE>_main</CODE> as an entry point,
+and the sim65 library provides two ways to return an 8-bit exit code:</P>
+<P>
+<UL>
+<LI>Return from <CODE>_main</CODE> with the exit code in <CODE>A</CODE>.
+</LI>
+<LI><CODE>jmp exit</CODE> with the code in <CODE>A</CODE>.
+</LI>
+</UL>
+</P>
 <P>The binary file has a 12 byte header:</P>
 <P>
 <UL>
