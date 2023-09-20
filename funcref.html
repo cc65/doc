@@ -10915,7 +10915,8 @@ be used in presence of a prototype.</LI>
 <DT><B>Declaration</B><DD>
 <P><CODE>unsigned char ser_uninstall (void);</CODE></P>
 <DT><B>Description</B><DD>
-<P>Uninstall the currently loaded driver but do not unload it.</P>
+<P>Uninstall the currently loaded driver but do not unload it. This
+function returns SER_ERR_NO_DRIVER if no driver was installed, 0 otherwise.</P>
 <DT><B>Availability</B><DD>
 <P>cc65</P>
 <DT><B>See also</B><DD>
