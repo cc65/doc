@@ -545,8 +545,12 @@ mode only.</P>
 <DL>
 
 <DT><B><CODE>a2.ssc.ser (a2_ssc_ser)</CODE></B><DD>
-<P>Driver for the Apple&nbsp;II Super Serial Card. Supports up to 19200 baud,
-requires hardware flow control (RTS/CTS) and does interrupt driven receives.
+<P>Driver for the Apple&nbsp;II Super Serial Card.
+The SSC is an extension card for the II, II+, IIe; the Apple //c and //c+ have
+the same hardware and firmware integrated.
+It supports up to 9600 baud, requires hardware flow control (RTS/CTS) and
+does interrupt driven receives. Speeds faster than 9600 baud aren't reachable
+because the ROM and ProDOS IRQ handlers are too slow.
 Note that because of the peculiarities of the 6551 chip transmits are not
 interrupt driven, and the transceiver blocks if the receiver asserts
 flow control because of a full buffer.</P>
@@ -554,6 +558,21 @@ flow control because of a full buffer.</P>
 <CODE>ser_open()</CODE> in order to select a different slot. <CODE>ser_apple2_slot()</CODE>
 succeeds for all Apple&nbsp;II slots, but <CODE>ser_open()</CODE> fails with
 <CODE>SER_ERR_NO_DEVICE</CODE> if there's no SSC firmware found in the selected slot.</P>
+<P>In the Apple //c and //c+, slot 1 is the printer port, and slot 2 is the modem
+port.</P>
+<P>Never call <CODE>ser_apple2_slot()</CODE> after <CODE>ser_open()</CODE>.</P>
+
+<DT><B><CODE>a2.gs.ser (a2_gs_ser)</CODE></B><DD>
+<P>Driver for the Apple&nbsp;IIgs serial ports (printer and modem).
+It supports up to 9600 baud, requires hardware flow control (RTS/CTS) and
+does interrupt driven receives. Speeds faster than 9600 baud aren't reachable
+because the ROM and ProDOS IRQ handlers are too slow.
+Note that transmits are not interrupt driven, and the transceiver blocks if
+the receiver asserts flow control because of a full buffer.</P>
+<P>The driver defaults to opening the modem port. Calling <CODE>ser_apple2_slot()</CODE>
+prior to <CODE>ser_open()</CODE> allows to select the printer port (1) or the modem
+port (0).</P>
+<P>Never call <CODE>ser_apple2_slot()</CODE> after <CODE>ser_open()</CODE>.</P>
 
 </DL>
 </P>
