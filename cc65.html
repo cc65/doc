@@ -891,7 +891,7 @@ mind, you should be able to write fairly portable code.</P>
 <P>This cc65 version has some extensions to the ISO C standard.</P>
 <P>
 <UL>
-<LI>  The compiler allows to insert assembler statements into the output
+<LI>  The compiler allows to insert assembler expressions into the output
 file. The syntax is
 
 <BLOCKQUOTE><CODE>
@@ -913,7 +913,7 @@ or
 The first form is in the user namespace; and, is disabled if the <CODE>-A</CODE>
 switch is given.
 
-There is a whole section covering inline assembler statements,
+There is a whole section covering inline assembler expressions,
 <A HREF="#inline-asm">see there</A>.
 
 <P>
@@ -1841,7 +1841,7 @@ bloated code and a slowdown.</P>
 <H2><A NAME="inline-asm"></A> <A NAME="s9">9.</A> <A HREF="#toc9">Inline assembler</A></H2>
 
 
-<P>The compiler allows to insert assembler statements into the output file. The
+<P>The compiler allows to insert assembler expressions into the output file. The
 syntax is</P>
 <P>
 <BLOCKQUOTE><CODE>
@@ -1860,7 +1860,7 @@ or
 
 <P>The first form is in the user namespace; and, is disabled by <CODE>
 <A HREF="#option--standard">--standard</A></CODE> if the argument is not <CODE>cc65</CODE>.</P>
-<P>The <CODE>asm</CODE> statement can be used only inside a function.  Please note that
+<P>The <CODE>asm</CODE> expression can be used only inside a function.  Please note that
 the result of an inline assembler expression is always of type <CODE>void</CODE>.</P>
 <P>The contents of the string literal are preparsed by the compiler; and, inserted
 into the generated assembly output, so that it can be processed further by
@@ -1870,14 +1870,14 @@ instructions (like <CODE>.import</CODE>, <CODE>.byte</CODE>, and so on) are <EM>
 even if the ca65 assembler (which is used to translate the generated assembler
 code) would accept them. The built-in inline assembler is not a replacement for
 the full-blown macro assembler which comes with the compiler.</P>
-<P>Note: Inline assembler statements are subject to all optimizations done by the
-compiler. There currently is no way to protect an inline assembler statement
+<P>Note: Inline assembler expressions are subject to all optimizations done by the
+compiler. There currently is no way to protect an inline assembler expression
 -- alone -- from being moved or removed completely by the optimizer. If in
 doubt, check the generated assembler output; or, disable optimizations (for
 that function).</P>
 <P>As a shortcut, you can put the <CODE>volatile</CODE> qualifier in your <CODE>asm</CODE>
-statements.  It will disable optimization for the functions in which those
-<CODE>asm volatile</CODE> statements sit.  The effect is the same as though you put
+expressions.  It will disable optimization for the functions in which those
+<CODE>asm volatile</CODE> expressions sit.  The effect is the same as though you put
 <CODE>#pragma optimize(push, off)</CODE> above those functions, and <CODE>#pragma
 optimize(pop)</CODE> below those functions.</P>
 <P>The string literal may contain format specifiers from the following list. For
@@ -1980,7 +1980,7 @@ and assembler; and, how to handle assembler jumps:</P>
 </P>
 
 <P>Note: Do not embed the assembler labels that are used as names of global
-variables or functions into your <CODE>asm</CODE> statements. Code such as this:</P>
+variables or functions into your <CODE>asm</CODE> expressions. Code such as this:</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
