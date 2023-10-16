@@ -891,12 +891,12 @@ mind, you should be able to write fairly portable code.</P>
 <P>This cc65 version has some extensions to the ISO C standard.</P>
 <P>
 <UL>
-<LI>  The compiler allows to insert assembler expressions into the output
-file. The syntax is
+<LI>  The compiler allows to insert inline assembler code in the form of the
+<CODE>asm</CODE> expression into the output file. The syntax is
 
 <BLOCKQUOTE><CODE>
 <PRE>
-        asm [optional volatile] (&lt;string literal&gt;[, optional parameters]) ;
+        asm [optional volatile] (&lt;string literal&gt;[, optional parameters])
         
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -904,7 +904,7 @@ file. The syntax is
 or
 <BLOCKQUOTE><CODE>
 <PRE>
-        __asm__ [optional volatile] (&lt;string literal&gt;[, optional parameters]) ;
+        __asm__ [optional volatile] (&lt;string literal&gt;[, optional parameters])
         
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -913,7 +913,7 @@ or
 The first form is in the user namespace; and, is disabled if the <CODE>-A</CODE>
 switch is given.
 
-There is a whole section covering inline assembler expressions,
+There is a whole section covering the inline assembler,
 <A HREF="#inline-asm">see there</A>.
 
 <P>
@@ -1126,6 +1126,14 @@ can be used.
 
 <CODE>_Static_assert</CODE> is also available as the macro <CODE>static_assert</CODE> in
 <CODE>assert.h</CODE>.
+
+Note: The string literal as the message in the <CODE>_Static_assert</CODE>
+declaration is not subject to string literal translation (see
+<CODE>
+<A HREF="#pragma-charmap">#pragma&nbsp;charmap()</A></CODE>) and will
+always be in the host encoding. On the other hand, any character or
+string literals present in the condition expression of the
+<CODE>_Static_assert</CODE> declaration will be translated as usual.
 </LI>
 <LI>  cc65 supports bit-fields of any integral type that is int-sized or
 smaller, and enumerated types with those types as their underlying
@@ -1408,7 +1416,9 @@ value zero.</P>
 </H2>
 
 
-<P>Each literal string and each literal character in the source is translated
+<P>Each literal string and each literal character in the preprocessed source,
+except when used in an <CODE>asm</CODE> expression as the inline assembler code or
+in a <CODE>_Static_assert</CODE> declaration as the failure message, is translated
 by use of a translation table. That translation table is preset when the
 compiler is started, depending on the target system; for example, to map
 ISO-8859-1 characters into PETSCII if the target is a Commodore machine.</P>
@@ -1841,27 +1851,27 @@ bloated code and a slowdown.</P>
 <H2><A NAME="inline-asm"></A> <A NAME="s9">9.</A> <A HREF="#toc9">Inline assembler</A></H2>
 
 
-<P>The compiler allows to insert assembler expressions into the output file. The
-syntax is</P>
+<P>The compiler allows to insert inline assembler code in the form of the <CODE>asm</CODE>
+expression into the output file. The syntax is</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-        asm [optional volatile] (&lt;string literal&gt;[, optional parameters]) ;
+        asm [optional volatile] (&lt;string literal&gt;[, optional parameters])
 </PRE>
 </CODE></BLOCKQUOTE>
 
 or
 <BLOCKQUOTE><CODE>
 <PRE>
-        __asm__ [optional volatile] (&lt;string literal&gt;[, optional parameters]) ;
+        __asm__ [optional volatile] (&lt;string literal&gt;[, optional parameters])
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
 
 <P>The first form is in the user namespace; and, is disabled by <CODE>
 <A HREF="#option--standard">--standard</A></CODE> if the argument is not <CODE>cc65</CODE>.</P>
-<P>The <CODE>asm</CODE> expression can be used only inside a function.  Please note that
-the result of an inline assembler expression is always of type <CODE>void</CODE>.</P>
+<P>The <CODE>asm</CODE> expression can be used only inside a function.  The result of an
+<CODE>asm</CODE> expression is always of type <CODE>void</CODE>.</P>
 <P>The contents of the string literal are preparsed by the compiler; and, inserted
 into the generated assembly output, so that it can be processed further by
 the backend -- and, especially the optimizer. For that reason, the compiler does
@@ -1883,6 +1893,13 @@ optimize(pop)</CODE> below those functions.</P>
 <P>The string literal may contain format specifiers from the following list. For
 each format specifier, an argument is expected which is inserted instead of
 the format specifier, before passing the assembly code line to the backend.</P>
+<P>Note: The string literal as the inline assembler code itself in the <CODE>asm</CODE>
+expression is not subject to string literal translation (see
+<CODE>
+<A HREF="#pragma-charmap">#pragma&nbsp;charmap()</A></CODE>) and will always
+be in the host encoding. On the other hand, all character and string literals
+as the arguments for replacing the format specifiers will be translated as
+usual.</P>
 <P>
 <UL>
 <LI><CODE>%b</CODE> - Numerical 8-bit value</LI>
