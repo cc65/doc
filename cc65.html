@@ -1738,12 +1738,12 @@ changing it.</P>
 
 
 <P>This pragma sets a wrapper for functions, often used for trampolines.</P>
-<P>The name is a function returning <CODE>void</CODE>, and taking no parameters.
+<P>The <CODE>name</CODE> is a wrapper function returning <CODE>void</CODE>, and taking no parameters.
 It must preserve the CPU's <CODE>A</CODE> and <CODE>X</CODE> registers if it wraps any
 <CODE>__fastcall__</CODE> functions that have parameters.  It must preserve
 the <CODE>Y</CODE> register if it wraps any variadic functions (they have "<CODE>...</CODE>"
 in their prototypes).</P>
-<P>The identifier is an 8-bit number that's set into <CODE>tmp4</CODE>. If the identifier
+<P>The <CODE>identifier</CODE> is an 8-bit number that's set into <CODE>tmp4</CODE>. If the <CODE>identifier</CODE>
 is "bank", then ca65's <CODE>
 <A HREF="ca65.html#.BANK">.bank</A></CODE> function will be used
 to determine the number from the bank attribute defined in the linker config,
@@ -1753,6 +1753,10 @@ this currently implies that only the least significant 8 bits of the bank attrib
 can be used.</P>
 <P>The address of a wrapped function is passed in <CODE>ptr4</CODE>.  The wrapper can
 call that function by using "<CODE>jsr callptr4</CODE>".</P>
+<P>All functions ever declared or defined when this pragma is in effect will be wrapped
+when they are called explicitly by their names later in the same translation unit.
+Invocation of these functions in any other ways, for example, that via a function
+pointer or in inline assembly code, will not be wrapped.</P>
 <P>This feature is useful, for example, with banked memory, to switch banks
 automatically to where a wrapped function resides, and then to restore the
 previous bank when it returns.</P>
