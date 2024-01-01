@@ -74,8 +74,9 @@ implemented for the cc65 C compiler.</EM>
 <UL>
 <LI><A NAME="toc9.1">9.1</A> <A HREF="apple2.html#ss9.1">Passing arguments to the program</A>
 <LI><A NAME="toc9.2">9.2</A> <A HREF="apple2.html#ss9.2">Interrupts</A>
-<LI><A NAME="toc9.3">9.3</A> <A HREF="apple2.html#ss9.3">DIO</A>
-<LI><A NAME="toc9.4">9.4</A> <A HREF="apple2.html#ss9.4">Specifying file types for fopen</A>
+<LI><A NAME="toc9.3">9.3</A> <A HREF="apple2.html#ss9.3">ProDOS date/time manipulation</A>
+<LI><A NAME="toc9.4">9.4</A> <A HREF="apple2.html#ss9.4">DIO</A>
+<LI><A NAME="toc9.5">9.5</A> <A HREF="apple2.html#ss9.5">Specifying file types for fopen</A>
 </UL>
 <P>
 <H2><A NAME="toc10">10.</A> <A HREF="apple2.html#s10">License</A></H2>
@@ -417,8 +418,8 @@ cl65 -t apple2 -C apple2-system.cfg myprog.c apple2-iobuf-0800.o
 </H2>
 
 
-<P>The functions listed below are special for the Apple&nbsp;][. See
-the 
+<P>The functions and variables listed below are special for the Apple&nbsp;][.
+See the 
 <A HREF="funcref.html">function reference</A> for declaration and
 usage.</P>
 <P>
@@ -426,6 +427,7 @@ usage.</P>
 <LI>_auxtype</LI>
 <LI>_dos_type</LI>
 <LI>_filetype</LI>
+<LI>_datetime</LI>
 <LI>get_ostype</LI>
 <LI>rebootafterexit</LI>
 <LI>ser_apple2_slot</LI>
@@ -702,7 +704,31 @@ program. See the discussion of the <CODE>.CONDES</CODE> feature in the
 <A HREF="ca65.html">assembler manual</A>.</P>
 
 
-<H2><A NAME="ss9.3">9.3</A> <A HREF="#toc9.3">DIO</A>
+<H2><A NAME="ss9.3">9.3</A> <A HREF="#toc9.3">ProDOS date/time manipulation</A>
+</H2>
+
+
+<P>
+<DL>
+<P>The readdir and stat function return ProDOS timestamps in their file
+creation/modification time attributes. You can convert them to more portable
+time representations using either:</P>
+
+<DT><B>struct tm</B><DD>
+<P><CODE>struct tm* __fastcall__ gmtime_dt (const struct datetime* dt);</CODE></P>
+<P>Converts a <CODE>struct datetime</CODE> into a <CODE>struct tm</CODE>. Returns NULL in case
+of error and sets errno.</P>
+
+<DT><B>time_t</B><DD>
+<P><CODE>time_t __fastcall__ mktime_dt (const struct datetime* dt);</CODE></P>
+<P>Parses a <CODE>struct datetime</CODE> and returns a UNIX timestamp. Returns 0 on error and
+sets errno.</P>
+
+</DL>
+</P>
+
+
+<H2><A NAME="ss9.4">9.4</A> <A HREF="#toc9.4">DIO</A>
 </H2>
 
 
@@ -734,7 +760,7 @@ This condition is indicated by the <CODE>_oserror</CODE> value 82.</P>
 
 
 
-<H2><A NAME="ss9.4">9.4</A> <A HREF="#toc9.4">Specifying file types for fopen</A>
+<H2><A NAME="ss9.5">9.5</A> <A HREF="#toc9.5">Specifying file types for fopen</A>
 </H2>
 
 
@@ -770,6 +796,17 @@ or <CODE>open()</CODE>. They are defined in <CODE>apple2_filetype.h</CODE>:</P>
 <P>The header file <CODE>apple2_filetype.h</CODE> also defines many values
 that can be used to set these variables. It is included in
 <CODE>apple2.h</CODE>.</P>
+<P>The global variable <CODE>_datetime</CODE> allows the file creation date/time
+to be set before a call to <CODE>fopen()</CODE>
+or <CODE>open()</CODE> that creates the file. It is defined in <CODE>apple2.h</CODE>:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  extern struct datetime _datetime;
+  
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
 
 <DT><B>Example</B><DD>
 <P>A text file cannot be created with just the
