@@ -47,7 +47,8 @@ implemented for the cc65 C compiler.</EM>
 
 <UL>
 <LI><A NAME="toc6.1">6.1</A> <A HREF="apple2.html#ss6.1">Apple&nbsp;][ specific functions</A>
-<LI><A NAME="toc6.2">6.2</A> <A HREF="apple2.html#ss6.2">Hardware access</A>
+<LI><A NAME="toc6.2">6.2</A> <A HREF="apple2.html#ss6.2">Apple IIgs specific functions in accelerator.h</A>
+<LI><A NAME="toc6.3">6.3</A> <A HREF="apple2.html#ss6.3">Hardware access</A>
 </UL>
 <P>
 <H2><A NAME="toc7">7.</A> <A HREF="apple2.html#s7">Loadable drivers</A></H2>
@@ -429,6 +430,8 @@ usage.</P>
 <LI>_filetype</LI>
 <LI>_datetime</LI>
 <LI>get_ostype</LI>
+<LI>gmtime_dt</LI>
+<LI>mktime_dt</LI>
 <LI>rebootafterexit</LI>
 <LI>ser_apple2_slot</LI>
 <LI>tgi_apple2_mix</LI>
@@ -436,7 +439,25 @@ usage.</P>
 </P>
 
 
-<H2><A NAME="ss6.2">6.2</A> <A HREF="#toc6.2">Hardware access</A>
+<H2><A NAME="ss6.2">6.2</A> <A HREF="#toc6.2">Apple IIgs specific functions in accelerator.h</A>
+</H2>
+
+
+<P>In addition to those, the <CODE>accelerator.h</CODE> header file contains three functions
+to help determine whether the program is running on a IIgs, and change the IIgs
+CPU speed. See the 
+<A HREF="funcref.html">function reference</A> for declaration and
+usage.</P>
+<P>
+<UL>
+<LI>detect_iigs</LI>
+<LI>get_iigs_speed</LI>
+<LI>set_iigs_speed</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss6.3">6.3</A> <A HREF="#toc6.3">Hardware access</A>
 </H2>
 
 
