@@ -144,35 +144,79 @@ PVExit ($01)
 <H2><A NAME="s4">4.</A> <A HREF="#toc4">Creating a Test in C</A></H2>
 
 
-<P>For a C test compiled and linked with <CODE>--target sim6502</CODE> the
+<P>For a C test linked with <CODE>--target sim6502</CODE> and the <CODE>sim6502.lib</CODE> library,
 command line arguments to <CODE>sim65</CODE> will be passed to <CODE>main</CODE>,
 and the return value from <CODE>main</CODE> will become sim65's exit code.
-The <CODE>exit</CODE> function may also be used to terminate with an exit code.</P>
-<P>Exit codes are limited to 8 bits.</P>
+The <CODE>stdlib.h</CODE> <CODE>exit</CODE> function may also be used to terminate with an exit code.</P>
+<P>Exit codes are limited to an unsigned 8 bit value. (E.g. returning -1 will give an exit code of 255.)</P>
 <P>The standard C library high level file input and output is functional.
 A sim65 application can be written like a command line application,
-providing arguments to <CODE>main</CODE> and using the <CODE>stdio.h</CODE> interfaces.</P>
+providing command line arguments to <CODE>main</CODE> and using the <CODE>stdio.h</CODE> interfaces
+to interact with the console or access files.</P>
 <P>Internally, file input and output is provided at a lower level by
-a set of built-in paravirtualization functions (
-<A HREF="#paravirt-internal">see below</A>).</P>
+a set of built-in paravirtualization functions (see 
+<A HREF="#paravirt-internal">below</A>).</P>
+<P>Example:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#include &lt;stdio.h>
+int main()
+{
+    printf("Hello!\n");
+    return 5;
+}
 
+// Build and run:
+//   cl65 -t sim6502 -o example.prg example.c
+//   sim65 example.prg
+
+// Build and run, separate steps:
+//   cc65 -t sim6502 -o example.s example.c
+//   ca65 -t sim6502 -o example.o example.s
+//   ld65 -t sim6502 -o example.prg example.o sim6502.lib
+//   sim65 example.prg
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
 
 <H2><A NAME="s5">5.</A> <A HREF="#toc5">Creating a Test in Assembly</A></H2>
 
 
-<P>Assembly tests may similarly be assembled and linked with
-<CODE>--target sim6502</CODE> or <CODE>--target sim65c02</CODE>.
-Define and export <CODE>_main</CODE> as an entry point,
+<P>Though a C test may also link with assembly code,
+a pure assembly test can also be created.</P>
+<P>Link with <CODE>--target sim6502</CODE> or <CODE>--target sim65c02</CODE> and the corresponding library,
+define and export <CODE>_main</CODE> as an entry point,
 and the sim65 library provides two ways to return an 8-bit exit code:</P>
 <P>
 <UL>
 <LI>Return from <CODE>_main</CODE> with the exit code in <CODE>A</CODE>.
 </LI>
-<LI><CODE>jmp exit</CODE> with the code in <CODE>A</CODE>.
+<LI><CODE>jmp exit</CODE> with the code in <CODE>A</CODE>. (<CODE>.import exit</CODE> from the sim65 library.)
 </LI>
 </UL>
 </P>
-<P>The binary file has a 12 byte header:</P>
+<P>Example:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+.export _main
+_main:
+    lda #5
+    rts
+
+; Build and run:
+;   cl65 -t sim6502 -o example.prg example.s
+;   sim65 example.prg
+
+; Build and run, separate steps:
+;   ca65 -t sim6502 -o example.o example.s
+;   ld65 -t sim6502 -o example.prg example.o sim6502.lib
+;   sim65 example.prg
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Internally, the binary program file has a 12 byte header provided by the library:</P>
 <P>
 <UL>
 <LI>5 byte <B>signature</B>: <CODE>$73, $69, $6D, $36, $35</CODE> or <CODE>'sim65'</CODE>
@@ -206,6 +250,9 @@ These use cc65 calling conventions, and are intended for use with the sim65 targ
 </LI>
 <LI><CODE>IRQ</CODE> and <CODE>NMI</CODE> events will not be generated, though <CODE>BRK</CODE>
 can be used if the IRQ vector at <CODE>$FFFE</CODE> is manually prepared by the test code.
+</LI>
+<LI>The <CODE>sim6502</CODE> or <CODE>sim65c02</CODE> targets provide a default configuration,
+but if customization is needed <CODE>sim6502.cfg</CODE> or <CODE>sim65c02.cfg</CODE> might be used as a template.
 </LI>
 </UL>
 </P>
