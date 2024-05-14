@@ -1173,50 +1173,42 @@ names like "Loop". Here is an example:</P>
 </CODE></BLOCKQUOTE>
 </P>
 
+
 <H2><A NAME="ss6.6">6.6</A> <A HREF="#toc6.6">Unnamed labels</A>
 </H2>
 
 
-<P>If you really want to write messy code, there are also unnamed labels. These
-labels do not have a name (you guessed that already, didn't you?). A colon is
-used to mark the absence of the name.</P>
-<P>Unnamed labels may be accessed by using the colon plus several minus or plus
-characters as a label designator. Using the '-' characters will create a back
-reference (use the n'th label backwards), using '+' will create a forward
-reference (use the n'th label in forward direction). An example will help to
-understand this:</P>
+<P>If you really want to write messy code, there are also unnamed labels. To define
+an unnamed label, use either <CODE>@:</CODE> (<CODE>.LOCALCHAR</CODE> is respected if it
+is set) or sole <CODE>:</CODE>.</P>
+<P>To reference an unnamed label, use <CODE>@</CODE> (<CODE>.LOCALCHAR</CODE> is respected
+if it is set) or <CODE>:</CODE> with several <CODE>-</CODE> or <CODE>+</CODE> characters.
+The <CODE>-</CODE> characters will create a back reference (n'th label backwards),
+the <CODE>+</CODE> will create a forward reference (n'th label in forward direction).
+As an alternative, angle brackets <CODE>&lt;</CODE> and <CODE>&gt;</CODE> may be used
+instead of <CODE>-</CODE> and <CODE>+</CODE> with the same meaning.</P>
+<P>Example:</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-        :       lda     (ptr1),y        ; #1
-                cmp     (ptr2),y
-                bne     :+              ; -> #2
-                tax
-                beq     :+++            ; -> #4
-                iny
-                bne     :-              ; -> #1
-                inc     ptr1+1
-                inc     ptr2+1
-                bne     :-              ; -> #1
-
-        :       bcs     :+              ; #2 -> #3
-                ldx     #$FF
-                rts
-
-        :       ldx     #$01            ; #3
-        :       rts                     ; #4
+        cpy #0
+        beq @++
+    @:
+        sta $2007
+        dey
+        bne @-
+    @:
+        rts
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-<P>As you can see from the example, unnamed labels will make even short
-sections of code hard to understand, because you have to count labels
-to find branch targets (this is the reason why I for my part do
-prefer the "cheap" local labels). Nevertheless, unnamed labels are
-convenient in some situations, so it's your decision.</P>
+<P>Unnamed labels may make even short sections of code hard to understand, because
+you have to count labels to find branch targets. It's better to prefer the
+"cheap" local labels. Nevertheless, unnamed labels are convenient in some
+situations, so it's up to your discretion.</P>
 <P><EM>Note:</EM> 
 <A HREF="#scopes">Scopes</A> organize named symbols, not
 unnamed ones, so scopes don't have an effect on unnamed labels.</P>
-
 
 
 <H2><A NAME="ss6.7">6.7</A> <A HREF="#toc6.7">Using macros to define labels and constants</A>
