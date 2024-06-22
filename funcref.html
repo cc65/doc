@@ -363,25 +363,26 @@ the C functions available in the standard library.</EM>
 <LI><A NAME="toc3.273">3.273</A> <A HREF="funcref.html#ss3.273">strqtok</A>
 <LI><A NAME="toc3.274">3.274</A> <A HREF="funcref.html#ss3.274">strrchr</A>
 <LI><A NAME="toc3.275">3.275</A> <A HREF="funcref.html#ss3.275">strspn</A>
-<LI><A NAME="toc3.276">3.276</A> <A HREF="funcref.html#ss3.276">strstr</A>
-<LI><A NAME="toc3.277">3.277</A> <A HREF="funcref.html#ss3.277">strtok</A>
-<LI><A NAME="toc3.278">3.278</A> <A HREF="funcref.html#ss3.278">strxfrm</A>
-<LI><A NAME="toc3.279">3.279</A> <A HREF="funcref.html#ss3.279">strupper</A>
-<LI><A NAME="toc3.280">3.280</A> <A HREF="funcref.html#ss3.280">strupr</A>
-<LI><A NAME="toc3.281">3.281</A> <A HREF="funcref.html#ss3.281">telldir</A>
-<LI><A NAME="toc3.282">3.282</A> <A HREF="funcref.html#ss3.282">textcolor</A>
-<LI><A NAME="toc3.283">3.283</A> <A HREF="funcref.html#ss3.283">time</A>
-<LI><A NAME="toc3.284">3.284</A> <A HREF="funcref.html#ss3.284">toggle_videomode</A>
-<LI><A NAME="toc3.285">3.285</A> <A HREF="funcref.html#ss3.285">tolower</A>
-<LI><A NAME="toc3.286">3.286</A> <A HREF="funcref.html#ss3.286">toupper</A>
-<LI><A NAME="toc3.287">3.287</A> <A HREF="funcref.html#ss3.287">ultoa</A>
-<LI><A NAME="toc3.288">3.288</A> <A HREF="funcref.html#ss3.288">unlink</A>
-<LI><A NAME="toc3.289">3.289</A> <A HREF="funcref.html#ss3.289">utoa</A>
-<LI><A NAME="toc3.290">3.290</A> <A HREF="funcref.html#ss3.290">vcprintf</A>
-<LI><A NAME="toc3.291">3.291</A> <A HREF="funcref.html#ss3.291">videomode</A>
-<LI><A NAME="toc3.292">3.292</A> <A HREF="funcref.html#ss3.292">waitvsync</A>
-<LI><A NAME="toc3.293">3.293</A> <A HREF="funcref.html#ss3.293">wherex</A>
-<LI><A NAME="toc3.294">3.294</A> <A HREF="funcref.html#ss3.294">wherey</A>
+<LI><A NAME="toc3.276">3.276</A> <A HREF="funcref.html#ss3.276">strcasestr</A>
+<LI><A NAME="toc3.277">3.277</A> <A HREF="funcref.html#ss3.277">strstr</A>
+<LI><A NAME="toc3.278">3.278</A> <A HREF="funcref.html#ss3.278">strtok</A>
+<LI><A NAME="toc3.279">3.279</A> <A HREF="funcref.html#ss3.279">strxfrm</A>
+<LI><A NAME="toc3.280">3.280</A> <A HREF="funcref.html#ss3.280">strupper</A>
+<LI><A NAME="toc3.281">3.281</A> <A HREF="funcref.html#ss3.281">strupr</A>
+<LI><A NAME="toc3.282">3.282</A> <A HREF="funcref.html#ss3.282">telldir</A>
+<LI><A NAME="toc3.283">3.283</A> <A HREF="funcref.html#ss3.283">textcolor</A>
+<LI><A NAME="toc3.284">3.284</A> <A HREF="funcref.html#ss3.284">time</A>
+<LI><A NAME="toc3.285">3.285</A> <A HREF="funcref.html#ss3.285">toggle_videomode</A>
+<LI><A NAME="toc3.286">3.286</A> <A HREF="funcref.html#ss3.286">tolower</A>
+<LI><A NAME="toc3.287">3.287</A> <A HREF="funcref.html#ss3.287">toupper</A>
+<LI><A NAME="toc3.288">3.288</A> <A HREF="funcref.html#ss3.288">ultoa</A>
+<LI><A NAME="toc3.289">3.289</A> <A HREF="funcref.html#ss3.289">unlink</A>
+<LI><A NAME="toc3.290">3.290</A> <A HREF="funcref.html#ss3.290">utoa</A>
+<LI><A NAME="toc3.291">3.291</A> <A HREF="funcref.html#ss3.291">vcprintf</A>
+<LI><A NAME="toc3.292">3.292</A> <A HREF="funcref.html#ss3.292">videomode</A>
+<LI><A NAME="toc3.293">3.293</A> <A HREF="funcref.html#ss3.293">waitvsync</A>
+<LI><A NAME="toc3.294">3.294</A> <A HREF="funcref.html#ss3.294">wherex</A>
+<LI><A NAME="toc3.295">3.295</A> <A HREF="funcref.html#ss3.295">wherey</A>
 </UL>
 
 <HR>
@@ -1528,6 +1529,8 @@ communication, see also <CODE>testcode/lib/ser-test.c</CODE>.</P>
 <A HREF="#strrchr">strrchr</A></LI>
 <LI>
 <A HREF="#strspn">strspn</A></LI>
+<LI>
+<A HREF="#strcasestr">strcasestr</A></LI>
 <LI>
 <A HREF="#strstr">strstr</A></LI>
 <LI>
@@ -12797,7 +12800,7 @@ be used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="strstr"></A> <A NAME="ss3.276">3.276</A> <A HREF="#toc3.276">strstr</A>
+<H2><A NAME="strcasestr"></A> <A NAME="ss3.276">3.276</A> <A HREF="#toc3.276">strcasestr</A>
 </H2>
 
 
@@ -12805,16 +12808,16 @@ be used in presence of a prototype.</LI>
 <BLOCKQUOTE>
 <DL>
 <DT><B>Function</B><DD>
-<P>Find a substring.</P>
+<P>Find a substring, case-insensitive.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
 <A HREF="#string.h">string.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
-<P><CODE>char* __fastcall__ strstr (const char* str, const char* substr);</CODE></P>
+<P><CODE>char* __fastcall__ strcasestr (const char* str, const char* substr);</CODE></P>
 <DT><B>Description</B><DD>
-<P><CODE>strstr</CODE> searches for the first occurrence of the string
-<CODE>substr</CODE> within <CODE>str</CODE>. If found, it returns a pointer to the copy,
-otherwise it returns <CODE>NULL</CODE>.</P>
+<P><CODE>strcasestr</CODE> searches for the first occurrence of the string
+<CODE>substr</CODE> within <CODE>str</CODE>. If found, it returns a pointer to the start of the
+match in <CODE>str</CODE>, otherwise it returns <CODE>NULL</CODE>.</P>
 <DT><B>Notes</B><DD>
 <P>
 <UL>
@@ -12826,6 +12829,7 @@ be used in presence of a prototype.</LI>
 <P>ISO 9899</P>
 <DT><B>See also</B><DD>
 <P>
+<A HREF="#strstr">strstr</A>,
 <A HREF="#strcspn">strcspn</A>,
 <A HREF="#strspn">strspn</A></P>
 <DT><B>Example</B><DD>
@@ -12835,7 +12839,46 @@ be used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="strtok"></A> <A NAME="ss3.277">3.277</A> <A HREF="#toc3.277">strtok</A>
+<H2><A NAME="strstr"></A> <A NAME="ss3.277">3.277</A> <A HREF="#toc3.277">strstr</A>
+</H2>
+
+
+<P>
+<BLOCKQUOTE>
+<DL>
+<DT><B>Function</B><DD>
+<P>Find a substring, case-sensitive.</P>
+<DT><B>Header</B><DD>
+<P><CODE>
+<A HREF="#string.h">string.h</A></CODE></P>
+<DT><B>Declaration</B><DD>
+<P><CODE>char* __fastcall__ strstr (const char* str, const char* substr);</CODE></P>
+<DT><B>Description</B><DD>
+<P><CODE>strstr</CODE> searches for the first occurrence of the string
+<CODE>substr</CODE> within <CODE>str</CODE>. If found, it returns a pointer to the start of the
+match in <CODE>str</CODE>, otherwise it returns <CODE>NULL</CODE>.</P>
+<DT><B>Notes</B><DD>
+<P>
+<UL>
+<LI>The function is only available as fastcall function, so it may only
+be used in presence of a prototype.</LI>
+</UL>
+</P>
+<DT><B>Availability</B><DD>
+<P>ISO 9899</P>
+<DT><B>See also</B><DD>
+<P>
+<A HREF="#strcasestr">strcasestr</A>,
+<A HREF="#strcspn">strcspn</A>,
+<A HREF="#strspn">strspn</A></P>
+<DT><B>Example</B><DD>
+<P>None.</P>
+</DL>
+</BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="strtok"></A> <A NAME="ss3.278">3.278</A> <A HREF="#toc3.278">strtok</A>
 </H2>
 
 
@@ -12881,7 +12924,7 @@ a second <CODE>s1</CODE> string before it finishes the first one.</LI>
 </P>
 
 
-<H2><A NAME="strxfrm"></A> <A NAME="ss3.278">3.278</A> <A HREF="#toc3.278">strxfrm</A>
+<H2><A NAME="strxfrm"></A> <A NAME="ss3.279">3.279</A> <A HREF="#toc3.279">strxfrm</A>
 </H2>
 
 
@@ -12930,7 +12973,7 @@ just copy s2 to s1 using <CODE>
 </P>
 
 
-<H2><A NAME="strupper"></A> <A NAME="ss3.279">3.279</A> <A HREF="#toc3.279">strupper</A>
+<H2><A NAME="strupper"></A> <A NAME="ss3.280">3.280</A> <A HREF="#toc3.280">strupper</A>
 </H2>
 
 
@@ -12969,7 +13012,7 @@ be used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="strupr"></A> <A NAME="ss3.280">3.280</A> <A HREF="#toc3.280">strupr</A>
+<H2><A NAME="strupr"></A> <A NAME="ss3.281">3.281</A> <A HREF="#toc3.281">strupr</A>
 </H2>
 
 
@@ -12980,7 +13023,7 @@ See <CODE>strupper</CODE>.
 </P>
 
 
-<H2><A NAME="telldir"></A> <A NAME="ss3.281">3.281</A> <A HREF="#toc3.281">telldir</A>
+<H2><A NAME="telldir"></A> <A NAME="ss3.282">3.282</A> <A HREF="#toc3.282">telldir</A>
 </H2>
 
 
@@ -13019,7 +13062,7 @@ be used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="textcolor"></A> <A NAME="ss3.282">3.282</A> <A HREF="#toc3.282">textcolor</A>
+<H2><A NAME="textcolor"></A> <A NAME="ss3.283">3.283</A> <A HREF="#toc3.283">textcolor</A>
 </H2>
 
 
@@ -13059,7 +13102,7 @@ be used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="time"></A> <A NAME="ss3.283">3.283</A> <A HREF="#toc3.283">time</A>
+<H2><A NAME="time"></A> <A NAME="ss3.284">3.284</A> <A HREF="#toc3.284">time</A>
 </H2>
 
 
@@ -13100,7 +13143,7 @@ returned value may not be valid.</LI>
 </P>
 
 
-<H2><A NAME="toggle_videomode"></A> <A NAME="ss3.284">3.284</A> <A HREF="#toc3.284">toggle_videomode</A>
+<H2><A NAME="toggle_videomode"></A> <A NAME="ss3.285">3.285</A> <A HREF="#toc3.285">toggle_videomode</A>
 </H2>
 
 
@@ -13141,7 +13184,7 @@ with the mode.</P>
 </P>
 
 
-<H2><A NAME="tolower"></A> <A NAME="ss3.285">3.285</A> <A HREF="#toc3.285">tolower</A>
+<H2><A NAME="tolower"></A> <A NAME="ss3.286">3.286</A> <A HREF="#toc3.286">tolower</A>
 </H2>
 
 
@@ -13179,7 +13222,7 @@ only be used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="toupper"></A> <A NAME="ss3.286">3.286</A> <A HREF="#toc3.286">toupper</A>
+<H2><A NAME="toupper"></A> <A NAME="ss3.287">3.287</A> <A HREF="#toc3.287">toupper</A>
 </H2>
 
 
@@ -13217,7 +13260,7 @@ only be used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="ultoa"></A> <A NAME="ss3.287">3.287</A> <A HREF="#toc3.287">ultoa</A>
+<H2><A NAME="ultoa"></A> <A NAME="ss3.288">3.288</A> <A HREF="#toc3.288">ultoa</A>
 </H2>
 
 
@@ -13260,7 +13303,7 @@ used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="unlink"></A> <A NAME="ss3.288">3.288</A> <A HREF="#toc3.288">unlink</A>
+<H2><A NAME="unlink"></A> <A NAME="ss3.289">3.289</A> <A HREF="#toc3.289">unlink</A>
 </H2>
 
 
@@ -13318,7 +13361,7 @@ if (unlink (FILENAME) == 0) {
 </P>
 
 
-<H2><A NAME="utoa"></A> <A NAME="ss3.289">3.289</A> <A HREF="#toc3.289">utoa</A>
+<H2><A NAME="utoa"></A> <A NAME="ss3.290">3.290</A> <A HREF="#toc3.290">utoa</A>
 </H2>
 
 
@@ -13361,7 +13404,7 @@ used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="vcprintf"></A> <A NAME="ss3.290">3.290</A> <A HREF="#toc3.290">vcprintf</A>
+<H2><A NAME="vcprintf"></A> <A NAME="ss3.291">3.291</A> <A HREF="#toc3.291">vcprintf</A>
 </H2>
 
 
@@ -13405,7 +13448,7 @@ used in presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="videomode"></A> <A NAME="ss3.291">3.291</A> <A HREF="#toc3.291">videomode</A>
+<H2><A NAME="videomode"></A> <A NAME="ss3.292">3.292</A> <A HREF="#toc3.292">videomode</A>
 </H2>
 
 
@@ -13453,7 +13496,7 @@ only in the presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="waitvsync"></A> <A NAME="ss3.292">3.292</A> <A HREF="#toc3.292">waitvsync</A>
+<H2><A NAME="waitvsync"></A> <A NAME="ss3.293">3.293</A> <A HREF="#toc3.293">waitvsync</A>
 </H2>
 
 
@@ -13481,7 +13524,7 @@ only in the presence of a prototype.</LI>
 </P>
 
 
-<H2><A NAME="wherex"></A> <A NAME="ss3.293">3.293</A> <A HREF="#toc3.293">wherex</A>
+<H2><A NAME="wherex"></A> <A NAME="ss3.294">3.294</A> <A HREF="#toc3.294">wherex</A>
 </H2>
 
 
@@ -13513,7 +13556,7 @@ cursor. Zero is returned for the leftmost screen position.</P>
 </P>
 
 
-<H2><A NAME="wherey"></A> <A NAME="ss3.294">3.294</A> <A HREF="#toc3.294">wherey</A>
+<H2><A NAME="wherey"></A> <A NAME="ss3.295">3.295</A> <A HREF="#toc3.295">wherey</A>
 </H2>
 
 
