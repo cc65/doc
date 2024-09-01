@@ -1358,6 +1358,11 @@ generation and other stuff. Some of these pragmas understand a special form:
 If the first parameter is <CODE>push</CODE>, the old value is saved onto a stack
 before changing it. The value may later be restored by using the <CODE>pop</CODE>
 parameter with the <CODE>#pragma</CODE>.</P>
+<P>For all pragma names that contain hyphens, the same name using underlines
+instead of the hyphens is available as an alternative. While the former
+resembles the corresponding command line option and is more orthogonal, the
+latter may be more compatible with external tools that rewrite the token
+sequences of the input.</P>
 
 
 <H2><A NAME="pragma-allow-eager-inline"></A> <A NAME="ss7.1">7.1</A> <A HREF="#toc7.1"><CODE>#pragma allow-eager-inline ([push,] on|off)</CODE></A>
