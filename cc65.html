@@ -129,7 +129,7 @@ Short options:
   -Os                           Inline some standard functions
   -T                            Include source as comment
   -V                            Print the compiler version number
-  -W warning[,...]              Suppress warnings
+  -W [-+]warning[,...]          Control warnings ('-' disables, '+' enables)
   -d                            Debug mode
   -g                            Add debug info to object file
   -h                            Help (this text)
@@ -152,8 +152,9 @@ Long options:
   --create-full-dep name        Create a full make dependency file
   --data-name seg               Set the name of the DATA segment
   --debug                       Debug mode
+  --debug-tables name           Write symbol table debug info to a file
   --debug-info                  Add debug info to object file
-  --debug-opt name              Configure optimizations with a file
+  --debug-opt name              Debug optimization steps
   --debug-opt-output            Debug output of each optimization step
   --dep-target target           Use this dependency target
   --disable-opt name            Disable an optimization step
@@ -875,6 +876,13 @@ user-written, cdecl functions (the calling conventions are incompatible).
 <LI>  The <CODE>volatile</CODE> keyword has almost no effect. That is not as bad
 as it sounds, since the 6502 has so few registers that it isn't
 possible to keep values in registers anyway.
+
+</LI>
+<LI>  In <CODE>cc65</CODE> mode, <CODE>main()</CODE> cannot be called recursively. If this
+is necessary, the program must be compiled in <CODE>c89</CODE> or <CODE>c99</CODE> mode
+using the <CODE>
+<A HREF="#option--standard">--standard</A></CODE>
+command line option.
 
 </LI>
 </UL>
