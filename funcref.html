@@ -603,6 +603,8 @@ function.</P>
 <A HREF="#atmos_tock">atmos_tock</A></LI>
 <LI>
 <A HREF="#atmos_zap">atmos_zap</A></LI>
+<LI>
+<A HREF="#waitvsync">waitvsync</A></LI>
 </UL>
 </P>
 
@@ -13508,6 +13510,7 @@ only in the presence of a prototype.</LI>
 <P>Wait until the start of the next video frame.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
+<A HREF="#atmos.h">atmos.h</A>,
 <A HREF="#cbm.h">cbm.h</A>,
 <A HREF="#gamate.h">gamate.h</A>,
 <A HREF="#nes.h">nes.h</A>,
@@ -13517,7 +13520,8 @@ only in the presence of a prototype.</LI>
 <DT><B>Description</B><DD>
 <P>Wait for vertical sync, to reduce flickering.</P>
 <DT><B>Availability</B><DD>
-<P>Platforms served by the headers above</P>
+<P>Platforms served by the headers above
+(Atmos requires the VSync hack)</P>
 <DT><B>Example</B><DD>
 <P>None.</P>
 </DL>
