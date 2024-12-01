@@ -63,7 +63,21 @@ configurable and uses configuration files for high flexibility.</EM>
 <LI><A NAME="toc6.5">6.5</A> <A HREF="ld65.html#ss6.5">ZPSAVE</A>
 </UL>
 <P>
-<H2><A NAME="toc7">7.</A> <A HREF="ld65.html#s7">Copyright</A></H2>
+<H2><A NAME="toc7">7.</A> <A HREF="ld65.html#s7">Debug Info</A></H2>
+
+<UL>
+<LI><A NAME="toc7.1">7.1</A> <A HREF="ld65.html#ss7.1">Libraries</A>
+<LI><A NAME="toc7.2">7.2</A> <A HREF="ld65.html#ss7.2">Lines</A>
+<LI><A NAME="toc7.3">7.3</A> <A HREF="ld65.html#ss7.3">Modules</A>
+<LI><A NAME="toc7.4">7.4</A> <A HREF="ld65.html#ss7.4">Scopes</A>
+<LI><A NAME="toc7.5">7.5</A> <A HREF="ld65.html#ss7.5">Segment Info</A>
+<LI><A NAME="toc7.6">7.6</A> <A HREF="ld65.html#ss7.6">Source files</A>
+<LI><A NAME="toc7.7">7.7</A> <A HREF="ld65.html#ss7.7">Spans</A>
+<LI><A NAME="toc7.8">7.8</A> <A HREF="ld65.html#ss7.8">Symbols</A>
+<LI><A NAME="toc7.9">7.9</A> <A HREF="ld65.html#ss7.9">Types</A>
+</UL>
+<P>
+<H2><A NAME="toc8">8.</A> <A HREF="ld65.html#s8">Copyright</A></H2>
 
 
 <HR>
@@ -1287,9 +1301,232 @@ loaded at the lowest possible program address on several platforms.</P>
 by the ZEROPAGE segment. It is placed in its own segment because it must not be
 initialized.</P>
 
+<H2><A NAME="s7">7.</A> <A HREF="#toc7">Debug Info</A></H2>
 
 
-<H2><A NAME="s7">7.</A> <A HREF="#toc7">Copyright</A></H2>
+<P>The debug info and the API mirrors closely the items available in the sources
+used to build an executable. To use the API efficiently, it is necessary to
+understand from which blocks the information is built.</P>
+<P>
+<UL>
+<LI>  Libraries</LI>
+<LI>  Lines</LI>
+<LI>  Modules</LI>
+<LI>  Scopes</LI>
+<LI>  Segments</LI>
+<LI>  Source files</LI>
+<LI>  Spans</LI>
+<LI>  Symbols</LI>
+<LI>  Types</LI>
+</UL>
+</P>
+<P>Each item of each type has something like a primary index called an 'id'.
+The ids can be thought of as array indices, so looking up something by its
+id is fast. Invalid ids are marked with the special value CC65_INV_ID.
+Data passed back for an item may contain ids of other objects. A scope for
+example contains the id of the parent scope (or CC65_INV_ID if there is no
+parent scope). Most API functions use ids to lookup related objects.</P>
+
+
+<H2><A NAME="ss7.1">7.1</A> <A HREF="#toc7.1">Libraries</A>
+</H2>
+
+
+<P>This information comes from the linker and is currently used in only one
+place:To mark the origin of a module. The information available for a library
+is its name including the path.</P>
+<P>
+<UL>
+<LI> Library id</LI>
+<LI> Name and path of library</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss7.2">7.2</A> <A HREF="#toc7.2">Lines</A>
+</H2>
+
+
+<P>A line is a location in a source file. It is module dependent, which means
+that if two modules use the same source file, each one has its own line
+information for this file. While the assembler has also column information,
+it is dropped early because it would generate much more data. A line may have
+one or more spans attached if code or data is generated.</P>
+<P>
+<UL>
+<LI> Line id</LI>
+<LI> Id of the source file, the line is from</LI>
+<LI> The line number in the file (starting with 1)</LI>
+<LI> The type of the line: Assembler/C source or macro</LI>
+<LI> A count for recursive macros if the line comes from a macro</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss7.3">7.3</A> <A HREF="#toc7.3">Modules</A>
+</H2>
+
+
+<P>A module is actually an object file. It is generated from one or more source
+files and may come from a library. The assembler generates a main scope for
+symbols declared outside user generated scopes. The main scope has an empty name.</P>
+<P>
+<UL>
+<LI> Module id</LI>
+<LI> The name of the module including the path</LI>
+<LI> The id of the main source file (the one specified on the command line)</LI>
+<LI> The id of the library the module comes from, or CC65_INV_ID</LI>
+<LI> The id of the main scope for this module</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss7.4">7.4</A> <A HREF="#toc7.4">Scopes</A>
+</H2>
+
+
+<P>Each module has a main scope where all symbols live, that are specified outside
+other scopes. Additional nested scopes may be specified in the sources. So scopes
+have a one to many relation: Each scope (with the exception of the main scope) has
+exactly one parent and may have several child scopes. Scopes may not cross modules.</P>
+<P>
+<UL>
+<LI> Scope id</LI>
+<LI> The name of the scope (may be empty)</LI>
+<LI> The type of the scope: Module, .SCOPE or .PROC, .STRUCT and .ENUM</LI>
+<LI> The size of the scope (the size of the span for the active segment)</LI>
+<LI> The id of the parent scope (CC65_INV_ID in case of the main scope)</LI>
+<LI> The id of the attached symbol for .PROC scopes</LI>
+<LI> The id of the module where the scope comes from</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss7.5">7.5</A> <A HREF="#toc7.5">Segment Info</A>
+</H2>
+
+
+<P>
+<UL>
+<LI> Segment id</LI>
+<LI> The name of the segment</LI>
+<LI> The start address of the segment</LI>
+<LI> The size of the segment</LI>
+<LI> The name of the output file, this segment was written to (may be empty)</LI>
+<LI> The offset of the segment in the output file (only if name not empty)</LI>
+<LI> The bank number of the segment's memory area</LI>
+</UL>
+</P>
+<P>It is also possible to retrieve the spans for sections (a section is the part of a
+segment that comes from one module). Since the main scope covers a whole module, and
+the main scope has spans assigned (if not empty), the spans for the main scope of a
+module are also the spans for the sections in the segments.</P>
+
+
+<H2><A NAME="ss7.6">7.6</A> <A HREF="#toc7.6">Source files</A>
+</H2>
+
+
+<P>Modules are generated from source files. Since some source files are used several times
+when generating a list of modules (header files for example), the linker will merge
+duplicates to reduce redundant information. Source files are considered identical if the
+full name including the path is identical, and the size and time of last modification
+matches. Please note that there may be still duplicates if files are accessed using
+different paths.</P>
+<P>
+<UL>
+<LI> Source file id</LI>
+<LI> The name of the source file including the path</LI>
+<LI> The size of the file at the time when it was read</LI>
+<LI> The time of last modification at the time when the file was read</LI>
+</UL>
+</P>
+
+
+<H2><A NAME="ss7.7">7.7</A> <A HREF="#toc7.7">Spans</A>
+</H2>
+
+
+<P>A span is a small part of a segment. It has a start address and a size. Spans are used
+to record sizes of other objects. Line infos and scopes may have spans attached, so it
+is possible to lookup which data was generated for these items.</P>
+<P>
+<UL>
+<LI> Span id</LI>
+<LI> The start address of the span. This is an absolute address</LI>
+<LI> The end address of the span. This is inclusive which means if start==end then => size==1</LI>
+<LI> The id of the segment were the span is located</LI>
+<LI> The type of the data in the span (optional, maybe NULL)</LI>
+<LI> The number of line infos available for this span</LI>
+<LI> The number of scope infos available for this span</LI>
+</UL>
+</P>
+<P>The last two fields will save a call to cc65_line_byspan or cc65_scope_byspan by providing
+information about the number of items that can be retrieved by these calls.</P>
+
+
+<H2><A NAME="ss7.8">7.8</A> <A HREF="#toc7.8">Symbols</A>
+</H2>
+
+
+<P>
+<UL>
+<LI> Symbol id</LI>
+<LI> The name of the symbol</LI>
+<LI> The type of the symbol, which may be label, equate or import</LI>
+<LI> The size of the symbol (size of attached code or data). Only for labels. Zero if unknown</LI>
+<LI> The value of the symbol. For an import, this is taken from the corresponding export</LI>
+<LI> The id of the corresponding export. Only valid for imports, CC65_INV_ID for other symbols</LI>
+<LI> The segment id if the symbol is segment based. For an import, taken from the export</LI>
+<LI> The id of the scope this symbols was defined in</LI>
+<LI> The id of the parent symbol. This is only set for cheap locals and CC65_INV_ID otherwise</LI>
+</UL>
+</P>
+<P>Beware: Even for an import, the id of the corresponding export may be CC65_INV_ID.
+This happens if the module with the export has no debug information. So make sure
+that your application can handle it.</P>
+
+
+<H2><A NAME="ss7.9">7.9</A> <A HREF="#toc7.9">Types</A>
+</H2>
+
+
+<P>A type is somewhat special. You cannot retrieve data about it in a similar way as with the other
+items. Instead you have to call a special routine that parses the type data and returns it
+in a set of data structures that can be processed by a C or C++ program.</P>
+<P>The type information is language independent and doesn't encode things like 'const' or
+'volatile'. Instead it defines a set of simple data types and a few ways to aggregate
+them (arrays, structs and unions).</P>
+<P>Type information is currently generated by the assembler for storage allocating commands
+like .BYTE or .WORD. For example, the assembler code</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+foo:    .byte $01, $02, $03
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>will assign the symbol foo a size of 3, but will also generate a span with a size of 3
+bytes and a type ARRAY[3] OF BYTE.
+Evaluating the type of a span allows a debugger to display the data in the same way as it
+was defined in the assembler source.</P>
+<P>
+<BR><CENTER>
+<TABLE BORDER><TR><TD>
+<B>Assembler Command</B></TD><TD> <B>Generated Type Information</B></TD></TR><TR><TD>
+.ADDR</TD><TD> ARRAY OF LITTLE ENDIAN POINTER WITH SIZE 2 TO VOID</TD></TR><TR><TD>
+.BYTE</TD><TD> ARRAY OF UNSIGNED WITH SIZE 1</TD></TR><TR><TD>
+.DBYT</TD><TD> ARRAY OF BIG ENDIAN UNSIGNED WITH SIZE 2</TD></TR><TR><TD>
+.DWORD</TD><TD> ARRAY OF LITTLE ENDIAN UNSIGNED WITH SIZE 4</TD></TR><TR><TD>
+.FARADDR</TD><TD> ARRAY OF LITTLE ENDIAN POINTER WITH SIZE 3 TO VOID</TD></TR><TR><TD>
+.WORD</TD><TD> ARRAY OF LITTLE ENDIAN UNSIGNED WITH SIZE 2
+</TD></TR></TABLE>
+</CENTER><BR>
+</P>
+
+
+
+<H2><A NAME="s8">8.</A> <A HREF="#toc8">Copyright</A></H2>
 
 
 <P>ld65 (and all cc65 binutils) are (C) Copyright 1998-2005 Ullrich von
