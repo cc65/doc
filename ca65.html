@@ -1440,7 +1440,7 @@ The namespace token (<CODE>::</CODE>) is used to access other scopes:</P>
         .endscope
 
                 ...
-                lda     foo::bar        ; Access foo in scope bar
+                lda     #foo::bar        ; Access bar in scope foo
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
@@ -4891,7 +4891,7 @@ characters of the string are XORed by the value $55.</P>
 
 <P>Reserve storage. The command is followed by one or two constant
 expressions. The first one is mandatory and defines, how many bytes of
-storage should be defined. The second, optional expression must by a
+storage should be defined. The second, optional expression must be a
 constant byte value that will be used as value of the data. If there
 is no fill value given, the linker will use the value defined in the
 linker configuration file (default: zero).</P>
