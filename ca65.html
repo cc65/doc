@@ -1179,10 +1179,8 @@ names like "Loop". Here is an example:</P>
 
 
 <P>If you really want to write messy code, there are also unnamed labels. To define
-an unnamed label, use either <CODE>@:</CODE> (<CODE>.LOCALCHAR</CODE> is respected if it
-is set) or sole <CODE>:</CODE>.</P>
-<P>To reference an unnamed label, use <CODE>@</CODE> (<CODE>.LOCALCHAR</CODE> is respected
-if it is set) or <CODE>:</CODE> with several <CODE>-</CODE> or <CODE>+</CODE> characters.
+an unnamed label, use sole <CODE>:</CODE>.</P>
+<P>To reference an unnamed label, use <CODE>:</CODE> with several <CODE>-</CODE> or <CODE>+</CODE> characters.
 The <CODE>-</CODE> characters will create a back reference (n'th label backwards),
 the <CODE>+</CODE> will create a forward reference (n'th label in forward direction).
 As an alternative, angle brackets <CODE>&lt;</CODE> and <CODE>&gt;</CODE> may be used
@@ -1192,12 +1190,12 @@ instead of <CODE>-</CODE> and <CODE>+</CODE> with the same meaning.</P>
 <BLOCKQUOTE><CODE>
 <PRE>
         cpy #0
-        beq @++
-    @:
+        beq :++
+    :
         sta $2007
         dey
-        bne @-
-    @:
+        bne :-
+    :
         rts
 </PRE>
 </CODE></BLOCKQUOTE>
