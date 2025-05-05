@@ -1183,6 +1183,20 @@ They can be disabled with the <CODE>
 </CODE></BLOCKQUOTE>
 
 </LI>
+<LI>  The character escape '\e', a GCC C extension, is accepted.
+In ASCII this is the escape character 0x1B, which may be
+remapped in other character sets via a #pragma charmap.
+It can be disabled with the <CODE>
+<A HREF="#option--standard">--standard</A></CODE> option.
+
+<BLOCKQUOTE><CODE>
+<PRE>
+        unsigned char foo = '\e'; // sets it to 0x1B or equivalent
+        
+</PRE>
+</CODE></BLOCKQUOTE>
+
+</LI>
 </UL>
 </P>
 
