@@ -463,6 +463,7 @@ usage.</P>
 <LI>rebootafterexit</LI>
 <LI>ser_apple2_slot</LI>
 <LI>tgi_apple2_mix</LI>
+<LI>videomode</LI>
 </UL>
 </P>
 
@@ -517,6 +518,9 @@ function clears the corresponding area at the bottom of the screen.</P>
 hires pages. Note that programs using this driver will have to be linked
 with <CODE>-S $4000</CODE> to reserve the first hires page or with <CODE>-S $6000</CODE>
 to reserve both hires pages.</P>
+<P>Note that the second hires page is only available if the text display is not in
+80 column mode. This can be asserted by calling <CODE>videomode (VIDEOMODE_40COL);</CODE>
+before installing the driver.</P>
 <P>The function <CODE>tgi_apple2_mix()</CODE> allows to activate 4 lines of text. The
 function doesn't clear the corresponding area at the bottom of the screen.</P>
 <P>In memory constrained situations the memory from $803 to $1FFF

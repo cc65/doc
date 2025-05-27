@@ -538,6 +538,8 @@ function.</P>
 <LI>
 <A HREF="#mktime_dt">mktime_dt</A></LI>
 <LI>rebootafterexit</LI>
+<LI>
+<A HREF="#videomode">videomode</A></LI>
 </UL>
 </P>
 
@@ -13744,12 +13746,13 @@ used in presence of a prototype.</LI>
 graphics mode.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
+<A HREF="#apple2.h">apple2.h</A>,
 <A HREF="#apple2enh.h">apple2enh.h</A>,
 <A HREF="#c128.h">c128.h</A>,
 <A HREF="#cx16.h">cx16.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
-<P><CODE>unsigned __fastcall__ videomode (unsigned Mode); /* for apple2enh and c128 */</CODE><BR>
-<CODE>signed char __fastcall__ videomode (signed char Mode); /* for cx16 */</CODE></P>
+<P><CODE>unsigned __fastcall__ videomode (unsigned Mode); /* for c128 */</CODE><BR>
+<CODE>signed char __fastcall__ videomode (signed char Mode); /* for apple2 and cx16 */</CODE></P>
 <DT><B>Description</B><DD>
 <P>Switch to a 40- or 80-column text or graphics mode, depending
 on the argument. If the requested mode is already active, nothing happens. The
@@ -13757,16 +13760,18 @@ old mode is returned from the call.</P>
 <DT><B>Notes</B><DD>
 <P>
 <UL>
-<LI>The function is specific to the Commodore 128, the enhanced Apple //e,
+<LI>The function is specific to the Commodore 128, the Apple II,
 and the Commander X16.</LI>
 <LI>This function replaces 
 <A HREF="#toggle_videomode">toggle_videomode</A>.</LI>
 <LI>The function is available as only a fastcall function, so it may be used
 only in the presence of a prototype.</LI>
+<LI>On Apple II, this functions returns the previously active video mode, or -1
+if the mode is not supported due to lack of hardware.</LI>
 </UL>
 </P>
 <DT><B>Availability</B><DD>
-<P>C128, enhanced Apple //e, and CX16</P>
+<P>C128, Apple II, and CX16</P>
 <DT><B>See also</B><DD>
 <P>
 <A HREF="#fast">fast</A>,
