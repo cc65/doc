@@ -540,6 +540,8 @@ function.</P>
 <LI>rebootafterexit</LI>
 <LI>
 <A HREF="#videomode">videomode</A></LI>
+<LI>
+<A HREF="#waitvsync">waitvsync</A></LI>
 </UL>
 </P>
 
@@ -566,6 +568,8 @@ function.</P>
 <LI>rebootafterexit</LI>
 <LI>
 <A HREF="#videomode">videomode</A></LI>
+<LI>
+<A HREF="#waitvsync">waitvsync</A></LI>
 </UL>
 </P>
 
@@ -13796,16 +13800,23 @@ if the mode is not supported due to lack of hardware.</LI>
 <P>Wait until the start of the next video frame.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
-<A HREF="#apple2enh.h">apple2enh.h</A>,
+<A HREF="#apple2.h">apple2.h</A>,
 <A HREF="#atmos.h">atmos.h</A>,
 <A HREF="#cbm.h">cbm.h</A>,
 <A HREF="#gamate.h">gamate.h</A>,
 <A HREF="#nes.h">nes.h</A>,
 <A HREF="#pce.h">pce.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
-<P><CODE>void waitvsync (void);</CODE></P>
+<P><CODE>void waitvsync (void);</CODE><BR></P>
 <DT><B>Description</B><DD>
 <P>Wait for vertical sync, to reduce flickering.</P>
+<DT><B>Notes</B><DD>
+<P>
+<UL>
+<LI>The function will silently fail when the feature is not
+supported, like on the Apple&nbsp;][+.</LI>
+</UL>
+</P>
 <DT><B>Availability</B><DD>
 <P>Platforms served by the headers above
 (Atmos requires the VSync hack)</P>
