@@ -1273,6 +1273,91 @@ in the samples directory for some preprocessor kludges that might help.</P>
 <LI><CODE>__CC65_STD_CC65__</CODE></LI>
 </UL>
 </P>
+<P>
+<A NAME="macro-CPU"></A> </P>
+<DT><B><CODE>__CPU__</CODE></B><DD>
+<P>This macro contains a bitset that allows to check if a specific instruction
+set is supported. For example, the 65C02 CPU supports all instructions of the
+65SC02. So testing for the instruction set of the 65SC02 using the following
+check will succeed for both CPUs (and also for the 65816 and HUC6280).</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  #if (__CPU__ &amp; __CPU_ISET_65SC02__)
+  
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>This is much simpler and more future proof than checking for specific CPUs.</P>
+<P>The compiler defines a set of constants named <CODE>__CPU_ISET_xxx</CODE> to do the
+checks. The <CODE>__CPU__</CODE> variable is usually derived from the target system
+given, but can be changed using the <CODE>
+<A HREF="#option--cpu">--cpu</A></CODE>
+command line option.</P>
+
+<DT><B><CODE>__CPU_6502__</CODE></B><DD>
+<P>This macro is defined if the code is compiled for a 6502 CPU.</P>
+
+<DT><B><CODE>__CPU_6502X__</CODE></B><DD>
+<P>This macro is defined if the code is compiled for a 6502 CPU with invalid
+opcodes.</P>
+
+<DT><B><CODE>__CPU_6502DTV__</CODE></B><DD>
+<P>This macro is defined if the code is compiled for a DTV CPU.</P>
+
+<DT><B><CODE>__CPU_65SC02__</CODE></B><DD>
+<P>This macro is defined if the code is compiled for a 65SC02 CPU.</P>
+
+<DT><B><CODE>__CPU_65C02__</CODE></B><DD>
+<P>This macro is defined if the code is compiled for a 65C02 CPU.</P>
+
+<DT><B><CODE>__CPU_65816__</CODE></B><DD>
+<P>This macro is defined if the code is compiled for a 65816 CPU.</P>
+
+<DT><B><CODE>__CPU_HUC6280__</CODE></B><DD>
+<P>This macro is defined if the code is compiled for a HUC6280 CPU.</P>
+
+<DT><B><CODE>__CPU_ISET_6502__</CODE></B><DD>
+<P>This macro expands to a numeric constant that can be used to check the
+<CODE>
+<A HREF="#macro-CPU">__CPU__</A></CODE> macro for the instruction set
+of the 6502 CPU.</P>
+
+<DT><B><CODE>__CPU_ISET_6502X__</CODE></B><DD>
+<P>This macro expands to a numeric constant that can be used to check the
+<CODE>
+<A HREF="#macro-CPU">__CPU__</A></CODE> macro for the instruction set
+of the 6502X CPU.</P>
+
+<DT><B><CODE>__CPU_ISET_6502DTV__</CODE></B><DD>
+<P>This macro expands to a numeric constant that can be used to check the
+<CODE>
+<A HREF="#macro-CPU">__CPU__</A></CODE> macro for the instruction set
+of the 6502DTV CPU.</P>
+
+<DT><B><CODE>__CPU_ISET_65SC02__</CODE></B><DD>
+<P>This macro expands to a numeric constant that can be used to check the
+<CODE>
+<A HREF="#macro-CPU">__CPU__</A></CODE> macro for the instruction set
+of the 65SC02 CPU.</P>
+
+<DT><B><CODE>__CPU_ISET_65C02__</CODE></B><DD>
+<P>This macro expands to a numeric constant that can be used to check the
+<CODE>
+<A HREF="#macro-CPU">__CPU__</A></CODE> macro for the instruction set
+of the 65C02 CPU.</P>
+
+<DT><B><CODE>__CPU_ISET_65816__</CODE></B><DD>
+<P>This macro expands to a numeric constant that can be used to check the
+<CODE>
+<A HREF="#macro-CPU">__CPU__</A></CODE> macro for the instruction set
+of the 65816 CPU.</P>
+
+<DT><B><CODE>__CPU_ISET_HUC6280__</CODE></B><DD>
+<P>This macro expands to a numeric constant that can be used to check the
+<CODE>
+<A HREF="#macro-CPU">__CPU__</A></CODE> macro for the instruction set
+of the HUC6280 CPU.</P>
 
 <DT><B><CODE>__CX16__</CODE></B><DD>
 <P>This macro is defined if the target is the Commander X16 (-t cx16).</P>
