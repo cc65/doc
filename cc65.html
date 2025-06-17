@@ -131,6 +131,8 @@ Short options:
   -V                            Print the compiler version number
   -W [-+]warning[,...]          Control warnings ('-' disables, '+' enables)
   -d                            Debug mode
+  -dM                           Output all user macros (needs -E)
+  -dP                           Output all predefined macros (needs -E)
   -g                            Add debug info to object file
   -h                            Help (this text)
   -j                            Default characters are signed
@@ -261,6 +263,26 @@ brackets).</P>
 
 <DT><B><CODE>-d, --debug</CODE></B><DD>
 <P>Enables debug mode, for debugging the behavior of cc65.</P>
+
+
+<P>
+<A NAME="option-dM"></A> </P>
+<DT><B><CODE>-dM</CODE></B><DD>
+<P>When used with -E, will output <CODE>#define</CODE> directives for all the user
+macros defined during execution of the preprocessor. This does not include
+macros defined by the compiler.</P>
+<P>Note: Can be combined with <CODE>
+<A HREF="#option-dP">-dP</A></CODE> by using
+<CODE>-dMP</CODE>.</P>
+
+<P>
+<A NAME="option-dP"></A> </P>
+<DT><B><CODE>-dP</CODE></B><DD>
+<P>When used with -E, will output <CODE>#define</CODE> directives for all the macros
+defined by the compiler itself. This does not include any user defined macros.</P>
+<P>Note: Can be combined with <CODE>
+<A HREF="#option-dM">-dM</A></CODE> by using
+<CODE>-dMP</CODE>.</P>
 
 
 <DT><B><CODE>--debug-tables name</CODE></B><DD>
