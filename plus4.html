@@ -229,7 +229,25 @@ declaration of the structure.</P>
 </H2>
 
 
-<P>No graphics drivers are currently available for the Plus/4.</P>
+<P>
+<DL>
+<DT><B><CODE>ted-hi.tgi (ted_hi_tgi)</CODE></B><DD>
+<P>This driver features a resolution of 320*200 with two colors and an
+adjustable palette (that means that the two colors can be chosen out of a
+palette of the 121 TED colors).</P>
+<P>Note that the text-mode character matrix and color data are destroyed by this
+driver. The driver calls the Kernal <CODE>CLRSCR</CODE> routine to return the text
+screen to a usable (if empty) state on <CODE>tgi_done()</CODE>.</P>
+<P>This driver places the bitmap at $C000-$E000. Programs using
+this driver must either be linked with the option <CODE>-D
+__HIMEM__=$C000</CODE>, or use the <CODE>plus4-hires.cfg</CODE> linker configuration.</P>
+<P>The <CODE>plus4-hires.cfg</CODE> is preferable, as it allows the stack to remain at
+$FCFF, and exposes the remaining high memory from the end of the bitmap
+to the stack top as a <CODE>HIBSS</CODE> segment that can be used by the programmer,
+or given to <CODE>_heapadd()</CODE> (using the symbols <CODE>_HIBSS_START__</CODE> and
+<CODE>_HIBSS_SIZE__</CODE>).</P>
+</DL>
+</P>
 
 
 <H2><A NAME="ss5.2">5.2</A> <A HREF="#toc5.2">Extended memory drivers</A>
