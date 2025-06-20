@@ -38,12 +38,18 @@ used as a standalone product.</EM>
 
 <UL>
 <LI><A NAME="toc4.1">4.1</A> <A HREF="ca65.html#ss4.1">Assembler syntax</A>
-<LI><A NAME="toc4.2">4.2</A> <A HREF="ca65.html#ss4.2">65816 mode</A>
+<LI><A NAME="toc4.2">4.2</A> <A HREF="ca65.html#ss4.2">6502 mode</A>
 <LI><A NAME="toc4.3">4.3</A> <A HREF="ca65.html#ss4.3">6502X mode</A>
-<LI><A NAME="toc4.4">4.4</A> <A HREF="ca65.html#ss4.4">4510 mode</A>
-<LI><A NAME="toc4.5">4.5</A> <A HREF="ca65.html#ss4.5">sweet16 mode</A>
-<LI><A NAME="toc4.6">4.6</A> <A HREF="ca65.html#ss4.6">Number format</A>
-<LI><A NAME="toc4.7">4.7</A> <A HREF="ca65.html#ss4.7">Conditional assembly</A>
+<LI><A NAME="toc4.4">4.4</A> <A HREF="ca65.html#ss4.4">DTV mode</A>
+<LI><A NAME="toc4.5">4.5</A> <A HREF="ca65.html#ss4.5">65SC02 mode</A>
+<LI><A NAME="toc4.6">4.6</A> <A HREF="ca65.html#ss4.6">65C02 mode</A>
+<LI><A NAME="toc4.7">4.7</A> <A HREF="ca65.html#ss4.7">4510 mode</A>
+<LI><A NAME="toc4.8">4.8</A> <A HREF="ca65.html#ss4.8">HUC6280 mode</A>
+<LI><A NAME="toc4.9">4.9</A> <A HREF="ca65.html#ss4.9">M740 mode</A>
+<LI><A NAME="toc4.10">4.10</A> <A HREF="ca65.html#ss4.10">65816 mode</A>
+<LI><A NAME="toc4.11">4.11</A> <A HREF="ca65.html#ss4.11">sweet16 mode</A>
+<LI><A NAME="toc4.12">4.12</A> <A HREF="ca65.html#ss4.12">Number format</A>
+<LI><A NAME="toc4.13">4.13</A> <A HREF="ca65.html#ss4.13">Conditional assembly</A>
 </UL>
 <P>
 <H2><A NAME="toc5">5.</A> <A HREF="ca65.html#s5">Expressions</A></H2>
@@ -199,55 +205,57 @@ used as a standalone product.</EM>
 <LI><A NAME="toc11.59">11.59</A> <A HREF="ca65.html#ss11.59"><CODE>.IFP816</CODE></A>
 <LI><A NAME="toc11.60">11.60</A> <A HREF="ca65.html#ss11.60"><CODE>.IFPC02</CODE></A>
 <LI><A NAME="toc11.61">11.61</A> <A HREF="ca65.html#ss11.61"><CODE>.IFPDTV</CODE></A>
-<LI><A NAME="toc11.62">11.62</A> <A HREF="ca65.html#ss11.62"><CODE>.IFPSC02</CODE></A>
-<LI><A NAME="toc11.63">11.63</A> <A HREF="ca65.html#ss11.63"><CODE>.IFREF</CODE></A>
-<LI><A NAME="toc11.64">11.64</A> <A HREF="ca65.html#ss11.64"><CODE>.IMPORT</CODE></A>
-<LI><A NAME="toc11.65">11.65</A> <A HREF="ca65.html#ss11.65"><CODE>.IMPORTZP</CODE></A>
-<LI><A NAME="toc11.66">11.66</A> <A HREF="ca65.html#ss11.66"><CODE>.INCBIN</CODE></A>
-<LI><A NAME="toc11.67">11.67</A> <A HREF="ca65.html#ss11.67"><CODE>.INCLUDE</CODE></A>
-<LI><A NAME="toc11.68">11.68</A> <A HREF="ca65.html#ss11.68"><CODE>.INTERRUPTOR</CODE></A>
-<LI><A NAME="toc11.69">11.69</A> <A HREF="ca65.html#ss11.69"><CODE>.LIST</CODE></A>
-<LI><A NAME="toc11.70">11.70</A> <A HREF="ca65.html#ss11.70"><CODE>.LISTBYTES</CODE></A>
-<LI><A NAME="toc11.71">11.71</A> <A HREF="ca65.html#ss11.71"><CODE>.LITERAL</CODE></A>
-<LI><A NAME="toc11.72">11.72</A> <A HREF="ca65.html#ss11.72"><CODE>.LOBYTES</CODE></A>
-<LI><A NAME="toc11.73">11.73</A> <A HREF="ca65.html#ss11.73"><CODE>.LOCAL</CODE></A>
-<LI><A NAME="toc11.74">11.74</A> <A HREF="ca65.html#ss11.74"><CODE>.LOCALCHAR</CODE></A>
-<LI><A NAME="toc11.75">11.75</A> <A HREF="ca65.html#ss11.75"><CODE>.MACPACK</CODE></A>
-<LI><A NAME="toc11.76">11.76</A> <A HREF="ca65.html#ss11.76"><CODE>.MAC, .MACRO</CODE></A>
-<LI><A NAME="toc11.77">11.77</A> <A HREF="ca65.html#ss11.77"><CODE>.ORG</CODE></A>
-<LI><A NAME="toc11.78">11.78</A> <A HREF="ca65.html#ss11.78"><CODE>.OUT</CODE></A>
-<LI><A NAME="toc11.79">11.79</A> <A HREF="ca65.html#ss11.79"><CODE>.P02</CODE></A>
-<LI><A NAME="toc11.80">11.80</A> <A HREF="ca65.html#ss11.80"><CODE>.P02X</CODE></A>
-<LI><A NAME="toc11.81">11.81</A> <A HREF="ca65.html#ss11.81"><CODE>.P4510</CODE></A>
-<LI><A NAME="toc11.82">11.82</A> <A HREF="ca65.html#ss11.82"><CODE>.P816</CODE></A>
-<LI><A NAME="toc11.83">11.83</A> <A HREF="ca65.html#ss11.83"><CODE>.PAGELEN, .PAGELENGTH</CODE></A>
-<LI><A NAME="toc11.84">11.84</A> <A HREF="ca65.html#ss11.84"><CODE>.PC02</CODE></A>
-<LI><A NAME="toc11.85">11.85</A> <A HREF="ca65.html#ss11.85"><CODE>.PDTV</CODE></A>
-<LI><A NAME="toc11.86">11.86</A> <A HREF="ca65.html#ss11.86"><CODE>.POPCHARMAP</CODE></A>
-<LI><A NAME="toc11.87">11.87</A> <A HREF="ca65.html#ss11.87"><CODE>.POPCPU</CODE></A>
-<LI><A NAME="toc11.88">11.88</A> <A HREF="ca65.html#ss11.88"><CODE>.POPSEG</CODE></A>
-<LI><A NAME="toc11.89">11.89</A> <A HREF="ca65.html#ss11.89"><CODE>.PROC</CODE></A>
-<LI><A NAME="toc11.90">11.90</A> <A HREF="ca65.html#ss11.90"><CODE>.PSC02</CODE></A>
-<LI><A NAME="toc11.91">11.91</A> <A HREF="ca65.html#ss11.91"><CODE>.PUSHCHARMAP</CODE></A>
-<LI><A NAME="toc11.92">11.92</A> <A HREF="ca65.html#ss11.92"><CODE>.PUSHCPU</CODE></A>
-<LI><A NAME="toc11.93">11.93</A> <A HREF="ca65.html#ss11.93"><CODE>.PUSHSEG</CODE></A>
-<LI><A NAME="toc11.94">11.94</A> <A HREF="ca65.html#ss11.94"><CODE>.REFERTO, .REFTO</CODE></A>
-<LI><A NAME="toc11.95">11.95</A> <A HREF="ca65.html#ss11.95"><CODE>.RELOC</CODE></A>
-<LI><A NAME="toc11.96">11.96</A> <A HREF="ca65.html#ss11.96"><CODE>.REPEAT</CODE></A>
-<LI><A NAME="toc11.97">11.97</A> <A HREF="ca65.html#ss11.97"><CODE>.RES</CODE></A>
-<LI><A NAME="toc11.98">11.98</A> <A HREF="ca65.html#ss11.98"><CODE>.RODATA</CODE></A>
-<LI><A NAME="toc11.99">11.99</A> <A HREF="ca65.html#ss11.99"><CODE>.SCOPE</CODE></A>
-<LI><A NAME="toc11.100">11.100</A> <A HREF="ca65.html#ss11.100"><CODE>.SEGMENT</CODE></A>
-<LI><A NAME="toc11.101">11.101</A> <A HREF="ca65.html#ss11.101"><CODE>.SET</CODE></A>
-<LI><A NAME="toc11.102">11.102</A> <A HREF="ca65.html#ss11.102"><CODE>.SETCPU</CODE></A>
-<LI><A NAME="toc11.103">11.103</A> <A HREF="ca65.html#ss11.103"><CODE>.SMART</CODE></A>
-<LI><A NAME="toc11.104">11.104</A> <A HREF="ca65.html#ss11.104"><CODE>.STRUCT</CODE></A>
-<LI><A NAME="toc11.105">11.105</A> <A HREF="ca65.html#ss11.105"><CODE>.TAG</CODE></A>
-<LI><A NAME="toc11.106">11.106</A> <A HREF="ca65.html#ss11.106"><CODE>.UNDEF, .UNDEFINE</CODE></A>
-<LI><A NAME="toc11.107">11.107</A> <A HREF="ca65.html#ss11.107"><CODE>.UNION</CODE></A>
-<LI><A NAME="toc11.108">11.108</A> <A HREF="ca65.html#ss11.108"><CODE>.WARNING</CODE></A>
-<LI><A NAME="toc11.109">11.109</A> <A HREF="ca65.html#ss11.109"><CODE>.WORD</CODE></A>
-<LI><A NAME="toc11.110">11.110</A> <A HREF="ca65.html#ss11.110"><CODE>.ZEROPAGE</CODE></A>
+<LI><A NAME="toc11.62">11.62</A> <A HREF="ca65.html#ss11.62"><CODE>.IFPM740</CODE></A>
+<LI><A NAME="toc11.63">11.63</A> <A HREF="ca65.html#ss11.63"><CODE>.IFPSC02</CODE></A>
+<LI><A NAME="toc11.64">11.64</A> <A HREF="ca65.html#ss11.64"><CODE>.IFREF</CODE></A>
+<LI><A NAME="toc11.65">11.65</A> <A HREF="ca65.html#ss11.65"><CODE>.IMPORT</CODE></A>
+<LI><A NAME="toc11.66">11.66</A> <A HREF="ca65.html#ss11.66"><CODE>.IMPORTZP</CODE></A>
+<LI><A NAME="toc11.67">11.67</A> <A HREF="ca65.html#ss11.67"><CODE>.INCBIN</CODE></A>
+<LI><A NAME="toc11.68">11.68</A> <A HREF="ca65.html#ss11.68"><CODE>.INCLUDE</CODE></A>
+<LI><A NAME="toc11.69">11.69</A> <A HREF="ca65.html#ss11.69"><CODE>.INTERRUPTOR</CODE></A>
+<LI><A NAME="toc11.70">11.70</A> <A HREF="ca65.html#ss11.70"><CODE>.LIST</CODE></A>
+<LI><A NAME="toc11.71">11.71</A> <A HREF="ca65.html#ss11.71"><CODE>.LISTBYTES</CODE></A>
+<LI><A NAME="toc11.72">11.72</A> <A HREF="ca65.html#ss11.72"><CODE>.LITERAL</CODE></A>
+<LI><A NAME="toc11.73">11.73</A> <A HREF="ca65.html#ss11.73"><CODE>.LOBYTES</CODE></A>
+<LI><A NAME="toc11.74">11.74</A> <A HREF="ca65.html#ss11.74"><CODE>.LOCAL</CODE></A>
+<LI><A NAME="toc11.75">11.75</A> <A HREF="ca65.html#ss11.75"><CODE>.LOCALCHAR</CODE></A>
+<LI><A NAME="toc11.76">11.76</A> <A HREF="ca65.html#ss11.76"><CODE>.MACPACK</CODE></A>
+<LI><A NAME="toc11.77">11.77</A> <A HREF="ca65.html#ss11.77"><CODE>.MAC, .MACRO</CODE></A>
+<LI><A NAME="toc11.78">11.78</A> <A HREF="ca65.html#ss11.78"><CODE>.ORG</CODE></A>
+<LI><A NAME="toc11.79">11.79</A> <A HREF="ca65.html#ss11.79"><CODE>.OUT</CODE></A>
+<LI><A NAME="toc11.80">11.80</A> <A HREF="ca65.html#ss11.80"><CODE>.P02</CODE></A>
+<LI><A NAME="toc11.81">11.81</A> <A HREF="ca65.html#ss11.81"><CODE>.P02X</CODE></A>
+<LI><A NAME="toc11.82">11.82</A> <A HREF="ca65.html#ss11.82"><CODE>.P4510</CODE></A>
+<LI><A NAME="toc11.83">11.83</A> <A HREF="ca65.html#ss11.83"><CODE>.P816</CODE></A>
+<LI><A NAME="toc11.84">11.84</A> <A HREF="ca65.html#ss11.84"><CODE>.PAGELEN, .PAGELENGTH</CODE></A>
+<LI><A NAME="toc11.85">11.85</A> <A HREF="ca65.html#ss11.85"><CODE>.PC02</CODE></A>
+<LI><A NAME="toc11.86">11.86</A> <A HREF="ca65.html#ss11.86"><CODE>.PDTV</CODE></A>
+<LI><A NAME="toc11.87">11.87</A> <A HREF="ca65.html#ss11.87"><CODE>.PM740</CODE></A>
+<LI><A NAME="toc11.88">11.88</A> <A HREF="ca65.html#ss11.88"><CODE>.POPCHARMAP</CODE></A>
+<LI><A NAME="toc11.89">11.89</A> <A HREF="ca65.html#ss11.89"><CODE>.POPCPU</CODE></A>
+<LI><A NAME="toc11.90">11.90</A> <A HREF="ca65.html#ss11.90"><CODE>.POPSEG</CODE></A>
+<LI><A NAME="toc11.91">11.91</A> <A HREF="ca65.html#ss11.91"><CODE>.PROC</CODE></A>
+<LI><A NAME="toc11.92">11.92</A> <A HREF="ca65.html#ss11.92"><CODE>.PSC02</CODE></A>
+<LI><A NAME="toc11.93">11.93</A> <A HREF="ca65.html#ss11.93"><CODE>.PUSHCHARMAP</CODE></A>
+<LI><A NAME="toc11.94">11.94</A> <A HREF="ca65.html#ss11.94"><CODE>.PUSHCPU</CODE></A>
+<LI><A NAME="toc11.95">11.95</A> <A HREF="ca65.html#ss11.95"><CODE>.PUSHSEG</CODE></A>
+<LI><A NAME="toc11.96">11.96</A> <A HREF="ca65.html#ss11.96"><CODE>.REFERTO, .REFTO</CODE></A>
+<LI><A NAME="toc11.97">11.97</A> <A HREF="ca65.html#ss11.97"><CODE>.RELOC</CODE></A>
+<LI><A NAME="toc11.98">11.98</A> <A HREF="ca65.html#ss11.98"><CODE>.REPEAT</CODE></A>
+<LI><A NAME="toc11.99">11.99</A> <A HREF="ca65.html#ss11.99"><CODE>.RES</CODE></A>
+<LI><A NAME="toc11.100">11.100</A> <A HREF="ca65.html#ss11.100"><CODE>.RODATA</CODE></A>
+<LI><A NAME="toc11.101">11.101</A> <A HREF="ca65.html#ss11.101"><CODE>.SCOPE</CODE></A>
+<LI><A NAME="toc11.102">11.102</A> <A HREF="ca65.html#ss11.102"><CODE>.SEGMENT</CODE></A>
+<LI><A NAME="toc11.103">11.103</A> <A HREF="ca65.html#ss11.103"><CODE>.SET</CODE></A>
+<LI><A NAME="toc11.104">11.104</A> <A HREF="ca65.html#ss11.104"><CODE>.SETCPU</CODE></A>
+<LI><A NAME="toc11.105">11.105</A> <A HREF="ca65.html#ss11.105"><CODE>.SMART</CODE></A>
+<LI><A NAME="toc11.106">11.106</A> <A HREF="ca65.html#ss11.106"><CODE>.STRUCT</CODE></A>
+<LI><A NAME="toc11.107">11.107</A> <A HREF="ca65.html#ss11.107"><CODE>.TAG</CODE></A>
+<LI><A NAME="toc11.108">11.108</A> <A HREF="ca65.html#ss11.108"><CODE>.UNDEF, .UNDEFINE</CODE></A>
+<LI><A NAME="toc11.109">11.109</A> <A HREF="ca65.html#ss11.109"><CODE>.UNION</CODE></A>
+<LI><A NAME="toc11.110">11.110</A> <A HREF="ca65.html#ss11.110"><CODE>.WARNING</CODE></A>
+<LI><A NAME="toc11.111">11.111</A> <A HREF="ca65.html#ss11.111"><CODE>.WORD</CODE></A>
+<LI><A NAME="toc11.112">11.112</A> <A HREF="ca65.html#ss11.112"><CODE>.ZEROPAGE</CODE></A>
 </UL>
 <P>
 <H2><A NAME="toc12">12.</A> <A HREF="ca65.html#s12">Macros</A></H2>
@@ -455,7 +463,7 @@ additional directories. See also the section about
 <DT><B><CODE>--cpu type</CODE></B><DD>
 <P>Set the default for the CPU type. The option takes a parameter, which
 may be one of</P>
-<P>6502, 6502X, 6502DTV, 65SC02, 65C02, 65816, sweet16, HuC6280, 4510</P>
+<P>6502, 6502X, 6502DTV, 65SC02, 65C02, 65816, sweet16, HuC6280, 4510, M740</P>
 
 <P>
 <A NAME="option-create-dep"></A> </P>
@@ -689,7 +697,8 @@ environment variable <CODE>CC65_HOME</CODE>, if it is defined.</LI>
 
 <H2><A NAME="s4">4.</A> <A HREF="#toc4">Input format</A></H2>
 
-
+<P>
+<A NAME="input-format"></A> </P>
 
 <H2><A NAME="ss4.1">4.1</A> <A HREF="#toc4.1">Assembler syntax</A>
 </H2>
@@ -719,26 +728,39 @@ it is ignored).</P>
 <P>The assembler accepts</P>
 <P>
 <UL>
-<LI>all valid 6502 mnemonics when in 6502 mode (the default or after the
+<LI>all valid 6502 mnemonics when in 
+<A HREF="#6502-mode">6502 mode</A>
+(the default or after the
 <CODE>
 <A HREF="#.P02">.P02</A></CODE> command was given).</LI>
-<LI>all valid 6502 mnemonics plus a set of illegal instructions when in
-<A HREF="#6502X-mode">6502X mode</A>.</LI>
-<LI>all valid 6502DTV mnemonics when in 6502DTV mode (after the
+<LI>all valid 6502 mnemonics, plus a set of illegal instructions, when in
+<A HREF="#6502X-mode">6502X mode</A> (after the
+<CODE>
+<A HREF="#.P02X">.P02X</A></CODE> command was given).</LI>
+<LI>all valid 6502DTV mnemonics when in 
+<A HREF="#DTV-mode">DTV mode</A> (after the
 <CODE>
 <A HREF="#.PDTV">.PDTV</A></CODE> command was given).</LI>
-<LI>all valid 65SC02 mnemonics when in 65SC02 mode (after the
+<LI>all valid 65SC02 mnemonics when in 
+<A HREF="#65SC02-mode">65SC02 mode</A> (after the
 <CODE>
 <A HREF="#.PSC02">.PSC02</A></CODE> command was given).</LI>
-<LI>all valid 65C02 mnemonics when in 65C02 mode (after the
+<LI>all valid 65C02 mnemonics when in 
+<A HREF="#65C02-mode">65C02 mode</A> (after the
 <CODE>
 <A HREF="#.PC02">.PC02</A></CODE> command was given).</LI>
-<LI>all valid 65816 mnemonics when in 65816 mode (after the
+<LI>all valid 65816 mnemonics when in 
+<A HREF="#65816-mode">65816 mode</A> (after the
 <CODE>
 <A HREF="#.P816">.P816</A></CODE> command was given).</LI>
-<LI>all valid 4510 mnemonics when in 4510 mode (after the
+<LI>all valid 4510 mnemonics when in 
+<A HREF="#4510-mode">4510 mode</A> (after the
 <CODE>
 <A HREF="#.P4510">.P4510</A></CODE> command was given).</LI>
+<LI>all valid M740 mnemonics when in 
+<A HREF="#M740-mode">M740 mode</A> (after the
+<CODE>
+<A HREF="#.PM740">.PM740</A></CODE> command was given).</LI>
 </UL>
 </P>
 <P>On 6502-derived platforms the <CODE>BRK</CODE> instruction has an optional signature
@@ -753,9 +775,232 @@ byte. If omitted, the assembler will only produce only 1 byte.</P>
 </CODE></BLOCKQUOTE>
 </P>
 
-
-<H2><A NAME="ss4.2">4.2</A> <A HREF="#toc4.2">65816 mode</A>
+<H2><A NAME="6502-mode"></A> <A NAME="ss4.2">4.2</A> <A HREF="#toc4.2">6502 mode</A>
 </H2>
+
+
+<P>In 6502 mode (which is the default) the assembler accepts all regular "legal"
+6502 mnemonics and addressing modes.</P>
+
+<H2><A NAME="6502X-mode"></A> <A NAME="ss4.3">4.3</A> <A HREF="#toc4.3">6502X mode</A>
+</H2>
+
+
+<P>6502X mode is an extension to the normal 6502 mode. In this mode, several
+mnemonics for undocumented instructions of the NMOS 6502 CPUs are accepted.</P>
+<P>Note: Since these instructions are undocumented, there are no official mnemonics
+for them.</P>
+<P>
+<UL>
+<LI><CODE>ALR: A:=(A and #{imm})/2;</CODE></LI>
+<LI><CODE>ANC: A:= A and #{imm};</CODE> Generates opcode $0B.</LI>
+<LI><CODE>ANE: A:= (A or CONST) and X and #{imm};</CODE></LI>
+<LI><CODE>ARR: A:=(A and #{imm})/2;</CODE></LI>
+<LI><CODE>AXS: X:=A and X-#{imm};</CODE></LI>
+<LI><CODE>DCP: {addr}:={addr}-1; A-{addr};</CODE></LI>
+<LI><CODE>ISC: {addr}:={addr}+1; A:=A-{addr};</CODE></LI>
+<LI><CODE>JAM:</CODE></LI>
+<LI><CODE>LAS: A,X,S:={addr} and S;</CODE></LI>
+<LI><CODE>LAX: A,X:={addr};</CODE></LI>
+<LI><CODE>NOP: #{imm}; zp; zp,x; abs; abs,x</CODE></LI>
+<LI><CODE>RLA: {addr}:={addr}rol; A:=A and {addr};</CODE></LI>
+<LI><CODE>RRA: {addr}:={addr}ror; A:=A adc {addr};</CODE></LI>
+<LI><CODE>SAX: {addr}:=A and X;</CODE></LI>
+<LI><CODE>SHA: {addr}:=A and X and {addr hi +1};</CODE></LI>
+<LI><CODE>SHX: {addr}:=X and {addr hi +1};</CODE></LI>
+<LI><CODE>SHY: {addr}:=Y and {addr hi +1};</CODE></LI>
+<LI><CODE>SLO: {addr}:={addr}*2; A:=A or {addr};</CODE></LI>
+<LI><CODE>SRE: {addr}:={addr}/2; A:=A xor {addr};</CODE></LI>
+<LI><CODE>TAS: {addr}:=A and X and {addr hi +1}; SP:=A and X;</CODE></LI>
+</UL>
+</P>
+
+
+<H2><A NAME="DTV-mode"></A> <A NAME="ss4.4">4.4</A> <A HREF="#toc4.4">DTV mode</A>
+</H2>
+
+
+<P>The C64DTV CPU is based on the 6510, but adds some instructions, and does not
+support all undocumented instructions.</P>
+<P>
+<UL>
+<LI><CODE>bra {rel}</CODE> Generates opcode $12.</LI>
+<LI><CODE>sac #{imm}</CODE> Generates opcode $32.</LI>
+<LI><CODE>sir #{imm}</CODE> Generates opcode $42.</LI>
+</UL>
+</P>
+<P>Supported undocumented instructions:</P>
+<P>
+<UL>
+<LI><CODE>ALR: A:=(A and #{imm})/2;</CODE></LI>
+<LI><CODE>ANC: A:=A and #{imm};</CODE> Generates opcode $0B.</LI>
+<LI><CODE>ARR: A:=(A and #{imm})/2;</CODE></LI>
+<LI><CODE>AXS: X:=A and X-#{imm};</CODE></LI>
+<LI><CODE>LAS: A,X,S:={addr} and S;</CODE></LI>
+<LI><CODE>LAX: A,X:={addr};</CODE></LI>
+<LI><CODE>NOP: #{imm}; zp; zp,x; abs; abs,x</CODE></LI>
+<LI><CODE>RLA: {addr}:={addr}rol; A:=A and {addr};</CODE></LI>
+<LI><CODE>RRA: {addr}:={addr}ror; A:=A adc {addr};</CODE></LI>
+<LI><CODE>SHX: {addr}:=X and {addr hi +1};</CODE></LI>
+<LI><CODE>SHY: {addr}:=y and {addr hi +1};</CODE></LI>
+</UL>
+</P>
+
+
+<H2><A NAME="65SC02-mode"></A> <A NAME="ss4.5">4.5</A> <A HREF="#toc4.5">65SC02 mode</A>
+</H2>
+
+
+<P>65SC02 mode supports all regular 6502 instructions, plus the following:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+$04  tsb zp
+$0c  tsb abs16
+$12  ora (zp)
+$14  trb zp
+$1a  inc
+$1c  trb abs16
+$32  and (zp)
+$34  bit zp, x
+$3a  dec
+$3c  bit abs16, x
+$52  eor (zp)
+$5a  phy
+$64  stz zp
+$72  adc (zp)
+$74  stz zp, x
+$7a  ply
+$7c  jmp (abs16, x)
+$80  bra rel8
+$89  bit #imm8
+$92  sta (zp)
+$9c  stz abs16
+$9e  stz abs16, x
+$b2  lda (zp)
+$d2  cmp (zp)
+$da  phx
+$f2  sbc (zp)
+$fa  plx
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="65C02-mode"></A> <A NAME="ss4.6">4.6</A> <A HREF="#toc4.6">65C02 mode</A>
+</H2>
+
+
+<P>65C02 mode supports all "official" W65C02 opcodes.</P>
+<P>The R65C02 adds bit manipulation instructions:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+smbB zp         set bit in zp location
+rmbB zp         reset bit in zp location
+bbsB zp, rel8   branch if bit is set in zp location
+bbrB zp, rel8   branch if bit is reset in zp location
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>And the W65C02 adds those:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+$cb  wai    wait for interrupt
+$db  stp    wait for reset
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="4510-mode"></A> <A NAME="ss4.7">4.7</A> <A HREF="#toc4.7">4510 mode</A>
+</H2>
+
+
+<P>The 4510 is a microcontroller that is the core of the Commodore C65 aka C64DX.
+It contains among other functions a slightly modified 65CE02/4502 CPU, to allow
+address mapping for 20 bits of address space (1 megabyte addressable area).</P>
+<P>The 4510 mode supports the complete (legal) 65CE02 instruction set, plus these
+three, which were changed/added:
+<BLOCKQUOTE><CODE>
+<PRE>
+$5c  map             "4-byte NOP reserved for future expansion" on 65CE02
+$cb  asw $1234       wai on W65C02
+$db  phz             stp on W65C02
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>As compared to the description of the CPU in the
+<A HREF="http://www.zimmers.net/anonftp/pub/cbm/c65/c65manualupdated.txt.gz">C65 System Specification</A>
+<A HREF="https://raw.githubusercontent.com/MEGA65/c65-specifications/master/c65manualupdated.txt">(updated version)</A> uses these changes:
+<UL>
+<LI><CODE>LDA (d,SP),Y</CODE> may also be written as <CODE>LDA (d,S),Y</CODE>
+(matching the 65816 notation).</LI>
+<LI>All branch instruction allow now 16 bit offsets. To use a 16 bit
+branch you have to prefix these with an "L" (e.g. "<CODE>LBNE</CODE>" instead of
+"<CODE>BNE</CODE>"). This might change at a later implementation of the assembler.</LI>
+</UL>
+</P>
+<P>For more information about the Commodore C65/C64DX and the 4510 CPU, see
+<A HREF="http://www.zimmers.net/anonftp/pub/cbm/c65/">http://www.zimmers.net/anonftp/pub/cbm/c65/</A> and
+<A HREF="https://en.wikipedia.org/wiki/Commodore_65">Wikipedia</A>.</P>
+
+
+<H2><A NAME="HUC6280-mode"></A> <A NAME="ss4.8">4.8</A> <A HREF="#toc4.8">HUC6280 mode</A>
+</H2>
+
+
+<P>The HUC6280 is a superset of the R65C02. It adds some other instructions:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+$02  sxy
+$03  st0 #{imm}
+$13  st1 #{imm}
+$22  sax
+$23  st2 #{imm}
+$42  say
+$43  tma #{imm}
+$44  bsr {rel}
+$53  tam #{imm}
+$54  csl
+$62  cla
+$73  tii {addr}, {addr}, {addr}
+$82  clx
+$83  tst #{imm}, {zp}
+$82  clx
+$83  tst #{imm}, {zp}
+$93  tst #{imm}, {addr}
+$a3  tst #{imm}, {zp}, x
+$b3  tst #{imm}, {addr}, x
+$c2  cly
+$c3  tdd {addr}, {addr}, {addr}
+$d3  tin {addr}, {addr}, {addr}
+$d4  csh
+$e3  tia {addr}, {addr}, {addr}
+$f3  tai {addr}, {addr}, {addr}
+$f4  set
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Note that this CPU does not implement <CODE>wai</CODE> and <CODE>stp</CODE>.</P>
+
+
+<H2><A NAME="M740-mode"></A> <A NAME="ss4.9">4.9</A> <A HREF="#toc4.9">M740 mode</A>
+</H2>
+
+
+<P>The M740 is a microcontroller by Mitsubishi, which was marketed for embedded
+devices in the mid 80s. It is a superset of 6502, and a subset of 65SC02, plus
+some new instructions.</P>
+<P>For more information about the M740 Controllers, see
+<A HREF="https://en.wikipedia.org/wiki/Mitsubishi_740">Wikipedia</A>.</P>
+
+
+<H2><A NAME="65816-mode"></A> <A NAME="ss4.10">4.10</A> <A HREF="#toc4.10">65816 mode</A>
+</H2>
+
 
 
 <P>In 65816 mode, several aliases are accepted, in addition to the official
@@ -787,60 +1032,7 @@ or two far addresses whose high byte will be used.</P>
 </P>
 
 
-<H2><A NAME="6502X-mode"></A> <A NAME="ss4.3">4.3</A> <A HREF="#toc4.3">6502X mode</A>
-</H2>
-
-
-<P>6502X mode is an extension to the normal 6502 mode. In this mode, several
-mnemonics for illegal instructions of the NMOS 6502 CPUs are accepted. Since
-these instructions are illegal, there are no official mnemonics for them. The
-unofficial ones are taken from 
-<A HREF="http://www.oxyron.de/html/opcodes02.html">http://www.oxyron.de/html/opcodes02.html</A>. Please note that only the
-ones marked as "stable" are supported. The following table uses information
-from the mentioned web page, for more information, see there.</P>
-<P>
-<UL>
-<LI><CODE>ALR: A:=(A and #{imm})/2;</CODE></LI>
-<LI><CODE>ANC: A:=A and #{imm};</CODE> Generates opcode $0B.</LI>
-<LI><CODE>ARR: A:=(A and #{imm})/2;</CODE></LI>
-<LI><CODE>AXS: X:=A and X-#{imm};</CODE></LI>
-<LI><CODE>DCP: {adr}:={adr}-1; A-{adr};</CODE></LI>
-<LI><CODE>ISC: {adr}:={adr}+1; A:=A-{adr};</CODE></LI>
-<LI><CODE>LAS: A,X,S:={adr} and S;</CODE></LI>
-<LI><CODE>LAX: A,X:={adr};</CODE></LI>
-<LI><CODE>RLA: {adr}:={adr}rol; A:=A and {adr};</CODE></LI>
-<LI><CODE>RRA: {adr}:={adr}ror; A:=A adc {adr};</CODE></LI>
-<LI><CODE>SAX: {adr}:=A and X;</CODE></LI>
-<LI><CODE>SLO: {adr}:={adr}*2; A:=A or {adr};</CODE></LI>
-<LI><CODE>SRE: {adr}:={adr}/2; A:=A xor {adr};</CODE></LI>
-</UL>
-</P>
-
-
-<H2><A NAME="ss4.4">4.4</A> <A HREF="#toc4.4">4510 mode</A>
-</H2>
-
-
-<P>The 4510 is a microcontroller that is the core of the Commodore C65 aka C64DX.
-It contains among other functions a slightly modified 65CE02/4502 CPU, to allow
-address mapping for 20 bits of address space (1 megabyte addressable area).
-As compared to the description of the CPU in the
-<A HREF="http://www.zimmers.net/anonftp/pub/cbm/c65/c65manualupdated.txt.gz">C65 System Specification</A>
-<A HREF="https://raw.githubusercontent.com/MEGA65/c65-specifications/master/c65manualupdated.txt">(updated version)</A> uses these changes:
-<UL>
-<LI><CODE>LDA (d,SP),Y</CODE> may also be written as <CODE>LDA (d,S),Y</CODE>
-(matching the 65816 notataion).</LI>
-<LI>All branch instruction allow now 16 bit offsets. To use a 16 bit
-branch you have to prefix these with an "L" (e.g. "<CODE>LBNE</CODE>" instead of
-"<CODE>BNE</CODE>"). This might change at a later implementation of the assembler.</LI>
-</UL>
-
-For more information about the Commodore C65/C64DX and the 4510 CPU, see
-<A HREF="http://www.zimmers.net/anonftp/pub/cbm/c65/">http://www.zimmers.net/anonftp/pub/cbm/c65/</A> and
-<A HREF="https://en.wikipedia.org/wiki/Commodore_65">Wikipedia</A>.</P>
-
-
-<H2><A NAME="sweet16-mode"></A> <A NAME="ss4.5">4.5</A> <A HREF="#toc4.5">sweet16 mode</A>
+<H2><A NAME="sweet16-mode"></A> <A NAME="ss4.11">4.11</A> <A HREF="#toc4.11">sweet16 mode</A>
 </H2>
 
 
@@ -868,7 +1060,7 @@ nor does it call the interpreter. All this must be done by your program. Apple
 <A HREF="http://www.6502.org/source/interpreters/sweet16.htm">http://www.6502.org/source/interpreters/sweet16.htm</A>.</P>
 
 
-<H2><A NAME="ss4.6">4.6</A> <A HREF="#toc4.6">Number format</A>
+<H2><A NAME="ss4.12">4.12</A> <A HREF="#toc4.12">Number format</A>
 </H2>
 
 
@@ -878,7 +1070,7 @@ denotes a binary value, and a bare number is interpreted as a decimal. There
 are currently no octal values and no floats.</P>
 
 
-<H2><A NAME="ss4.7">4.7</A> <A HREF="#toc4.7">Conditional assembly</A>
+<H2><A NAME="ss4.13">4.13</A> <A HREF="#toc4.13">Conditional assembly</A>
 </H2>
 
 
@@ -4115,7 +4307,16 @@ not referenced before, and false otherwise.</P>
 <A HREF="#.PDTV">.PDTV</A></CODE> command).</P>
 
 
-<H2><A NAME=".IFPSC02"></A> <A NAME="ss11.62">11.62</A> <A HREF="#toc11.62"><CODE>.IFPSC02</CODE></A>
+<H2><A NAME=".IFPM740"></A> <A NAME="ss11.62">11.62</A> <A HREF="#toc11.62"><CODE>.IFPM740</CODE></A>
+</H2>
+
+
+<P>Conditional assembly: Check if the assembler is currently in M740 mode
+(see <CODE>
+<A HREF="#.PM740">.PM740</A></CODE> command).</P>
+
+
+<H2><A NAME=".IFPSC02"></A> <A NAME="ss11.63">11.63</A> <A HREF="#toc11.63"><CODE>.IFPSC02</CODE></A>
 </H2>
 
 
@@ -4124,7 +4325,7 @@ not referenced before, and false otherwise.</P>
 <A HREF="#.PSC02">.PSC02</A></CODE> command).</P>
 
 
-<H2><A NAME=".IFREF"></A> <A NAME="ss11.63">11.63</A> <A HREF="#toc11.63"><CODE>.IFREF</CODE></A>
+<H2><A NAME=".IFREF"></A> <A NAME="ss11.64">11.64</A> <A HREF="#toc11.64"><CODE>.IFREF</CODE></A>
 </H2>
 
 
@@ -4152,7 +4353,7 @@ referenced before, and false otherwise.</P>
 <A HREF="#.REFERTO">.REFERTO</A></CODE></P>
 
 
-<H2><A NAME=".IMPORT"></A> <A NAME="ss11.64">11.64</A> <A HREF="#toc11.64"><CODE>.IMPORT</CODE></A>
+<H2><A NAME=".IMPORT"></A> <A NAME="ss11.65">11.65</A> <A HREF="#toc11.65"><CODE>.IMPORT</CODE></A>
 </H2>
 
 
@@ -4173,7 +4374,7 @@ an address specification.</P>
 <A HREF="#.IMPORTZP">.IMPORTZP</A></CODE></P>
 
 
-<H2><A NAME=".IMPORTZP"></A> <A NAME="ss11.65">11.65</A> <A HREF="#toc11.65"><CODE>.IMPORTZP</CODE></A>
+<H2><A NAME=".IMPORTZP"></A> <A NAME="ss11.66">11.66</A> <A HREF="#toc11.66"><CODE>.IMPORTZP</CODE></A>
 </H2>
 
 
@@ -4193,7 +4394,7 @@ as zero page symbols (that is, symbols with values in byte range).</P>
 <A HREF="#.IMPORT">.IMPORT</A></CODE></P>
 
 
-<H2><A NAME=".INCBIN"></A> <A NAME="ss11.66">11.66</A> <A HREF="#toc11.66"><CODE>.INCBIN</CODE></A>
+<H2><A NAME=".INCBIN"></A> <A NAME="ss11.67">11.67</A> <A HREF="#toc11.67"><CODE>.INCBIN</CODE></A>
 </H2>
 
 
@@ -4221,7 +4422,7 @@ either, zero is assumed (which means that the whole file is inserted).</P>
 </P>
 
 
-<H2><A NAME=".INCLUDE"></A> <A NAME="ss11.67">11.67</A> <A HREF="#toc11.67"><CODE>.INCLUDE</CODE></A>
+<H2><A NAME=".INCLUDE"></A> <A NAME="ss11.68">11.68</A> <A HREF="#toc11.68"><CODE>.INCLUDE</CODE></A>
 </H2>
 
 
@@ -4237,7 +4438,7 @@ either, zero is assumed (which means that the whole file is inserted).</P>
 </P>
 
 
-<H2><A NAME=".INTERRUPTOR"></A> <A NAME="ss11.68">11.68</A> <A HREF="#toc11.68"><CODE>.INTERRUPTOR</CODE></A>
+<H2><A NAME=".INTERRUPTOR"></A> <A NAME="ss11.69">11.69</A> <A HREF="#toc11.69"><CODE>.INTERRUPTOR</CODE></A>
 </H2>
 
 
@@ -4271,7 +4472,7 @@ section
 the feature in more detail.</P>
 
 
-<H2><A NAME=".LIST"></A> <A NAME="ss11.69">11.69</A> <A HREF="#toc11.69"><CODE>.LIST</CODE></A>
+<H2><A NAME=".LIST"></A> <A NAME="ss11.70">11.70</A> <A HREF="#toc11.70"><CODE>.LIST</CODE></A>
 </H2>
 
 
@@ -4294,7 +4495,7 @@ counter.</P>
 </P>
 
 
-<H2><A NAME=".LISTBYTES"></A> <A NAME="ss11.70">11.70</A> <A HREF="#toc11.70"><CODE>.LISTBYTES</CODE></A>
+<H2><A NAME=".LISTBYTES"></A> <A NAME="ss11.71">11.71</A> <A HREF="#toc11.71"><CODE>.LISTBYTES</CODE></A>
 </H2>
 
 
@@ -4316,7 +4517,7 @@ integer constant in the range 4..255.</P>
 </P>
 
 
-<H2><A NAME=".LITERAL"></A> <A NAME="ss11.71">11.71</A> <A HREF="#toc11.71"><CODE>.LITERAL</CODE></A>
+<H2><A NAME=".LITERAL"></A> <A NAME="ss11.72">11.72</A> <A HREF="#toc11.72"><CODE>.LITERAL</CODE></A>
 </H2>
 
 
@@ -4338,7 +4539,7 @@ mapping definition and will be interpreted literally.</P>
 <A HREF="#.BYTE">.BYTE</A></CODE></P>
 
 
-<H2><A NAME=".LOBYTES"></A> <A NAME="ss11.72">11.72</A> <A HREF="#toc11.72"><CODE>.LOBYTES</CODE></A>
+<H2><A NAME=".LOBYTES"></A> <A NAME="ss11.73">11.73</A> <A HREF="#toc11.73"><CODE>.LOBYTES</CODE></A>
 </H2>
 
 
@@ -4396,7 +4597,7 @@ the operator '&lt;' prepended to each expression in its list.</P>
 <A HREF="#.BANKBYTES">.BANKBYTES</A></CODE></P>
 
 
-<H2><A NAME=".LOCAL"></A> <A NAME="ss11.73">11.73</A> <A HREF="#toc11.73"><CODE>.LOCAL</CODE></A>
+<H2><A NAME=".LOCAL"></A> <A NAME="ss11.74">11.74</A> <A HREF="#toc11.74"><CODE>.LOCAL</CODE></A>
 </H2>
 
 
@@ -4419,7 +4620,7 @@ to address the problem.</P>
 a macro.</P>
 
 
-<H2><A NAME=".LOCALCHAR"></A> <A NAME="ss11.74">11.74</A> <A HREF="#toc11.74"><CODE>.LOCALCHAR</CODE></A>
+<H2><A NAME=".LOCALCHAR"></A> <A NAME="ss11.75">11.75</A> <A HREF="#toc11.75"><CODE>.LOCALCHAR</CODE></A>
 </H2>
 
 
@@ -4447,7 +4648,7 @@ using explicit lexical nesting.</P>
 </P>
 
 
-<H2><A NAME=".MACPACK"></A> <A NAME="ss11.75">11.75</A> <A HREF="#toc11.75"><CODE>.MACPACK</CODE></A>
+<H2><A NAME=".MACPACK"></A> <A NAME="ss11.76">11.76</A> <A HREF="#toc11.76"><CODE>.MACPACK</CODE></A>
 </H2>
 
 
@@ -4484,7 +4685,7 @@ redefines already existing macros will lead to an error.</P>
 <A HREF="#macropackages">Macro packages</A>.</P>
 
 
-<H2><A NAME=".MACRO"></A> <A NAME="ss11.76">11.76</A> <A HREF="#toc11.76"><CODE>.MAC, .MACRO</CODE></A>
+<H2><A NAME=".MACRO"></A> <A NAME="ss11.77">11.77</A> <A HREF="#toc11.77"><CODE>.MAC, .MACRO</CODE></A>
 </H2>
 
 
@@ -4513,7 +4714,7 @@ that are macro parameters. A macro definition is terminated by <CODE>
 <A HREF="#macros">Macros</A>.</P>
 
 
-<H2><A NAME=".ORG"></A> <A NAME="ss11.77">11.77</A> <A HREF="#toc11.77"><CODE>.ORG</CODE></A>
+<H2><A NAME=".ORG"></A> <A NAME="ss11.78">11.78</A> <A HREF="#toc11.78"><CODE>.ORG</CODE></A>
 </H2>
 
 
@@ -4540,7 +4741,7 @@ there is usually no reason to assemble code to a specific address.</P>
 </P>
 
 
-<H2><A NAME=".OUT"></A> <A NAME="ss11.78">11.78</A> <A HREF="#toc11.78"><CODE>.OUT</CODE></A>
+<H2><A NAME=".OUT"></A> <A NAME="ss11.79">11.79</A> <A HREF="#toc11.79"><CODE>.OUT</CODE></A>
 </H2>
 
 
@@ -4564,7 +4765,7 @@ that prevents the creation of an object file.</P>
 <A HREF="#.WARNING">.WARNING</A></CODE></P>
 
 
-<H2><A NAME=".P02"></A> <A NAME="ss11.79">11.79</A> <A HREF="#toc11.79"><CODE>.P02</CODE></A>
+<H2><A NAME=".P02"></A> <A NAME="ss11.80">11.80</A> <A HREF="#toc11.80"><CODE>.P02</CODE></A>
 </H2>
 
 
@@ -4580,7 +4781,7 @@ instructions. This is the default if not overridden by the
 <A HREF="#.P4510">.P4510</A></CODE></P>
 
 
-<H2><A NAME=".P02X"></A> <A NAME="ss11.80">11.80</A> <A HREF="#toc11.80"><CODE>.P02X</CODE></A>
+<H2><A NAME=".P02X"></A> <A NAME="ss11.81">11.81</A> <A HREF="#toc11.81"><CODE>.P02X</CODE></A>
 </H2>
 
 
@@ -4594,7 +4795,7 @@ instructions.</P>
 <A HREF="#.P4510">.P4510</A></CODE></P>
 
 
-<H2><A NAME=".P4510"></A> <A NAME="ss11.81">11.81</A> <A HREF="#toc11.81"><CODE>.P4510</CODE></A>
+<H2><A NAME=".P4510"></A> <A NAME="ss11.82">11.82</A> <A HREF="#toc11.82"><CODE>.P4510</CODE></A>
 </H2>
 
 
@@ -4608,7 +4809,7 @@ instructions.</P>
 <A HREF="#.P816">.P816</A></CODE></P>
 
 
-<H2><A NAME=".P816"></A> <A NAME="ss11.82">11.82</A> <A HREF="#toc11.82"><CODE>.P816</CODE></A>
+<H2><A NAME=".P816"></A> <A NAME="ss11.83">11.83</A> <A HREF="#toc11.83"><CODE>.P816</CODE></A>
 </H2>
 
 
@@ -4622,7 +4823,7 @@ instructions.</P>
 <A HREF="#.P4510">.P4510</A></CODE></P>
 
 
-<H2><A NAME=".PAGELENGTH"></A> <A NAME="ss11.83">11.83</A> <A HREF="#toc11.83"><CODE>.PAGELEN, .PAGELENGTH</CODE></A>
+<H2><A NAME=".PAGELENGTH"></A> <A NAME="ss11.84">11.84</A> <A HREF="#toc11.84"><CODE>.PAGELEN, .PAGELENGTH</CODE></A>
 </H2>
 
 
@@ -4646,7 +4847,7 @@ source. Instead, the value set with the last <CODE>.PAGELENGTH</CODE> is used.</
 </P>
 
 
-<H2><A NAME=".PC02"></A> <A NAME="ss11.84">11.84</A> <A HREF="#toc11.84"><CODE>.PC02</CODE></A>
+<H2><A NAME=".PC02"></A> <A NAME="ss11.85">11.85</A> <A HREF="#toc11.85"><CODE>.PC02</CODE></A>
 </H2>
 
 
@@ -4660,7 +4861,7 @@ source. Instead, the value set with the last <CODE>.PAGELENGTH</CODE> is used.</
 <A HREF="#.P4510">.P4510</A></CODE></P>
 
 
-<H2><A NAME=".PDTV"></A> <A NAME="ss11.85">11.85</A> <A HREF="#toc11.85"><CODE>.PDTV</CODE></A>
+<H2><A NAME=".PDTV"></A> <A NAME="ss11.86">11.86</A> <A HREF="#toc11.86"><CODE>.PDTV</CODE></A>
 </H2>
 
 
@@ -4670,7 +4871,17 @@ instruction set.</P>
 <A HREF="#.P02">.P02</A></CODE></P>
 
 
-<H2><A NAME=".POPCHARMAP"></A> <A NAME="ss11.86">11.86</A> <A HREF="#toc11.86"><CODE>.POPCHARMAP</CODE></A>
+<H2><A NAME=".PM740"></A> <A NAME="ss11.87">11.87</A> <A HREF="#toc11.87"><CODE>.PM740</CODE></A>
+</H2>
+
+
+<P>Enable the M740 instruction set. This is a superset of the 6502
+instruction set.</P>
+<P>See: <CODE>
+<A HREF="#.P02">.P02</A></CODE></P>
+
+
+<H2><A NAME=".POPCHARMAP"></A> <A NAME="ss11.88">11.88</A> <A HREF="#toc11.88"><CODE>.POPCHARMAP</CODE></A>
 </H2>
 
 
@@ -4686,7 +4897,7 @@ this command is issued.</P>
 <A HREF="#.PUSHCHARMAP">.PUSHCHARMAP</A></CODE></P>
 
 
-<H2><A NAME=".POPCPU"></A> <A NAME="ss11.87">11.87</A> <A HREF="#toc11.87"><CODE>.POPCPU</CODE></A>
+<H2><A NAME=".POPCPU"></A> <A NAME="ss11.89">11.89</A> <A HREF="#toc11.89"><CODE>.POPCPU</CODE></A>
 </H2>
 
 
@@ -4703,7 +4914,7 @@ this command is issued.</P>
 <A HREF="#.SETCPU">.SETCPU</A></CODE></P>
 
 
-<H2><A NAME=".POPSEG"></A> <A NAME="ss11.88">11.88</A> <A HREF="#toc11.88"><CODE>.POPSEG</CODE></A>
+<H2><A NAME=".POPSEG"></A> <A NAME="ss11.90">11.90</A> <A HREF="#toc11.90"><CODE>.POPSEG</CODE></A>
 </H2>
 
 
@@ -4718,7 +4929,7 @@ when this command is issued.</P>
 <A HREF="#.PUSHSEG">.PUSHSEG</A></CODE></P>
 
 
-<H2><A NAME=".PROC"></A> <A NAME="ss11.89">11.89</A> <A HREF="#toc11.89"><CODE>.PROC</CODE></A>
+<H2><A NAME=".PROC"></A> <A NAME="ss11.91">11.91</A> <A HREF="#toc11.91"><CODE>.PROC</CODE></A>
 </H2>
 
 
@@ -4758,7 +4969,7 @@ had any need for local macro definitions.</P>
 <A HREF="#.SCOPE">.SCOPE</A></CODE></P>
 
 
-<H2><A NAME=".PSC02"></A> <A NAME="ss11.90">11.90</A> <A HREF="#toc11.90"><CODE>.PSC02</CODE></A>
+<H2><A NAME=".PSC02"></A> <A NAME="ss11.92">11.92</A> <A HREF="#toc11.92"><CODE>.PSC02</CODE></A>
 </H2>
 
 
@@ -4772,7 +4983,7 @@ had any need for local macro definitions.</P>
 <A HREF="#.P4510">.P4510</A></CODE></P>
 
 
-<H2><A NAME=".PUSHCHARMAP"></A> <A NAME="ss11.91">11.91</A> <A HREF="#toc11.91"><CODE>.PUSHCHARMAP</CODE></A>
+<H2><A NAME=".PUSHCHARMAP"></A> <A NAME="ss11.93">11.93</A> <A HREF="#toc11.93"><CODE>.PUSHCHARMAP</CODE></A>
 </H2>
 
 
@@ -4788,7 +4999,7 @@ when this command is issued.</P>
 <A HREF="#.POPCHARMAP">.POPCHARMAP</A></CODE></P>
 
 
-<H2><A NAME=".PUSHCPU"></A> <A NAME="ss11.92">11.92</A> <A HREF="#toc11.92"><CODE>.PUSHCPU</CODE></A>
+<H2><A NAME=".PUSHCPU"></A> <A NAME="ss11.94">11.94</A> <A HREF="#toc11.94"><CODE>.PUSHCPU</CODE></A>
 </H2>
 
 
@@ -4805,7 +5016,7 @@ when this command is issued.</P>
 <A HREF="#.SETCPU">.SETCPU</A></CODE></P>
 
 
-<H2><A NAME=".PUSHSEG"></A> <A NAME="ss11.93">11.93</A> <A HREF="#toc11.93"><CODE>.PUSHSEG</CODE></A>
+<H2><A NAME=".PUSHSEG"></A> <A NAME="ss11.95">11.95</A> <A HREF="#toc11.95"><CODE>.PUSHSEG</CODE></A>
 </H2>
 
 
@@ -4822,7 +5033,7 @@ full, when this command is issued.</P>
 <A HREF="#.POPSEG">.POPSEG</A></CODE></P>
 
 
-<H2><A NAME=".REFERTO"></A> <A NAME="ss11.94">11.94</A> <A HREF="#toc11.94"><CODE>.REFERTO, .REFTO</CODE></A>
+<H2><A NAME=".REFERTO"></A> <A NAME="ss11.96">11.96</A> <A HREF="#toc11.96"><CODE>.REFERTO, .REFTO</CODE></A>
 </H2>
 
 
@@ -4867,7 +5078,7 @@ actually used from the code.</P>
 </P>
 
 
-<H2><A NAME=".RELOC"></A> <A NAME="ss11.95">11.95</A> <A HREF="#toc11.95"><CODE>.RELOC</CODE></A>
+<H2><A NAME=".RELOC"></A> <A NAME="ss11.97">11.97</A> <A HREF="#toc11.97"><CODE>.RELOC</CODE></A>
 </H2>
 
 
@@ -4875,7 +5086,7 @@ actually used from the code.</P>
 <A HREF="#.ORG">.ORG</A></CODE> command.</P>
 
 
-<H2><A NAME=".REPEAT"></A> <A NAME="ss11.96">11.96</A> <A HREF="#toc11.96"><CODE>.REPEAT</CODE></A>
+<H2><A NAME=".REPEAT"></A> <A NAME="ss11.98">11.98</A> <A HREF="#toc11.98"><CODE>.REPEAT</CODE></A>
 </H2>
 
 
@@ -4908,7 +5119,7 @@ characters of the string are XORed by the value $55.</P>
 <A HREF="#.ENDREPEAT">.ENDREPEAT</A></CODE></P>
 
 
-<H2><A NAME=".RES"></A> <A NAME="ss11.97">11.97</A> <A HREF="#toc11.97"><CODE>.RES</CODE></A>
+<H2><A NAME=".RES"></A> <A NAME="ss11.99">11.99</A> <A HREF="#toc11.99"><CODE>.RES</CODE></A>
 </H2>
 
 
@@ -4930,7 +5141,7 @@ linker configuration file (default: zero).</P>
 </P>
 
 
-<H2><A NAME=".RODATA"></A> <A NAME="ss11.98">11.98</A> <A HREF="#toc11.98"><CODE>.RODATA</CODE></A>
+<H2><A NAME=".RODATA"></A> <A NAME="ss11.100">11.100</A> <A HREF="#toc11.100"><CODE>.RODATA</CODE></A>
 </H2>
 
 
@@ -4950,7 +5161,7 @@ readonly data like string constants.</P>
 <A HREF="#.SEGMENT">.SEGMENT</A></CODE> command.</P>
 
 
-<H2><A NAME=".SCOPE"></A> <A NAME="ss11.99">11.99</A> <A HREF="#toc11.99"><CODE>.SCOPE</CODE></A>
+<H2><A NAME=".SCOPE"></A> <A NAME="ss11.101">11.101</A> <A HREF="#toc11.101"><CODE>.SCOPE</CODE></A>
 </H2>
 
 
@@ -4988,7 +5199,7 @@ had any need for local macro definitions.</P>
 <A HREF="#.PROC">.PROC</A></CODE></P>
 
 
-<H2><A NAME=".SEGMENT"></A> <A NAME="ss11.100">11.100</A> <A HREF="#toc11.100"><CODE>.SEGMENT</CODE></A>
+<H2><A NAME=".SEGMENT"></A> <A NAME="ss11.102">11.102</A> <A HREF="#toc11.102"><CODE>.SEGMENT</CODE></A>
 </H2>
 
 
@@ -5034,7 +5245,7 @@ segment specified as zeropage cannot be declared as being absolute later.</P>
 <A HREF="#.ZEROPAGE">.ZEROPAGE</A></CODE></P>
 
 
-<H2><A NAME=".SET"></A> <A NAME="ss11.101">11.101</A> <A HREF="#toc11.101"><CODE>.SET</CODE></A>
+<H2><A NAME=".SET"></A> <A NAME="ss11.103">11.103</A> <A HREF="#toc11.103"><CODE>.SET</CODE></A>
 </H2>
 
 
@@ -5042,7 +5253,7 @@ segment specified as zeropage cannot be declared as being absolute later.</P>
 <A HREF="#variables">Numeric variables</A> for a full description.</P>
 
 
-<H2><A NAME=".SETCPU"></A> <A NAME="ss11.102">11.102</A> <A HREF="#toc11.102"><CODE>.SETCPU</CODE></A>
+<H2><A NAME=".SETCPU"></A> <A NAME="ss11.104">11.104</A> <A HREF="#toc11.104"><CODE>.SETCPU</CODE></A>
 </H2>
 
 
@@ -5050,7 +5261,7 @@ segment specified as zeropage cannot be declared as being absolute later.</P>
 specifies the CPU. Possible values are those that can also be supplied to
 the <CODE>
 <A HREF="#option--cpu">--cpu</A></CODE> command line option,
-namely: 6502, 6502X, 6502DTV, 65SC02, 65C02, 65816, 4510 and HuC6280.</P>
+namely: 6502, 6502X, 6502DTV, 65SC02, 65C02, 65816, 4510, HuC6280 and m740.</P>
 <P>See: <CODE>
 <A HREF="#.CPU">.CPU</A></CODE>,
 <CODE>
@@ -5064,6 +5275,8 @@ namely: 6502, 6502X, 6502DTV, 65SC02, 65C02, 65816, 4510 and HuC6280.</P>
 <CODE>
 <A HREF="#.IFPC02">.IFPC02</A></CODE>,
 <CODE>
+<A HREF="#.IFPM740">.IFPM740</A></CODE>,
+<CODE>
 <A HREF="#.IFPSC02">.IFPSC02</A></CODE>,
 <CODE>
 <A HREF="#.P02">.P02</A></CODE>,
@@ -5076,10 +5289,12 @@ namely: 6502, 6502X, 6502DTV, 65SC02, 65C02, 65816, 4510 and HuC6280.</P>
 <CODE>
 <A HREF="#.PC02">.PC02</A></CODE>,
 <CODE>
+<A HREF="#.PM740">.PM740</A></CODE>,
+<CODE>
 <A HREF="#.PSC02">.PSC02</A></CODE></P>
 
 
-<H2><A NAME=".SMART"></A> <A NAME="ss11.103">11.103</A> <A HREF="#toc11.103"><CODE>.SMART</CODE></A>
+<H2><A NAME=".SMART"></A> <A NAME="ss11.105">11.105</A> <A HREF="#toc11.105"><CODE>.SMART</CODE></A>
 </H2>
 
 
@@ -5125,7 +5340,7 @@ memory model used.</LI>
 <A HREF="#.I8">.I8</A></CODE></P>
 
 
-<H2><A NAME=".STRUCT"></A> <A NAME="ss11.104">11.104</A> <A HREF="#toc11.104"><CODE>.STRUCT</CODE></A>
+<H2><A NAME=".STRUCT"></A> <A NAME="ss11.106">11.106</A> <A HREF="#toc11.106"><CODE>.STRUCT</CODE></A>
 </H2>
 
 
@@ -5139,7 +5354,7 @@ memory model used.</LI>
 <A HREF="#.UNION">.UNION</A></CODE></P>
 
 
-<H2><A NAME=".TAG"></A> <A NAME="ss11.105">11.105</A> <A HREF="#toc11.105"><CODE>.TAG</CODE></A>
+<H2><A NAME=".TAG"></A> <A NAME="ss11.107">11.107</A> <A HREF="#toc11.107"><CODE>.TAG</CODE></A>
 </H2>
 
 
@@ -5166,7 +5381,7 @@ memory model used.</LI>
 <P>See: 
 <A HREF="#structs">&#34;Structs and unions&#34;</A></P>
 
-<H2><A NAME=".UNDEFINE"></A> <A NAME="ss11.106">11.106</A> <A HREF="#toc11.106"><CODE>.UNDEF, .UNDEFINE</CODE></A>
+<H2><A NAME=".UNDEFINE"></A> <A NAME="ss11.108">11.108</A> <A HREF="#toc11.108"><CODE>.UNDEF, .UNDEFINE</CODE></A>
 </H2>
 
 
@@ -5180,7 +5395,7 @@ section
 <A HREF="#macros">Macros</A>.</P>
 
 
-<H2><A NAME=".UNION"></A> <A NAME="ss11.107">11.107</A> <A HREF="#toc11.107"><CODE>.UNION</CODE></A>
+<H2><A NAME=".UNION"></A> <A NAME="ss11.109">11.109</A> <A HREF="#toc11.109"><CODE>.UNION</CODE></A>
 </H2>
 
 
@@ -5194,7 +5409,7 @@ section
 <A HREF="#.STRUCT">.STRUCT</A></CODE></P>
 
 
-<H2><A NAME=".WARNING"></A> <A NAME="ss11.108">11.108</A> <A HREF="#toc11.108"><CODE>.WARNING</CODE></A>
+<H2><A NAME=".WARNING"></A> <A NAME="ss11.110">11.110</A> <A HREF="#toc11.110"><CODE>.WARNING</CODE></A>
 </H2>
 
 
@@ -5232,7 +5447,7 @@ the source file.</P>
 <A HREF="#.OUT">.OUT</A></CODE></P>
 
 
-<H2><A NAME=".WORD"></A> <A NAME="ss11.109">11.109</A> <A HREF="#toc11.109"><CODE>.WORD</CODE></A>
+<H2><A NAME=".WORD"></A> <A NAME="ss11.111">11.111</A> <A HREF="#toc11.111"><CODE>.WORD</CODE></A>
 </H2>
 
 
@@ -5249,7 +5464,7 @@ but not necessarily constant) expressions.</P>
 </P>
 
 
-<H2><A NAME=".ZEROPAGE"></A> <A NAME="ss11.110">11.110</A> <A HREF="#toc11.110"><CODE>.ZEROPAGE</CODE></A>
+<H2><A NAME=".ZEROPAGE"></A> <A NAME="ss11.112">11.112</A> <A HREF="#toc11.112"><CODE>.ZEROPAGE</CODE></A>
 </H2>
 
 
@@ -5962,6 +6177,7 @@ each supported CPU a constant similar to</P>
     CPU_HUC6280
     CPU_4510
     CPU_6502DTV
+    CPU_M740
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
@@ -5979,6 +6195,7 @@ another constant is defined:</P>
     CPU_ISET_HUC6280
     CPU_ISET_4510
     CPU_ISET_6502DTV
+    CPU_ISET_M740
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
@@ -6012,7 +6229,8 @@ bit. Using</P>
 </P>
 <P>instruction is supported, which is the case for the 65SC02, 65C02 and 65816
 CPUs (the latter two are upwards compatible to the 65SC02).</P>
-
+<P>see section 
+<A HREF="#6502-mode">6502 format</A> and following.</P>
 
 <H2><A NAME="ss13.7">13.7</A> <A HREF="#toc13.7"><CODE>.MACPACK module</CODE></A>
 </H2>
