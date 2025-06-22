@@ -153,21 +153,18 @@ output file in form of comments.</P>
 <DT><B><CODE>--cpu type</CODE></B><DD>
 <P>Set the CPU type. The option takes a parameter, which may be one of
 <UL>
-<LI>6502</LI>
-<LI>6502x</LI>
-<LI>6502dtv</LI>
-<LI>65sc02</LI>
-<LI>65c02</LI>
-<LI>65816</LI>
-<LI>huc6280</LI>
-<LI>4510</LI>
-<LI>m740</LI>
+<LI>6502 - NMOS 6502 (all legal instructions)</LI>
+<LI>6502X - NMOS 6502 with all undocumented instructions</LI>
+<LI>6502DTV - the emulated CPU of the C64DTV device</LI>
+<LI>65SC02 - first CMOS instruction set (no bit manipulation, no wai/stp)</LI>
+<LI>65C02 - full CMOS instruction set (has bit manipulation and wai/stp)</LI>
+<LI>65816 - the CPU of the SNES, and the SCPU</LI>
+<LI>HuC6280 - the CPU of the PC engine</LI>
+<LI>4510 - the CPU of the Commodore C65</LI>
+<LI>45GS02 - the CPU of the Commodore MEGA65</LI>
+<LI>M740 - a Microcontroller by Mitsubishi</LI>
 </UL>
 </P>
-<P>6502x is for the NMOS 6502 with unofficial opcodes. 6502dtv is for the
-emulated CPU of the C64DTV device. huc6280 is the CPU of the PC engine.
-4510 is the CPU of the Commodore C65. 65816 is the CPU of the SNES. M740 is a
-Microcontroller by Mitsubishi.</P>
 
 <P>
 <A NAME="option--formfeeds"></A> </P>
@@ -287,21 +284,101 @@ or bugfixes, please include the version number.</P>
 </H2>
 
 
+<P>With the command line option <CODE>
+<A HREF="#option--cpu">--cpu</A></CODE>, the
+disassembler may be told which CPU to support:</P>
+<P>
+<UL>
+<LI>
+<A HREF="#6502-mode">6502 mode</A> - NMOS 6502 (all legal instructions)</LI>
+<LI>
+<A HREF="#6502X-mode">6502X mode</A> - NMOS 6502 with all undocumented instructions</LI>
+<LI>
+<A HREF="#DTV-mode">6502DTV</A> - the emulated CPU of the C64DTV device</LI>
+<LI>
+<A HREF="#65SC02-mode">65SC02</A> - first CMOS instruction set (no bit manipulation, no wai/stp)</LI>
+<LI>
+<A HREF="#65C02-mode">65C02</A> - full CMOS instruction set (has bit manipulation and wai/stp)</LI>
+<LI>
+<A HREF="#65816-mode">65816</A> - the CPU of the SNES, and the SCPU</LI>
+<LI>
+<A HREF="#HUC6280-mode">HuC6280</A> - the CPU of the PC engine</LI>
+<LI>
+<A HREF="#4510-mode">4510</A> - the CPU of the Commodore C65</LI>
+<LI>
+<A HREF="#45GS02-mode">45GS02</A> - the CPU of the Commodore MEGA65</LI>
+<LI>
+<A HREF="#M740-mode">M740</A> - a Microcontroller by Mitsubishi</LI>
+</UL>
+</P>
+<P>for more details on the various CPUs, see <CODE>
+<A HREF="ca65.html#6502-mode">here</A></CODE>.</P>
+
+
+<H3><A NAME="6502-mode"></A> 6502 mode</H3>
+
+
 <P>The default (no CPU given on the command line or in the <CODE>GLOBAL</CODE> section of
 the info file) is the 6502 CPU. The disassembler knows all "official" opcodes
 for this CPU. Invalid opcodes are translated into <CODE>.byte</CODE> commands.</P>
-<P>With the command line option <CODE>
-<A HREF="#option--cpu">--cpu</A></CODE>, the
-disassembler may be told to recognize either the 65SC02 or 65C02 CPUs. The
-latter understands the same opcodes as the former, plus 16 additional bit
-manipulation and bit test-and-branch commands. Using 6502x as CPU the illegal
-opcodes of 6502 CPU are detected and displayed. 6502dtv setting recognizes the
-emulated CPU instructions of the C64DTV device.</P>
+
+<H3><A NAME="6502X-mode"></A> 6502X mode</H3>
+
+
+<P>Using 6502X as CPU the illegal opcodes of 6502 CPU are detected and displayed.</P>
+
+
+<H3><A NAME="DTV-mode"></A> DTV mode</H3>
+
+
+<P>6502DTV setting recognizes the emulated CPU instructions of the C64DTV device.</P>
+
+
+<H3><A NAME="65SC02-mode"></A> 65SC02 mode</H3>
+
+
+<P>The first CMOS instruction set, without bit manipulation or wai/stp.</P>
+
+
+<H3><A NAME="65C02-mode"></A> 65C02 mode</H3>
+
+
+<P>The 65C02 understands the same opcodes as the 65SC02, plus 16 additional bit
+manipulation and bit test-and-branch commands.</P>
+<P>This mode also supports wai/stp.</P>
+
+
+<H3><A NAME="4510-mode"></A> 4510 mode</H3>
+
 
 <P>When disassembling 4510 code, due to handling of 16-bit wide branches, da65
 can produce output that can not be re-assembled, when one or more of those
 branches point outside of the disassembled memory. This can happen when text
 or binary data is processed.</P>
+
+
+<H3><A NAME="45GS02-mode"></A> 45GS02 mode</H3>
+
+
+<P>All compound instructions are supported.</P>
+
+
+<H3><A NAME="HUC6280-mode"></A> HUC6280 mode</H3>
+
+
+<P>All special opcodes are supported.</P>
+
+
+<H3><A NAME="M740-mode"></A> M740 mode</H3>
+
+
+<P>All special opcodes are supported.</P>
+
+
+<H3><A NAME="65816-mode"></A> 65816 mode</H3>
+
+
+
 <P>The 65816 support requires annotating ranges with the M and X flag states.
 This can be recorded with an emulator that supports Code and Data Logging,
 for example. Disassemble one bank at a time.</P>
