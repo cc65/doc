@@ -115,7 +115,7 @@ of range.</LI>
 <BLOCKQUOTE><CODE>
 <PRE>
 /* Draw the upper half of an ellipse */
-tgi_setcolor(TGI_COLOR_BLUE);
+tgi_setcolor(1);
 tgi_arc (50, 50, 40, 20, 0, 180);
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -158,7 +158,7 @@ be used in presence of a prototype.</LI>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-tgi_setcolor(TGI_COLOR_GREEN);
+tgi_setcolor(1);
 tgi_bar(10, 10, 100, 60);
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -204,7 +204,7 @@ be used in presence of a prototype.</LI>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-tgi_setcolor(TGI_COLOR_BLACK);
+tgi_setcolor(1);
 tgi_circle(50, 40, 40);
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -307,7 +307,7 @@ be used in presence of a prototype.</LI>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-tgi_setcolor(TGI_COLOR_RED);
+tgi_setcolor(1);
 tgi_ellipse (50, 40, 40, 20);
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -411,7 +411,7 @@ original aspect ratio.</LI>
 <BLOCKQUOTE>
 <DL>
 <DT><B>Function</B><DD>
-<P>Return the current drawing color.</P>
+<P>Return the current drawing color (palette index).</P>
 <DT><B>Header</B><DD>
 <P><CODE>
 <A HREF="#tgi.h">tgi.h</A></CODE></P>
@@ -419,15 +419,18 @@ original aspect ratio.</LI>
 <P><CODE>unsigned char tgi_getcolor (void);</CODE></P>
 <DT><B>Description</B><DD>
 <P>The actual color is an index to a palette. During tgi_init
-you will get a default palette. The number of colors depend on the platform.
-All platforms recognize at least TGI_COLOR_BLACK and TGI_COLOR_WHITE. But some
-platforms have many more predefined colors. If you paint using TGI_COLOR_GREEN
-and then you change the green of the palette to blue using tgi_setpalette then
-after this painting in TGI_COLOR_GREEN will actually be blue.</P>
+you will get a default palette.
+A default palette has always two entries with values equal to TGI_COLOR_BLACK
+and TGI_COLOR_WHITE. However, which default palette entries have those two
+values is target specific.
+Note that both the number of colors, and also the available colors, depend on
+the target and/or driver.</P>
 <DT><B>Availability</B><DD>
 <P>cc65</P>
 <DT><B>See also</B><DD>
-<P>Other tgi functions</P>
+<P>
+<A HREF="#tgi_setcolor">tgi_setcolor</A>,
+<A HREF="#tgi_setpalette">tgi_setpalette</A></P>
 <DT><B>Example</B><DD>
 <P>
 <BLOCKQUOTE><CODE>
@@ -449,7 +452,8 @@ color = tgi_getcolor();
 <BLOCKQUOTE>
 <DL>
 <DT><B>Function</B><DD>
-<P>Get the number of available colors.</P>
+<P>Get the number of available colors in the palette for the current
+driver.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
 <A HREF="#tgi.h">tgi.h</A></CODE></P>
@@ -517,9 +521,7 @@ if (num_colors == 0) {
 <DT><B>Declaration</B><DD>
 <P><CODE>const unsigned char* tgi_getdefpalette (void);</CODE></P>
 <DT><B>Description</B><DD>
-<P>The tgi driver has a default palette that is active at startup.
-The named colors TGI_COLOR_BLACK, TGI_COLOR_WHITE, TGI_COLOR_RED... need this
-palette to work correctly.</P>
+<P>The tgi driver has a default palette that is active at startup.</P>
 <DT><B>Availability</B><DD>
 <P>cc65</P>
 <DT><B>See also</B><DD>
@@ -745,14 +747,14 @@ be used in presence of a prototype.</LI>
 <BLOCKQUOTE>
 <DL>
 <DT><B>Function</B><DD>
-<P>Get the color of a pixel from the viewpage.</P>
+<P>Get the color (palette index) of a pixel from the viewpage.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
 <A HREF="#tgi.h">tgi.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
 <P><CODE>unsigned char __fastcall__ tgi_getpixel (int x, int y);</CODE></P>
 <DT><B>Description</B><DD>
-<P>Get the color of a pixel from the viewpage.</P>
+<P>Get the color (palette index) of a pixel from the viewpage.</P>
 <DT><B>Notes</B><DD>
 <P>
 <UL>
@@ -1101,7 +1103,7 @@ be used in presence of a prototype.</LI>
 #define tgi_updatedisplay() tgi_ioctl(4, (void*)1)
 if (!tgi_busy()) {
   tgi_sprite(&amp;background);
-  tgi_setcolor(TGI_COLOR_BLUE);
+  tgi_setcolor(1);
   tgi_outttextxy(20,40,"Hello World");
   tgi_updatedisplay();
 }
@@ -1374,7 +1376,7 @@ of range.</LI>
 <BLOCKQUOTE><CODE>
 <PRE>
 /* Draw the closed upper half of an ellipse */
-tgi_setcolor(TGI_COLOR_BLUE);
+tgi_setcolor(1);
 tgi_pieslice (50, 50, 40, 20, 0, 180);
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -1442,14 +1444,14 @@ only in the presence of a prototype.</LI>
 <BLOCKQUOTE>
 <DL>
 <DT><B>Function</B><DD>
-<P>Set color to be used in future draw operations.</P>
+<P>Set color (palette index) to be used in future draw operations.</P>
 <DT><B>Header</B><DD>
 <P><CODE>
 <A HREF="#tgi.h">tgi.h</A></CODE></P>
 <DT><B>Declaration</B><DD>
-<P><CODE>void __fastcall__ tgi_setcolor (unsigned char color);</CODE></P>
+<P><CODE>void __fastcall__ tgi_setcolor (unsigned char color_index);</CODE></P>
 <DT><B>Description</B><DD>
-<P>Set color to be used in future draw operations.</P>
+<P>Set color (palette index) to be used in future draw operations.</P>
 <DT><B>Notes</B><DD>
 <P>
 <UL>
@@ -1460,14 +1462,16 @@ be used in presence of a prototype.</LI>
 <DT><B>Availability</B><DD>
 <P>cc65</P>
 <DT><B>See also</B><DD>
-<P>Other tgi functions.</P>
+<P>
+<A HREF="#tgi_getcolor">tgi_getcolor</A>,
+<A HREF="#tgi_setpalette">tgi_setpalette</A></P>
 <DT><B>Example</B><DD>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-tgi_setcolor(TGI_COLOR_BLACK);
+tgi_setcolor(1);
 tgi_bar(0,0,30,30);
-tgi_setcolor(TGI_COLOR_WHITE);
+tgi_setcolor(2);
 tgi_bar(10,10,20,20);
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -1543,18 +1547,27 @@ Palette is a pointer to as many entries as there are colors.</P>
 <P><CODE>void __fastcall__ tgi_setpalette (const unsigned char* palette);</CODE></P>
 <DT><B>Description</B><DD>
 <P>Set the palette (not available with all drivers/hardware).
-Palette is a pointer to as many entries as there are colors.</P>
+Palette is a pointer to as many entries as there are colors. The values in the
+palette are target specific, some (hopefully, more or less) portable values are
+defined in the TGI_COLOR_XY defines. Note that different platforms provide
+different colors, only TGI_COLOR_BLACK and TGI_COLOR_WHITE are guaranteed to
+exist (needed for the default palette).</P>
 <DT><B>Notes</B><DD>
 <P>
 <UL>
 <LI>The function is only available as fastcall function, so it may only
 be used in presence of a prototype.</LI>
+<LI>The palette is the (only) place where to use the TGI_COLOR_XY values. This
+has been an ongoing and reoccurring misunderstanding in the past: At every other
+place, the "color" values are indices into the current palette.</LI>
 </UL>
 </P>
 <DT><B>Availability</B><DD>
 <P>cc65</P>
 <DT><B>See also</B><DD>
-<P>Other tgi functions.</P>
+<P>
+<A HREF="#tgi_setcolor">tgi_setcolor</A>,
+<A HREF="#tgi_getpalette">tgi_getpalette</A></P>
 <DT><B>Example</B><DD>
 <P>None.</P>
 </DL>
