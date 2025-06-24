@@ -169,7 +169,7 @@ the <CODE>A/X/sreg</CODE> registers:</P>
 <P>All other parameters will be pushed to the C-stack from left to right.
 The rightmost parameter will have the lowest address on the stack,
 and multi-byte parameters will have their least significant byte at the lower address.</P>
-<P>The <CODE>sp</CODE> pseudo-register is a zeropage pointer to the base of the C-stack.
+<P>The <CODE>c_sp</CODE> pseudo-register is a zeropage pointer to the base of the C-stack.
 If the function is variadic, the <CODE>Y</CODE> register will contain the number of
 bytes pushed to the stack for this function.</P>
 <P>Example:
@@ -191,10 +191,10 @@ void cdecl foo(unsigned bar, unsigned char baz);
 ; Example code for accessing bar. The variable is in A/X after this code snippet:
 ;
     ldy     #2      ; Offset of high byte of bar
-    lda     (sp),y  ; High byte now in A
+    lda     (c_sp),y  ; High byte now in A
     tax             ; High byte now in X
     dey             ; Offset of low byte of bar
-    lda     (sp),y  ; Low byte now in A
+    lda     (c_sp),y  ; Low byte now in A
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
@@ -216,12 +216,12 @@ This problem does not apply to the <CODE>sreg</CODE> pseudo-register, which is o
 used if the return type is 32-bit.</P>
 <P>If the function has a void return type, the compiler will not depend on the result
 of <CODE>A/X/sreg</CODE>, so these may be clobbered by the function.</P>
-<P>The C-stack pointer <CODE>sp</CODE> must be restored by the function to its value before the
+<P>The C-stack pointer <CODE>c_sp</CODE> must be restored by the function to its value before the
 function call prologue. It may pop all of its parameters from the C-stack
 (e.g. using the <CODE>runtime</CODE> function <CODE>popa</CODE>),
-or it could adjust <CODE>sp</CODE> directly.
+or it could adjust <CODE>c_sp</CODE> directly.
 If the function is variadic, the <CODE>Y</CODE> register contains the number of bytes
-pushed to the stack on entry, which may be added to <CODE>sp</CODE> to restore its
+pushed to the stack on entry, which may be added to <CODE>c_sp</CODE> to restore its
 original state.</P>
 <P>The internal pseudo-register <CODE>regbank</CODE> must not be changed by the function.</P>
 

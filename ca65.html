@@ -6252,10 +6252,10 @@ bit. Using</P>
 <BLOCKQUOTE><CODE>
 <PRE>
         .if (.cpu .bitand CPU_ISET_65SC02)
-                lda     (sp)
+                lda     (c_sp)
         .else
                 ldy     #$00
-                lda     (sp),y
+                lda     (c_sp),y
         .endif
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -6264,7 +6264,7 @@ bit. Using</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-                lda     (sp)
+                lda     (c_sp)
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
