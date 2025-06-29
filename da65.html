@@ -306,30 +306,22 @@ or bugfixes, please include the version number.</P>
 disassembler may be told which CPU to support:</P>
 <P>
 <UL>
-<LI>
-<A HREF="#6502-mode">6502</A> - NMOS 6502 (all legal instructions)</LI>
-<LI>
-<A HREF="#6502X-mode">6502X</A> - NMOS 6502 with all undocumented instructions</LI>
-<LI>
-<A HREF="#DTV-mode">6502DTV</A> - the emulated CPU of the C64DTV device</LI>
-<LI>
-<A HREF="#65SC02-mode">65SC02</A> - first CMOS instruction set (no bit manipulation, no wai/stp)</LI>
-<LI>
-<A HREF="#65C02-mode">65C02</A> - full CMOS instruction set (has bit manipulation and wai/stp)</LI>
-<LI>
-<A HREF="#65816-mode">65816</A> - the CPU of the SNES, and the SCPU</LI>
-<LI>
-<A HREF="#HUC6280-mode">HuC6280</A> - the CPU of the PC engine</LI>
-<LI>
-<A HREF="#4510-mode">4510</A> - the CPU of the Commodore C65</LI>
-<LI>
-<A HREF="#45GS02-mode">45GS02</A> - the CPU of the Commodore MEGA65</LI>
-<LI>
-<A HREF="#M740-mode">M740</A> - a Microcontroller by Mitsubishi</LI>
+<LI>6502 - NMOS 6502 (all legal instructions)</LI>
+<LI>6502X - NMOS 6502 with all undocumented instructions</LI>
+<LI>6502DTV - the emulated CPU of the C64DTV device</LI>
+<LI>65SC02 - first CMOS instruction set (no bit manipulation, no wai/stp)</LI>
+<LI>65C02 - CMOS with Rockwell extensions</LI>
+<LI>W65C02 - full CMOS instruction set (has bit manipulation and wai/stp)</LI>
+<LI>65CE02 - CMOS with CSG extensions</LI>
+<LI>4510 - the CPU of the Commodore C65</LI>
+<LI>45GS02 - the CPU of the Commodore MEGA65</LI>
+<LI>HuC6280 - the CPU of the PC engine</LI>
+<LI>M740 - a Microcontroller by Mitsubishi</LI>
+<LI>65816 - the CPU of the SNES, and the SCPU</LI>
 </UL>
 </P>
 <P>for more details on the various CPUs, see <CODE>
-<A HREF="ca65.html#6502-mode">here</A></CODE>.</P>
+<A HREF="cpus.html">here</A></CODE>.</P>
 
 
 <H3><A NAME="6502-mode"></A> 6502 mode</H3>
@@ -362,7 +354,15 @@ for this CPU. Invalid opcodes are translated into <CODE>.byte</CODE> commands.</
 
 <P>The 65C02 understands the same opcodes as the 65SC02, plus 16 additional bit
 manipulation and bit test-and-branch commands.</P>
+
+<H3><A NAME="W65C02-mode"></A> W65C02 mode</H3>
+
+
 <P>This mode also supports wai/stp.</P>
+
+<H3><A NAME="65CE02-mode"></A> 65CE02 mode</H3>
+
+
 
 
 <H3><A NAME="4510-mode"></A> 4510 mode</H3>
