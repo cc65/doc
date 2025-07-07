@@ -689,7 +689,7 @@ default CPU. The CPU setting can be overridden by use of the <CODE>
 <LI>pce (PC engine)</LI>
 <LI>pet (all CBM PET systems except the 2001)</LI>
 <LI>plus4</LI>
-<LI>p6502</LI>
+<LI>rp6502</LI>
 <LI>sim6502</LI>
 <LI>sim65c02</LI>
 <LI>supervision</LI>
@@ -1246,6 +1246,9 @@ It can be disabled with the <CODE>
 <P>The compiler defines several macros at startup:</P>
 <P>
 <DL>
+<DT><B><CODE>__AGAT__</CODE></B><DD>
+<P>This macro is defined if the target is the Agat (-t agat).</P>
+
 <DT><B><CODE>__APPLE2__</CODE></B><DD>
 <P>This macro is defined if the target is the Apple ][ (-t apple2) or the enhanced Apple //e (-t apple2enh).</P>
 
@@ -1253,10 +1256,13 @@ It can be disabled with the <CODE>
 <P>This macro is defined if the target is the enhanced Apple //e (-t apple2enh).</P>
 
 <DT><B><CODE>__ATARI2600__</CODE></B><DD>
-<P>This macro is defined if the target is the Atari 2600 game console.</P>
+<P>This macro is defined if the target is the Atari 2600 game console (-t atari2600).</P>
 
 <DT><B><CODE>__ATARI5200__</CODE></B><DD>
-<P>This macro is defined if the target is the Atari 5200 game console.</P>
+<P>This macro is defined if the target is the Atari 5200 game console (-t atari5200).</P>
+
+<DT><B><CODE>__ATARI7800__</CODE></B><DD>
+<P>This macro is defined if the target is the Atari 7800 game console (-t atari7800).</P>
 
 <DT><B><CODE>__ATARI__</CODE></B><DD>
 <P>This macro is defined if the target is the Atari 400/800 (-t atari) or the Atari 800XL/130XE (-t atarixl).</P>
@@ -1267,6 +1273,9 @@ It can be disabled with the <CODE>
 <DT><B><CODE>__ATMOS__</CODE></B><DD>
 <P>This macro is defined if the target is the Oric Atmos (-t atmos).</P>
 
+<DT><B><CODE>__BBC__</CODE></B><DD>
+<P>This macro is defined if the target is the BBC (-t bbc).</P>
+
 <DT><B><CODE>__C128__</CODE></B><DD>
 <P>This macro is defined if the target is the Commodore 128 (-t c128).</P>
 
@@ -1275,6 +1284,9 @@ It can be disabled with the <CODE>
 
 <DT><B><CODE>__C64__</CODE></B><DD>
 <P>This macro is defined if the target is the Commodore 64 (-t c64).</P>
+
+<DT><B><CODE>__C65__</CODE></B><DD>
+<P>This macro is defined if the target is the Commodore 65 (-t c65).</P>
 
 <DT><B><CODE>__CBM__</CODE></B><DD>
 <P>This macro is defined if the target system is one of the CBM targets.</P>
@@ -1313,10 +1325,8 @@ in the samples directory for some preprocessor kludges that might help.</P>
 <P>
 <A NAME="macro-CPU"></A> </P>
 <DT><B><CODE>__CPU__</CODE></B><DD>
-<P>This macro contains a bitset that allows to check if a specific instruction
-set is supported. For example, the 65C02 CPU supports all instructions of the
-65SC02. So testing for the instruction set of the 65SC02 using the following
-check will succeed for both CPUs (and also for the 65816 and HUC6280).</P>
+<P>This macro contains a bitset that allows to check if a specific group of
+instructions is supported.</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
@@ -1331,6 +1341,12 @@ checks. The <CODE>__CPU__</CODE> variable is usually derived from the target sys
 given, but can be changed using the <CODE>
 <A HREF="#option--cpu">--cpu</A></CODE>
 command line option.</P>
+<P>Note that, since the different CMOS instruction sets are not orthogonal, the
+following test macros only test for the group of instructions <B>added</B>
+by this particular CPU.</P>
+<P>see 
+<A HREF="ca65.html#.CPU">.CPU</A> for details on the ISET*
+dilemma.</P>
 
 <DT><B><CODE>__CPU_4510__</CODE></B><DD>
 <P>This macro is defined if the code is compiled for a 4510 CPU.</P>
@@ -1429,6 +1445,9 @@ of the M740 CPU.</P>
 <A HREF="#macro-CPU">__CPU__</A></CODE> macro for the instruction set
 of the W65C02 CPU.</P>
 
+<DT><B><CODE>__CREATIVISION__</CODE></B><DD>
+<P>This macro is defined if the target is the VTech Creativision game console (-t creativision).</P>
+
 <DT><B><CODE>__CX16__</CODE></B><DD>
 <P>This macro is defined if the target is the Commander X16 (-t cx16).</P>
 
@@ -1443,6 +1462,9 @@ translation unit in the form "Mmm dd yyyy".</P>
 <DT><B><CODE>__FILE__</CODE></B><DD>
 <P>This macro expands to a string containing the name of the C source file.</P>
 
+<DT><B><CODE>__GAMATE__</CODE></B><DD>
+<P>This macro is defined if the target is the Gamate handheld (-t gamate).</P>
+
 <DT><B><CODE>__GEOS__</CODE></B><DD>
 <P>This macro is defined if you are compiling for one of the GEOS systems.</P>
 
@@ -1452,6 +1474,9 @@ translation unit in the form "Mmm dd yyyy".</P>
 <DT><B><CODE>__GEOS_CBM__</CODE></B><DD>
 <P>This macro is defined if you are compiling for the GEOS 64/128 system (-t geos-cbm).</P>
 
+<DT><B><CODE>__KIM1__</CODE></B><DD>
+<P>This macro is defined if the target is the KIM-1 (-t kmi1).</P>
+
 <DT><B><CODE>__LINE__</CODE></B><DD>
 <P>This macro expands to the current line number.</P>
 
@@ -1460,6 +1485,9 @@ translation unit in the form "Mmm dd yyyy".</P>
 
 <DT><B><CODE>__LYNX__</CODE></B><DD>
 <P>This macro is defined if the target is the Atari Lynx (-t lynx).</P>
+
+<DT><B><CODE>__MEGA65__</CODE></B><DD>
+<P>This macro is defined if the target is the Mega 65 (-t mega65).</P>
 
 <DT><B><CODE>__NES__</CODE></B><DD>
 <P>This macro is defined if the target is the Nintendo Entertainment System (-t nes).</P>
@@ -1480,11 +1508,17 @@ translation unit in the form "Mmm dd yyyy".</P>
 <P>This macro is defined if the target is the Ohio Scientific Challenger 1P
 (-t osic1p).</P>
 
+<DT><B><CODE>__PCE__</CODE></B><DD>
+<P>This macro is defined if the target is the PC Engine game console (-t pce).</P>
+
 <DT><B><CODE>__PET__</CODE></B><DD>
 <P>This macro is defined if the target is the PET family of computers (-t pet).</P>
 
 <DT><B><CODE>__PLUS4__</CODE></B><DD>
 <P>This macro is defined if the target is the Commodore Plus/4 (-t plus4).</P>
+
+<DT><B><CODE>__RP6502__</CODE></B><DD>
+<P>This macro is defined if the target is the Picocomputer 6502 (-t rp6502).</P>
 
 <DT><B><CODE>__SIM6502__</CODE></B><DD>
 <P>This macro is defined if the target is sim65 in 6502 mode (-t sim6502).</P>

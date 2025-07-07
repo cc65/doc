@@ -1879,7 +1879,6 @@ constant is defined:</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
-
 <P><CODE>.CPU</CODE> may be used to replace the .IFPxx pseudo instructions or to
 construct even more complex expressions.</P>
 <P>Example:</P>
@@ -1899,9 +1898,44 @@ construct even more complex expressions.</P>
 </PRE>
 </CODE></BLOCKQUOTE>
 </P>
+<P><B>The dilemma:</B></P>
+<P>The original design of this feature was made under the assumption, that any
+"higher" CPU will support the entire instruction set of the "lower" CPU. For
+example: the WDC W65C02 supports all instructions of the 65C02, which again
+support all instructions of the 65SC02. Unfortunately this is not true for all
+CMOS CPUs - when the 65CE02 was made, some instructions were changed, and a new
+addressingmode was added. As a result all CPUS after (and including) 65CE02
+are no more (source code) compatible with all instructions originally introduced
+by the 65SC02.</P>
+<P>Because of this, the .CPU function and the ISET* macros were repurposed to
+indicate <EM>groups of instructions</EM> only, ie only the set of instructions
+that was added by that particular CPU. In the value returned by .CPU only the
+bits will be set, that refer to the groups of instructions that are completely
+supported by that CPU.</P>
+<P>The advantage of this is, that the mechanism keeps working for all new CPUs
+added. The inevitable disadvantage is that you now have to know exactly which
+CPU added which instructions (look 
+<A HREF="cpus.html">here</A> for reference).</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        .if (.cpu .bitand CPU_ISET_65SC02)
+                ; This will be assembled for the W65C02, 65C02, 65SC02, 65816, HUC6820
+                lda     (c_sp)
+        .elseif (.cpu .bitand CPU_ISET_65CE02)
+                ; This will be assembled for the 65CE02, 4510, 45GS02
+                ldz     #$00
+                lda     (c_sp),z
+        .else
+                ldy     #$00
+                lda     (c_sp),y
+        .endif
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
 <P>See also: <CODE>
-<A HREF="#.CAP">.CAP</A></CODE></P>
-
+<A HREF="#.CAP">.CAP</A></CODE>, which is a similar mechanism,
+but without the problem outlined above.</P>
 
 
 <H2><A NAME=".ISIZE"></A> <A NAME="ss9.4">9.4</A> <A HREF="#toc9.4"><CODE>.ISIZE</CODE></A>
@@ -4759,7 +4793,6 @@ packages are:</P>
 <PRE>
         atari           Defines the scrcode macro.
         cbm             Defines the scrcode macro.
-        cpu             Defines constants for the .CPU variable.
         generic         Defines generic macros like add, sub, and blt.
         longbranch      Defines conditional long-jump macros.
   
@@ -6364,6 +6397,7 @@ in the dynamic and static variant.</P>
 compiler, depending on the target system selected:</P>
 <P>
 <UL>
+<LI><CODE>__AGAT__</CODE> - Target system is <CODE>agat</CODE></LI>
 <LI><CODE>__APPLE2__</CODE> - Target system is <CODE>apple2</CODE> or <CODE>apple2enh</CODE></LI>
 <LI><CODE>__APPLE2ENH__</CODE> - Target system is <CODE>apple2enh</CODE></LI>
 <LI><CODE>__ATARI2600__</CODE> - Target system is <CODE>atari2600</CODE></LI>
@@ -6376,23 +6410,31 @@ compiler, depending on the target system selected:</P>
 <LI><CODE>__C128__</CODE> - Target system is <CODE>c128</CODE></LI>
 <LI><CODE>__C16__</CODE> - Target system is <CODE>c16</CODE> or <CODE>plus4</CODE></LI>
 <LI><CODE>__C64__</CODE> - Target system is <CODE>c64</CODE></LI>
+<LI><CODE>__C65__</CODE> - Target system is <CODE>c65</CODE></LI>
 <LI><CODE>__CBM__</CODE> - Target is a Commodore or Commodore-alike system</LI>
 <LI><CODE>__CBM510__</CODE> - Target system is <CODE>cbm510</CODE></LI>
 <LI><CODE>__CBM610__</CODE> - Target system is <CODE>cbm610</CODE></LI>
+<LI><CODE>__CREATIVISION__</CODE> - Target system is <CODE>creativision</CODE></LI>
 <LI><CODE>__CX16__</CODE> - Target system is <CODE>cx16</CODE></LI>
+<LI><CODE>__GAMATE__</CODE> - Target system is <CODE>gamate</CODE></LI>
 <LI><CODE>__GEOS__</CODE> - Target is a GEOS system</LI>
 <LI><CODE>__GEOS_APPLE__</CODE> - Target system is <CODE>geos-apple</CODE></LI>
 <LI><CODE>__GEOS_CBM__</CODE> - Target system is <CODE>geos-cbm</CODE></LI>
+<LI><CODE>__KIM1__</CODE> - Target system is <CODE>kim1</CODE></LI>
 <LI><CODE>__LUNIX__</CODE> - Target system is <CODE>lunix</CODE></LI>
 <LI><CODE>__LYNX__</CODE> - Target system is <CODE>lynx</CODE></LI>
+<LI><CODE>__MEGA65__</CODE> - Target system is <CODE>mega65</CODE></LI>
 <LI><CODE>__NES__</CODE> - Target system is <CODE>nes</CODE></LI>
 <LI><CODE>__OSIC1P__</CODE> - Target system is <CODE>osic1p</CODE></LI>
+<LI><CODE>__PCE__</CODE> - Target system is <CODE>pce</CODE></LI>
 <LI><CODE>__PET__</CODE> - Target system is <CODE>pet</CODE></LI>
 <LI><CODE>__PLUS4__</CODE> - Target system is <CODE>plus4</CODE></LI>
+<LI><CODE>__RP6502__</CODE> - Target system is <CODE>rp6502</CODE></LI>
 <LI><CODE>__SIM6502__</CODE> - Target system is <CODE>sim6502</CODE></LI>
 <LI><CODE>__SIM65C02__</CODE> - Target system is <CODE>sim65c02</CODE></LI>
 <LI><CODE>__SUPERVISION__</CODE> - Target system is <CODE>supervision</CODE></LI>
 <LI><CODE>__SYM1__</CODE> - Target system is <CODE>sym1</CODE></LI>
+<LI><CODE>__TELESTRAT__</CODE> - Target system is <CODE>telestrat</CODE></LI>
 <LI><CODE>__VIC20__</CODE> - Target system is <CODE>vic20</CODE></LI>
 </UL>
 </P>
