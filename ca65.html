@@ -1290,7 +1290,8 @@ there. Such regions may be nested like PROCEDUREs in Pascal.</P>
 <A HREF="#.PROC">.PROC</A></CODE>
 directive for more information.</P>
 
-
+<P>
+<A NAME="cheap-locals"></A> </P>
 <H2><A NAME="ss6.5">6.5</A> <A HREF="#toc6.5">Cheap local labels</A>
 </H2>
 
@@ -4696,20 +4697,23 @@ the operator '&lt;' prepended to each expression in its list.</P>
 </H2>
 
 
-<P>This command may only be used inside a macro definition. It declares a
-list of identifiers as local to the macro expansion.</P>
+<P>This command may only be used inside a macro definition. It declares a list
+of identifiers as local to the macro expansion. The identifers may be
+standard identifiers or cheap local identifiers depending on the planed use.</P>
 <P>A problem when using macros are labels: Since they don't change their name,
 you get a "duplicate symbol" error if the macro is expanded the second time.
 Labels declared with <CODE>
 <A HREF="#.LOCAL">.LOCAL</A></CODE> have their
-name mapped to an internal unique name (<CODE>___ABCD__</CODE>) with each macro
+name replaced by an internally generated unique name for each macro
 invocation.</P>
-<P>Some other assemblers start a new lexical block inside a macro expansion.
-This has some drawbacks however, since that will not allow <EM>any</EM> symbol
-to be visible outside a macro, a feature that is sometimes useful. The
-<CODE>
-<A HREF="#.LOCAL">.LOCAL</A></CODE> command is in my eyes a better way
-to address the problem.</P>
+<P>Please note that while the generated names are unique and guaranteed to not
+clash with any user generated names, they are still regular symbols and
+added to the current scope. This means that a local macro label will start a
+new scope for cheap locals whenever the macro is expanded. To avoid that,
+you may also use a 
+<A HREF="#cheap-locals">cheap local symbol</A> for the
+name. In this case the assembler will generate unique cheap local
+identifiers instead of standard ones.</P>
 <P>You get an error when using <CODE>
 <A HREF="#.LOCAL">.LOCAL</A></CODE> outside
 a macro.</P>
