@@ -416,6 +416,7 @@ Short options:
 Long options:
   --auto-import                 Mark unresolved symbols as import
   --bin-include-dir dir         Set a search path for binary includes
+  --color [on|auto|off]         Color diagnostics (default: auto)
   --cpu type                    Set cpu type
   --create-dep name             Create a make dependency file
   --create-full-dep name        Create a full make dependency file
@@ -429,8 +430,9 @@ Long options:
   --listing name                Create a listing file if assembly was ok
   --list-bytes n                Maximum number of bytes per listing line
   --memory-model model          Set the memory model
+  --no-utf8                     Disable use of UTF-8 in diagnostics
   --pagelength n                Set the page length for the listing
-  --relax-checks                Disables some error checks
+  --relax-checks                Relax some checks (see docs)
   --smart                       Enable smart mode
   --target sys                  Set the target system
   --verbose                     Increase verbosity
@@ -457,6 +459,13 @@ may be used more than once to specify more than one directory to search. The
 current directory is always searched first before considering any
 additional directories. See also the section about 
 <A HREF="#search-paths">search paths</A>.</P>
+
+<P>
+<A NAME="option--color"></A> </P>
+<DT><B><CODE>--color</CODE></B><DD>
+<P>This option controls if the assembler will use colors when printing
+diagnostics. The default is "auto" which will enable colors if the output
+goes to a terminal (not to a file).</P>
 
 <P>
 <A NAME="option--cpu"></A> </P>
@@ -562,6 +571,13 @@ number of printed bytes.</P>
 <DT><B><CODE>-mm model, --memory-model model</CODE></B><DD>
 <P>Define the default memory model. Possible model specifiers are near, far and
 huge.</P>
+
+<P>
+<A NAME="option--no-utf8"></A> </P>
+<DT><B><CODE>--no-utf8</CODE></B><DD>
+<P>Disable the use of UTF-8 characters in diagnostics. This might be necessary
+if auto detection fails or if the output is captured for processing with a
+tool that is not UTF-8 capable.</P>
 
 <P>
 <A NAME="option-o"></A> </P>
