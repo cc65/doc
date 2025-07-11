@@ -517,6 +517,15 @@ information to the assembler.</P>
 mortals:-)</P>
 
 <P>
+<A NAME="option-D"></A> </P>
+<DT><B><CODE>-D</CODE></B><DD>
+<P>This option allows you to define symbols on the command line. Without a
+value, the symbol is defined with the value zero. When giving a value,
+you may use the '$' prefix for hexadecimal symbols. Please note
+that for some operating systems, '$' has a special meaning, so
+you may have to quote the expression.</P>
+
+<P>
 <A NAME="option--feature"></A> </P>
 <DT><B><CODE>--feature name</CODE></B><DD>
 <P>Enable an emulation feature. This is identical as using <CODE>.FEATURE</CODE>
@@ -541,6 +550,15 @@ monitor.</P>
 <A NAME="option-h"></A> </P>
 <DT><B><CODE>-h, --help</CODE></B><DD>
 <P>Print the short option summary shown above.</P>
+
+<P>
+<A NAME="option-I"></A> </P>
+<DT><B><CODE>-I dir, --include-dir dir</CODE></B><DD>
+<P>Name a directory which is searched for include files. The option may be
+used more than once to specify more than one directory to search. The
+current directory is always searched first before considering any
+additional directories. See also the section about 
+<A HREF="#search-paths">search paths</A>.</P>
 
 <P>
 <A NAME="option-i"></A> </P>
@@ -616,6 +634,11 @@ wrong address on 6502 CPUs, now allowed instead of producing an error.</LI>
 </P>
 
 <P>
+<A NAME="option-S"></A> </P>
+<DT><B><CODE>-S, --segment-list</CODE></B><DD>
+<P>Add the segment ID in front of each address in the listing file.</P>
+
+<P>
 <A NAME="option-s"></A> </P>
 <DT><B><CODE>-s, --smart-mode</CODE></B><DD>
 <P>In smart mode (enabled by -s or the <CODE>
@@ -644,31 +667,6 @@ overridden by using the <CODE>
 <A HREF="#option--cpu">--cpu</A></CODE> option.</P>
 
 <P>
-<A NAME="option-v"></A> </P>
-<DT><B><CODE>-v, --verbose</CODE></B><DD>
-<P>Increase the assembler verbosity. Usually only needed for debugging
-purposes. You may use this option more than one time for even more
-verbose output.</P>
-
-<P>
-<A NAME="option-D"></A> </P>
-<DT><B><CODE>-D</CODE></B><DD>
-<P>This option allows you to define symbols on the command line. Without a
-value, the symbol is defined with the value zero. When giving a value,
-you may use the '$' prefix for hexadecimal symbols. Please note
-that for some operating systems, '$' has a special meaning, so
-you may have to quote the expression.</P>
-
-<P>
-<A NAME="option-I"></A> </P>
-<DT><B><CODE>-I dir, --include-dir dir</CODE></B><DD>
-<P>Name a directory which is searched for include files. The option may be
-used more than once to specify more than one directory to search. The
-current directory is always searched first before considering any
-additional directories. See also the section about 
-<A HREF="#search-paths">search paths</A>.</P>
-
-<P>
 <A NAME="option-U"></A> </P>
 <DT><B><CODE>-U, --auto-import</CODE></B><DD>
 <P>Mark symbols that are not defined in the sources as imported symbols. This
@@ -679,6 +677,13 @@ until the linker is run. The compiler uses the equivalent of this switch
 symbols for the runtime library. However, the compiler is supposed to
 generate code that runs through the assembler without problems, something
 which is not always true for assembler programmers.</P>
+
+<P>
+<A NAME="option-v"></A> </P>
+<DT><B><CODE>-v, --verbose</CODE></B><DD>
+<P>Increase the assembler verbosity. Usually only needed for debugging
+purposes. You may use this option more than one time for even more
+verbose output.</P>
 
 <P>
 <A NAME="option-V"></A> </P>
@@ -699,6 +704,11 @@ something lower.</P>
 <DT><B><CODE>--warnings-as-errors</CODE></B><DD>
 <P>An error will be generated if any warnings were produced.</P>
 
+<P>
+<A NAME="option-x"></A> </P>
+<DT><B><CODE>-x, --expand-macros</CODE></B><DD>
+<P>In the listing file, show exactly how macros were expanded. Use twice for
+more verbose output.</P>
 
 </DL>
 </P>
