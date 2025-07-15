@@ -178,6 +178,7 @@ Long options:
   --target sys                  Set the target system
   --verbose                     Increase verbosity
   --version                     Print the compiler version number
+  --warnings-as-errors          Treat warnings as errors
   --writable-strings            Make string literals writable
 ---------------------------------------------------------------------------
 </PRE>
@@ -571,6 +572,28 @@ segments will work.</P>
 <A HREF="#pragma-local-strings">#pragma&nbsp;local-strings</A></CODE> for fine grained control.</P>
 
 
+<DT><B><CODE>-mm model, --memory-model model</CODE></B><DD>
+<P>This option sets the code and data models for the compiler to use. Please
+note that memory models are an unfinished feature and using this option
+with any other memory model than <CODE>near</CODE> will cause compile errors.
+Possible arguments are:</P>
+<P>
+<DL>
+<DT><B>near</B><DD>
+<P>This memory model uses 16 bit addresses for code and data. It is
+currently the only supported memory model and suited for the 6502.</P>
+
+<DT><B>far</B><DD>
+<P>This memory model uses 24 bit addresses for code and 16 bit addresses
+for data. It is suited for the 65816 but currently unsupported.</P>
+
+<DT><B>huge</B><DD>
+<P>This memory model uses 24 bit addresses for code and data. It is
+suited for the 65816 but currently unsupported.</P>
+</DL>
+</P>
+
+
 <DT><B><CODE>-o name</CODE></B><DD>
 <P>Specify the name of the output file. If you don't specify a name, the
 name of the C input file is used, with the extension replaced by ".s".</P>
@@ -704,6 +727,15 @@ default CPU. The CPU setting can be overridden by use of the <CODE>
 or warnings are encountered.</P>
 
 <P>
+<A NAME="option--warnings-as-errors"></A> </P>
+<DT><B><CODE>--warnings-as-errors</CODE></B><DD>
+<P>Treat all warnings as error. This makes the compiler exit with an appropriate
+error code in case of warnings. The effect of this switch is identical to
+the command line option <CODE>
+<A HREF="#option-W">-W error</A></CODE>. It is
+available for compatibility with the other tools.</P>
+
+<P>
 <A NAME="option-writable-strings"></A> </P>
 <DT><B><CODE>--writable-strings</CODE></B><DD>
 <P>Make string literals writable by placing them into the data segment instead
@@ -808,7 +840,10 @@ is enabled.</P>
 <DT><B><CODE>const-comparison</CODE></B><DD>
 <P>Warn if the result of a comparison is constant.</P>
 <DT><B><CODE>error</CODE></B><DD>
-<P>Treat all warnings as errors.</P>
+<P>Treat all warnings as errors. This has the same effect as using the
+<CODE>
+<A HREF="#option--warnings-as-errors">--warnings-as-errors</A></CODE>
+option.</P>
 <DT><B><CODE>no-effect</CODE></B><DD>
 <P>Warn about statements that don't have an effect.</P>
 <DT><B><CODE>pointer-sign</CODE></B><DD>

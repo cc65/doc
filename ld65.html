@@ -146,6 +146,7 @@ Short options:
 Long options:
   --allow-multiple-definition   Allow multiple definitions
   --cfg-path path               Specify a config file search path
+  --color [on|auto|off]         Color diagnostics (default: auto)
   --config name                 Use linker config file
   --dbgfile name                Generate debug information
   --define sym=val              Define a symbol
@@ -157,13 +158,13 @@ Long options:
   --lib-path path               Specify a library search path
   --mapfile name                Create a map file
   --module-id id                Specify a module id
+  --no-utf8                     Disable use of UTF-8 in diagnostics
   --obj file                    Link this object file
   --obj-path path               Specify an object file search path
   --start-addr addr             Set the default start address
   --start-group                 Start a library group
   --target sys                  Set the target system
   --version                     Print the linker version
-  --warnings-as-errors          Treat warnings as errors
 ---------------------------------------------------------------------------
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -353,6 +354,13 @@ specified using <CODE>--cfg-path</CODE>, in directories given by environment var
 and in a built-in default directory.</P>
 
 <P>
+<A NAME="option--color"></A> </P>
+<DT><B><CODE>--color</CODE></B><DD>
+<P>This option controls if the linker will use colors when printing
+diagnostics. The default is "auto" which will enable colors if the output
+goes to a terminal (not to a file).</P>
+
+<P>
 <A NAME="option--dbgfile"></A> </P>
 <DT><B><CODE>--dbgfile name</CODE></B><DD>
 <P>Specify an output file for debug information. Available information will be
@@ -371,6 +379,13 @@ file and its contents are subject to change without further notice.</P>
 <P>Links a library to the output. Use this command-line option instead of just
 naming the library file, if the linker is not able to determine the file
 type because of an unusual extension.</P>
+
+<P>
+<A NAME="option--no-utf8"></A> </P>
+<DT><B><CODE>--no-utf8</CODE></B><DD>
+<P>Disable the use of UTF-8 characters in diagnostics. This might be necessary
+if auto detection fails or if the output is captured for processing with a
+tool that is not UTF-8 capable.</P>
 
 
 <DT><B><CODE>--obj file</CODE></B><DD>
