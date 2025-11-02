@@ -443,6 +443,7 @@ Long options:
   --target sys                  Set the target system
   --verbose                     Increase verbosity
   --version                     Print the assembler version
+  --warn-align-waste            Print bytes "wasted" for alignment
   --warnings-as-errors          Treat warnings as errors
 ---------------------------------------------------------------------------
 </PRE>
@@ -698,6 +699,12 @@ or bugfixes, please include the version number.</P>
 even warn about such things like unused imported symbols. The default
 warning level is 1, and it would probably be silly to set it to
 something lower.</P>
+
+<P>
+<A NAME="option--warn-align-waste"></A> </P>
+<DT><B><CODE>--warn-align-waste</CODE></B><DD>
+<P>Warnings will be generated when alignment requirements cause emission of
+fill bytes.</P>
 
 <P>
 <A NAME="option--warnings-as-errors"></A> </P>
@@ -2972,7 +2979,8 @@ of the alignment, because that allows the number of fill bytes to be
 calculated in advance by the assembler. You are therefore required to
 specify a matching alignment for the segment in the linker config. The
 linker will output a warning if the alignment of the segment is less than
-what is necessary to have a correct alignment in the object file.</P>
+what is necessary to have a correct alignment in the object file. It will
+also emit a warning to inform about the number of bytes wasted for alignment.</P>
 <P>Example:</P>
 <P>
 <BLOCKQUOTE><CODE>

@@ -165,6 +165,8 @@ Long options:
   --start-group                 Start a library group
   --target sys                  Set the target system
   --version                     Print the linker version
+  --warn-align-waste            Print bytes "wasted" for alignment
+  --warnings-as-errors          Treat warnings as errors
 ---------------------------------------------------------------------------
 </PRE>
 </CODE></BLOCKQUOTE>
@@ -401,6 +403,12 @@ It adds a directory to the search path for object files. An object file
 passed to the linker that has no path in its name is searched in the current
 directory, in the list of directories specified using <CODE>--obj-path</CODE>, in
 directories given by environment variables, and in a built-in default directory.</P>
+
+<P>
+<A NAME="option--warn-align-waste"></A> </P>
+<DT><B><CODE>--warn-align-waste</CODE></B><DD>
+<P>Warnings will be generated when alignment requirements cause emission of
+fill bytes.</P>
 
 <P>
 <A NAME="option--warnings-as-errors"></A> </P>
