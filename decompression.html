@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css">
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.83">
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <TITLE>Decompressing data with cc65</TITLE>
+</HEAD>
+<BODY>
+<H1>Decompressing data with cc65</H1>
+
+<H2>
+<A HREF="mailto:colin@colino.net">Colin Leroy-Mira</A></H2>
+<HR>
+<EM>How to decompress data using one of cc65's runtime decompressors.</EM>
+<HR>
+<P>
+<H2><A NAME="toc1">1.</A> <A HREF="decompression.html#s1">Overview</A></H2>
+
+<P>
+<H2><A NAME="toc2">2.</A> <A HREF="decompression.html#s2">LZ4</A></H2>
+
+<P>
+<H2><A NAME="toc3">3.</A> <A HREF="decompression.html#s3">LZSA</A></H2>
+
+<P>
+<H2><A NAME="toc4">4.</A> <A HREF="decompression.html#s4">ZX02</A></H2>
+
+<P>
+<H2><A NAME="toc5">5.</A> <A HREF="decompression.html#s5">In-place decompression</A></H2>
+
+<P>
+<H2><A NAME="toc6">6.</A> <A HREF="decompression.html#s6">Which decompressor to choose</A></H2>
+
+
+<HR>
+<H2><A NAME="s1">1.</A> <A HREF="#toc1">Overview</A></H2>
+
+
+<P>cc65 ships with multiple decompressors, each having pros and cons. This page
+will detail each of them, and how to use them.</P>
+
+
+
+<H2><A NAME="s2">2.</A> <A HREF="#toc2">LZ4</A></H2>
+
+
+<P>The LZ4 format is widely known. It has a number of drawbacks, though:</P>
+<P>There are many LZ4 subformats available, and generating LZ4 data compatible
+with the cc65 decompressor requires some work. The cc65 decompressor works
+on raw LZ4 data with no header, which makes it difficult to generate compressed
+data simply using the <CODE>lz4</CODE> command-line utility.</P>
+<P>This also means that the function needs to be passed the expected decompressed
+size as argument. This makes generating compressed LZ4 data even harder.</P>
+<P>The simplest way to generate "correct" LZ4 data for the cc65 decompressor is
+to write a small C utility, like this one (example stripped of any error checking):
+<BLOCKQUOTE><CODE>
+<PRE>
+  FILE *fp;
+  size_t read_bytes, wrote_bytes;
+  char header[2];
+  char in_buf[MAX_COMPRESSED_DATA_SIZE*16];
+  char out_buf[MAX_COMPRESSED_DATA_SIZE];
+
+  fp = fopen(argv[1], "rb");
+  read_bytes = fread(in_buf, 1, sizeof(in_buf), fp);
+  fclose(fp);
+
+  wrote_bytes = LZ4_compress_HC(in_buf, out_buf, read_bytes, sizeof(out_buf), 16);
+  header[0] = (read_bytes &amp; 0xFF);
+  header[1] = (read_bytes &amp; 0xFFFF) >> 8;
+
+  fp = fopen("DATA.LZ4", "wb");
+  fwrite(header, 1, sizeof(header), fp);
+  fwrite(out_buf, 1, wrote_bytes, fp);
+  fclose(fp);
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Decompressing in a cc65 program then looks like:
+<BLOCKQUOTE><CODE>
+<PRE>
+  int fd;
+  int decompressed_size;
+  char compressed[MAX_COMPRESSED_DATA_SIZE];
+  char destination[MAX_COMPRESSED_DATA_SIZE*16];
+
+  fd = open("DATA.LZ4", O_RDONLY);
+  read(fd, &amp;decompressed_size, sizeof(int));
+  read(fd, compressed, MAX_COMPRESSED_DATA_SIZE);
+  close(fd);
+
+  decompress_lz4(compressed, destination, decompressed_size);
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+<H2><A NAME="s3">3.</A> <A HREF="#toc3">LZSA</A></H2>
+
+
+<P>The LZSA formats come from Emmanuel Marty and has its code hosted in the
+<A HREF="https://github.com/emmanuel-marty/lzsa">Github LZSA repository</A>.</P>
+<P>Compressing data is simple, from a command-line or shell:
+<BLOCKQUOTE><CODE>
+<PRE>
+  lzsa -r -f 1 input.bin DATA.LZSA #For lzsa1 format
+  lzsa -r -f 2 input.bin DATA.LZSA #For lzsa2 format
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Decompressing is then as simple as possible:
+<BLOCKQUOTE><CODE>
+<PRE>
+  int fd;
+  char compressed[MAX_COMPRESSED_DATA_SIZE];
+  char destination[MAX_COMPRESSED_DATA_SIZE*16];
+
+  fd = open("DATA.LZSA", O_RDONLY);
+  read(fd, compressed, MAX_COMPRESSED_DATA_SIZE);
+  close(fd);
+
+  decompress_lzsa1(compressed, destination);
+  // or
+  // decompress_lzsa2(compressed, destination);
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+<H2><A NAME="s4">4.</A> <A HREF="#toc4">ZX02</A></H2>
+
+
+<P>The ZX02 formats come from <CODE>dmsc</CODE> and has its code hosted in the
+<A HREF="https://github.com/dmsc/zx02">Github ZX02 repository</A>.</P>
+<P>Compressing data is simple, from a command-line or shell:
+<BLOCKQUOTE><CODE>
+<PRE>
+  zx02 -f input.bin DATA.ZX02
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Decompressing is then as simple as possible:
+<BLOCKQUOTE><CODE>
+<PRE>
+  int fd;
+  char compressed[MAX_COMPRESSED_DATA_SIZE];
+  char destination[MAX_COMPRESSED_DATA_SIZE*16];
+
+  fd = open("DATA.ZX02", O_RDONLY);
+  read(fd, compressed, MAX_COMPRESSED_DATA_SIZE);
+  close(fd);
+
+  decompress_zx02(compressed, destination);
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+<H2><A NAME="s5">5.</A> <A HREF="#toc5">In-place decompression</A></H2>
+
+
+<P>As memory is often sparse in the cc65 targets, it is often possible to decompress
+data "in-place", requiring only the destination buffer and no compressed data
+buffer. But as the cc65 decompressors do not support backwards compressed data,
+it is necessary to have the compressed data at the <CODE>end</CODE> of the destination
+buffer, <CODE>and</CODE> that the destination buffer has a few extra bytes (8 are enough)
+so that decompressing does not overwrite the end of the compressed data too soon:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  #define BUFFER_SIZE = (MAX_UNCOMPRESSED_DATA_SIZE) + 8;
+
+  int fd;
+  int compressed_size;
+  char dest_buf[BUFFER_SIZE];
+  char *end_of_buf = dest_buf + BUFFER_SIZE;
+
+  fd = open("DATA.ZX02", O_RDONLY);
+  compressed_size = read(fd, dest_buf, MAX_UNCOMPRESSED_DATA_SIZE);
+  close(fd);
+  memmove(end_of_buf - compressed_size, dest_buf, compressed_size);
+  decompress_zx02(end_of_buf - compressed_size, dest_buf);
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+<H2><A NAME="s6">6.</A> <A HREF="#toc6">Which decompressor to choose</A></H2>
+
+
+<P>The best decompressor depends on your use-case and whether you favor size or
+speed. This table allows for a simple comparison.
+Decompression speed is the number of uncompressed bytes per second at 1MHz.</P>
+<P>
+<BR><CENTER>
+<TABLE BORDER><TR><TD>
+<B>Decompressor</B></TD><TD><B>Approximate compression ratio</B></TD><TD><B>Decompressor size</B></TD><TD><B>Decompression speed</B></TD></TR><TR><TD>
+<B>LZ4</B></TD><TD>40.7%</TD><TD>272 bytes</TD><TD>18.6kB/s</TD></TR><TR><TD>
+<B>LZSA1</B></TD><TD>46.3%</TD><TD>202 bytes</TD><TD>26.8kB/s</TD></TR><TR><TD>
+<B>LZSA2</B></TD><TD>52.1%</TD><TD>267 bytes</TD><TD>22.5kB/s</TD></TR><TR><TD>
+<B>ZX02</B></TD><TD>52.8%</TD><TD>138 bytes</TD><TD>16.3kB/s</TD></TR><TR><TD>
+<B>ZX02 (fast)</B></TD><TD>52.8%</TD><TD>172 bytes</TD><TD>18.2kB/s
+</TD></TR></TABLE>
+</CENTER><BR>
+</P>
+<P>In short, if you want to have the smallest amount of data, go with ZX02. If you
+want the fastest decompression speed, go with LZSA1.</P>
+</BODY>
+</HTML>
