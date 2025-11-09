@@ -1295,7 +1295,7 @@ and a numeric variable named <CODE>lcount</CODE>.</P>
 <P>
 <BLOCKQUOTE><CODE>
 <PRE>
-        .lcount .set 0          ; Initialize the counter
+        lcount  .set 0          ; Initialize the counter
 
         .macro  genlab
                 .ident (.sprintf ("L%04X", lcount)):
