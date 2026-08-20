@@ -435,6 +435,7 @@ Long options:
   --listing name                Create a listing file if assembly was ok
   --list-bytes n                Maximum number of bytes per listing line
   --memory-model model          Set the memory model
+  --merge-scopes                Allow reopening named .SCOPEs
   --no-utf8                     Disable use of UTF-8 in diagnostics
   --pagelength n                Set the page length for the listing
   --relax-checks                Relax some checks (see docs)
@@ -611,6 +612,14 @@ tool that is not UTF-8 capable.</P>
 replaced by ".o". If you don't like that, you may give another name with
 the -o option. The output file will be placed in the same directory as
 the source file, or, if -o is given, the full path in this name is used.</P>
+
+<P>
+<A NAME="option--merge-scopes"></A> </P>
+<DT><B><CODE>--merge-scopes</CODE></B><DD>
+<P>Allow a named <CODE>.SCOPE</CODE> to be reopened in the same enclosing scope.
+Symbols declared in every occurrence belong to the same scope, so defining
+a symbol more than once remains an error. The size of a reopened scope is
+the sum of the sizes of its occurrences.</P>
 
 <P>
 <A NAME="option--pagelength"></A> </P>
@@ -3976,6 +3985,12 @@ indicates returning from a <CODE>far</CODE> procedure.</P>
 assemblers which similarly allowed <CODE>jsr</CODE> and <CODE>jmp</CODE> to be used
 this way.</P>
 
+<DT><B><CODE>merge_scopes</CODE>
+<A NAME="merge_scopes"></A> </B><DD>
+<P>Allow named <CODE>.SCOPE</CODE> blocks with the same enclosing scope to be
+reopened and merged. See the <CODE>
+<A HREF="#option--merge-scopes">--merge-scopes</A></CODE> command line option for details.</P>
+
 <DT><B><CODE>loose_char_term</CODE>
 <A NAME="loose_char_term"></A> </B><DD>
 <P>Accept single quotes as well as double quotes as terminators for char
@@ -5439,6 +5454,12 @@ ends when the <CODE>
 <A HREF="#.ENDSCOPE">.ENDSCOPE</A></CODE> command is
 read. Lexical levels may be nested up to a depth of 16 (this is an
 artificial limit to protect against errors in the source).</P>
+<P>Normally, a named scope may be defined only once in an enclosing scope.
+With the <CODE>
+<A HREF="#option--merge-scopes">--merge-scopes</A></CODE>
+option, it may be reopened. All occurrences then share the same symbols;
+duplicate symbol definitions remain errors. The size of the resulting scope
+is the sum of the sizes of its occurrences.</P>
 <P>Note: Macro names are always in the global level and in a separate name
 space. There is no special reason for this, it's just that I've never
 had any need for local macro definitions.</P>
