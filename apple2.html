@@ -39,8 +39,10 @@ implemented for the cc65 C compiler.</EM>
 
 <UL>
 <LI><A NAME="toc5.1">5.1</A> <A HREF="apple2.html#ss5.1">LOADER.SYSTEM</A>
-<LI><A NAME="toc5.2">5.2</A> <A HREF="apple2.html#ss5.2">Heap</A>
-<LI><A NAME="toc5.3">5.3</A> <A HREF="apple2.html#ss5.3">ProDOS 8 I/O buffers</A>
+<LI><A NAME="toc5.2">5.2</A> <A HREF="apple2.html#ss5.2">ZXLOADER.SYSTEM</A>
+<LI><A NAME="toc5.3">5.3</A> <A HREF="apple2.html#ss5.3">LOADER and ZXLOADER.SYSTEM's parameters handling</A>
+<LI><A NAME="toc5.4">5.4</A> <A HREF="apple2.html#ss5.4">Heap</A>
+<LI><A NAME="toc5.5">5.5</A> <A HREF="apple2.html#ss5.5">ProDOS 8 I/O buffers</A>
 </UL>
 <P>
 <H2><A NAME="toc6">6.</A> <A HREF="apple2.html#s6">Platform specific header files</A></H2>
@@ -212,23 +214,24 @@ are used via <CODE>-t apple2 -C &lt;configfile&gt;</CODE>.</P>
 <P>Default: $803. Use <CODE>-S &lt;addr&gt;</CODE> to set a different start address.</P>
 
 <DT><B><CODE>__EXEHDR__:</CODE> AppleSingle executable file header</B><DD>
-<P>Default: Yes. Use <CODE>-D __EXEHDR__=0</CODE> to omit the AppleSingle header.</P>
+<P>Default: Yes. Use ld65 <CODE>-D__EXEHDR__=0</CODE> to omit the AppleSingle header, or
+cl65's <CODE>--ld-args "-D__EXEHDR__=0"</CODE>.</P>
 
 <DT><B><CODE>__STACKSIZE__:</CODE> C runtime stack size</B><DD>
-<P>Default: $800. Use <CODE>-D __STACKSIZE__=&lt;size&gt;</CODE> to set a different
-stack size.</P>
+<P>Default: $800. Use ld65 <CODE>-D __STACKSIZE__=&lt;size&gt;</CODE> to set a different
+stack size, or cl65's <CODE>--ld-args "-D __STACKSIZE__=&lt;size&gt;"</CODE>.</P>
 
 <DT><B><CODE>__HIMEM__:</CODE> Highest usable memory address presumed at link time</B><DD>
-<P>Default: $9600. Use <CODE>-D __HIMEM__=&lt;addr&gt;</CODE> to set a different
-highest usable address.</P>
+<P>Default: $9600. Use ld65 <CODE>-D __HIMEM__=&lt;addr&gt;</CODE> to set a different
+highest usable address, or cl65's <CODE>--ld-args "-D __HIMEM__=&lt;addr&gt;"</CODE>.</P>
 
 <DT><B><CODE>__LCADDR__:</CODE> Address of code in the Language Card</B><DD>
-<P>Default: $D400. Use <CODE>-D __LCADDR__=&lt;addr&gt;</CODE> to set a different
-code address.</P>
+<P>Default: $D400. Use ld65 <CODE>-D __LCADDR__=&lt;addr&gt;</CODE> to set a different
+code address, or cl65's <CODE>--ld-args "-D __LCADDR__=&lt;addr&gt;"</CODE>.</P>
 
 <DT><B><CODE>__LCSIZE__:</CODE> Size of code in the Language Card</B><DD>
 <P>Default: $C00. Use <CODE>-D __LCSIZE__=&lt;size&gt;</CODE> to set a different
-code size.</P>
+code size, or cl65's <CODE>--ld-args "-D __LCSIZE__=&lt;size&gt;"</CODE>.</P>
 
 </DL>
 </P>
@@ -246,7 +249,8 @@ $2000 to $BEFF.</P>
 <DL>
 
 <DT><B><CODE>__EXEHDR__:</CODE> AppleSingle executable file header</B><DD>
-<P>Default: Yes. Use <CODE>-D __EXEHDR__=0</CODE> to omit the AppleSingle header.</P>
+<P>Default: Yes. Use ld65 <CODE>-D__EXEHDR__=0</CODE> to omit the AppleSingle header, or
+cl65's <CODE>--ld-args "-D__EXEHDR__=0"</CODE>.</P>
 
 <DT><B><CODE>__STACKSIZE__:</CODE> C runtime stack size</B><DD>
 <P>Default: $800. Use <CODE>-D __STACKSIZE__=&lt;size&gt;</CODE> to set a different
@@ -279,7 +283,8 @@ for an example of such a program.</P>
 <P>Default: $803. Use <CODE>-S &lt;addr&gt;</CODE> to set a different start address.</P>
 
 <DT><B><CODE>__EXEHDR__:</CODE> AppleSingle executable file header</B><DD>
-<P>Default: Yes. Use <CODE>-D __EXEHDR__=0</CODE> to omit the AppleSingle header.</P>
+<P>Default: Yes. Use ld65 <CODE>-D__EXEHDR__=0</CODE> to omit the AppleSingle header, or
+cl65's <CODE>--ld-args "-D__EXEHDR__=0"</CODE>.</P>
 
 <DT><B><CODE>__STACKSIZE__:</CODE> C runtime stack size</B><DD>
 <P>Default: $800. Use <CODE>-D __STACKSIZE__=&lt;size&gt;</CODE> to set a different
@@ -317,7 +322,8 @@ information on overlays.</P>
 <P>Default: $803. Use <CODE>-S &lt;addr&gt;</CODE> to set a different start address.</P>
 
 <DT><B><CODE>__EXEHDR__:</CODE> AppleSingle executable file header</B><DD>
-<P>Default: Yes. Use <CODE>-D __EXEHDR__=0</CODE> to omit the AppleSingle header.</P>
+<P>Default: Yes. Use ld65 <CODE>-D__EXEHDR__=0</CODE> to omit the AppleSingle header, or
+cl65's <CODE>--ld-args "-D__EXEHDR__=0"</CODE>.</P>
 
 <DT><B><CODE>__STACKSIZE__:</CODE> C runtime stack size</B><DD>
 <P>Default: $800. Use <CODE>-D __STACKSIZE__=&lt;size&gt;</CODE> to set a different
@@ -374,7 +380,7 @@ by default unused. There are however several options to make use of that memory
 range.</P>
 
 
-<H2><A NAME="ss5.1">5.1</A> <A HREF="#toc5.1">LOADER.SYSTEM</A>
+<H2><A NAME="loader-system"></A> <A NAME="ss5.1">5.1</A> <A HREF="#toc5.1">LOADER.SYSTEM</A>
 </H2>
 
 
@@ -387,10 +393,83 @@ program (i.e. quits to the ProDOS dispatcher).</P>
 <P>Using LOADER.SYSTEM is as simple as copying it to the ProDOS 8 directory of the
 program to load under name &lt;program&gt;.SYSTEM as a system program. For
 example the program <CODE>MYPROG</CODE> is loaded by <CODE>MYPROG.SYSTEM</CODE>. The right
-AppleCommander option to put LOADER.SYSTEM on a ProDOS 8 disk image is <CODE>-p</CODE>.</P>
+AppleCommander option to put LOADER.SYSTEM on a ProDOS 8 disk image is <CODE>-p</CODE> :
+<BLOCKQUOTE><CODE>
+<PRE>
+java -jar ac.jar -p FLOPPY.IMG MYPROG.SYSTEM SYS &lt; /share/cc65/target/apple2/util/loader.system
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
 
 
-<H2><A NAME="ss5.2">5.2</A> <A HREF="#toc5.2">Heap</A>
+<H2><A NAME="ss5.2">5.2</A> <A HREF="#toc5.2">ZXLOADER.SYSTEM</A>
+</H2>
+
+
+<P>ZXLOADER.SYSTEM works in the same way as 
+<A HREF="#loader-system">LOADER.SYSTEM</A>, but includes a ZX02 decompressor.</P>
+<P><B>ZX02</B> (available at 
+<A HREF="https://github.com/dmsc/zx02/">https://github.com/dmsc/zx02/</A>) is a
+compression algorithm and program targetting the 6502 processor: it compresses
+well (and slowly), and decompresses very fast.</P>
+<P>ZXLOADER.SYSTEM allows one to store compressed binaries on the filesystem,
+making more room on it for more resources. It does not allow running larger
+programs.</P>
+<P>It is up to the user to compress their programs before putting them on a ProDOS
+8 volume. Such binaries should not include the default AppleSingle header
+(use ld65's <CODE>-D__EXEHDR__=0</CODE> flag to skip including it, or cl65's
+<CODE>--ld-args "-D__EXEHDR__=0"</CODE>). The binary should be put on the filesystem
+using AppleCommander's <CODE>-p</CODE> option, specifying the program's start address
+as it appears in the .cfg file or in the compiler's <CODE>--start-addr</CODE> option:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+cl65 -t apple2 --ld-args "-D__EXEHDR__=0" -o myprog.bin myprog.c
+zx02 -f myprog.bin myprog.zx02
+java -jar ac.jar -p FLOPPY.IMG MYPROG.SYSTEM SYS &lt; /share/cc65/target/apple2/util/zxloader.system
+java -jar ac.jar -p FLOPPY.IMG MYPROG BIN 0x803 &lt; myprog.zx02
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+
+
+<H2><A NAME="ss5.3">5.3</A> <A HREF="#toc5.3">LOADER and ZXLOADER.SYSTEM's parameters handling</A>
+</H2>
+
+
+<P>Both LOADER and ZXLOADER.SYSTEM handle receiving and passing parameters, like
+normal cc65 binaries. Outside of cc65's "world", (when a SYSTEM file is launched via
+a ProDOS selector like Bitsy Bye or BASIC's <CODE>-MYPROG.SYSTEM</CODE>), there is no
+parameter, and the renamed LOADER will load and execute the matching file
+(for example, MYPROG.SYSTEM will execute MYPROG).
+From a cc65 program, it is possible to <CODE>exec()</CODE> a SYSTEM file in the same
+way as a BIN file, so you can use:
+<BLOCKQUOTE><CODE>
+<PRE>
+exec("MYPROG.SYSTEM", "parameterA parameterB");
+</PRE>
+</CODE></BLOCKQUOTE>
+
+MYPROG will have "parameterA" in argv[1] and "parameterB" in argv[2].</P>
+<P>When using ZXLOADER, your project might include multiple binaries, some of them
+exec()'ing other ones. In order to avoid duplicating the decompressor code on
+the floppy, you can use the same LOADER to execute different binaries, by passing
+the desired binary name as first argument to LOADER, prefixed with a dash:
+<BLOCKQUOTE><CODE>
+<PRE>
+// decompress MYPROG and run it.
+exec("ZXLOADER.SYSTEM", "-MYPROG");
+// decompress HELPER and run it with two parameters.
+exec("ZXLOADER.SYSTEM", "-MYPROG paramA paramB");
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Parameter handling works in the same way with LOADER.SYSTEM, but there is no
+practical use for it - it is better to directly <CODE>exec("HELPER", "paramA paramB")</CODE>
+if you are not working with compressed binaries.</P>
+
+
+<H2><A NAME="ss5.4">5.4</A> <A HREF="#toc5.4">Heap</A>
 </H2>
 
 
@@ -402,7 +481,7 @@ the memory from $800 to $1FFF can be added to the heap by calling
 <CODE>_heapadd ((void *) 0x0800, 0x1800);</CODE> at the beginning of <CODE>main()</CODE>.</P>
 
 
-<H2><A NAME="ss5.3">5.3</A> <A HREF="#toc5.3">ProDOS 8 I/O buffers</A>
+<H2><A NAME="ss5.5">5.5</A> <A HREF="#toc5.5">ProDOS 8 I/O buffers</A>
 </H2>
 
 
