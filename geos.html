@@ -41,7 +41,8 @@ useful for writing GEOS applications in general.</EM>
 <LI><A NAME="toc3.6">3.6</A> <A HREF="geos.html#ss3.6">Files</A>
 <LI><A NAME="toc3.7">3.7</A> <A HREF="geos.html#ss3.7">Memory and Strings</A>
 <LI><A NAME="toc3.8">3.8</A> <A HREF="geos.html#ss3.8">Processes and Multitasking</A>
-<LI><A NAME="toc3.9">3.9</A> <A HREF="geos.html#ss3.9">System Functions</A>
+<LI><A NAME="toc3.9">3.9</A> <A HREF="geos.html#ss3.9">Printing</A>
+<LI><A NAME="toc3.10">3.10</A> <A HREF="geos.html#ss3.10">System Functions</A>
 </UL>
 <P>
 <H2><A NAME="toc4">4.</A> <A HREF="geos.html#s4">Library Structures</A></H2>
@@ -1109,7 +1110,61 @@ video mode (PAL or NTSC) how many jiffies there are per second (50 or 60, respec
 If you don't want to worry about it and need only full second resolution, call the standard
 <CODE>sleep</CODE> function from <CODE>unistd.h</CODE>.</P>
 
-<H2><A NAME="ss3.9">3.9</A> <A HREF="#toc3.9">System Functions</A>
+<H2><A NAME="ss3.9">3.9</A> <A HREF="#toc3.9">Printing</A>
+</H2>
+
+<P>GEOS supports different printers through its printer driver system, making it easy to add printing
+support to your application.  Before using the printer, the driver must be loaded into memory.  This is done using GetFile().  Use <CODE>PrntFileName</CODE> (defined in gsym.h) to load the default driver.
+After that, the printing API is availble for use.</P>
+<P>The following API is only available on C64/C128.</P>
+
+<H3>InitForPrint</H3>
+
+<P><CODE>void InitForPrint(void)</CODE></P>
+<P>Call this to initialize the driver.</P>
+
+<H3>StartPrint</H3>
+
+<P><CODE>char __fastcall__ StartPrint(char *workBuf)</CODE></P>
+<P>Call this before printing each page.  Give a 1920 byte work buffer for the driver to use, which must
+stay untouched by the application while the page is printing.</P>
+<P>Do not use this if you want to print text only, then you use startASCII instead.</P>
+
+<H3>PrintBuffer</H3>
+
+<P><CODE>void __fastcall__ PrintBuffer(char *printData, char *workBuf, char *colorData)</CODE></P>
+<P>Print one row (640x8 pixels) of data (in card format), given in printData, 640 bytes.  workBuf is
+the same pointer as for StartPrint. colorData must be set to NULL or be a pointer to 80 bytes of
+color data.</P>
+
+<H3>StopPrint</H3>
+
+<P><CODE>char __fastcall__ StopPrint(char *tempBuf, char *workBuf)</CODE></P>
+<P>Call this when you have sent the entire page. tmpBuf is a 640 byte scratchBuffer, workBuf is the
+same as for StartPrint.</P>
+
+<H3>GetDimensions</H3>
+
+<P><CODE>void __fastcall__ GetDimensions(char *width, char *height, char *mode)</CODE></P>
+<P>Returns the page size (in cards), together with a mode (00 = printer can print text and graphics, ff
+= printer can only print text).</P>
+
+<H3>StartASCII</H3>
+
+<P><CODE>char __fastcall__ StartASCII(char *workBuf)</CODE></P>
+<P>Call this before printing each page of ASCII text.  workBuf is a 640 byte buffer which must be untouched by the application while the page is printing.</P>
+
+<H3>PrintASCII</H3>
+
+<P><CODE>void __fastcall__ PrintASCII(const char *printData, char *workBuf)</CODE></P>
+<P>Print an ASCII line of text, given in printData.  workBuf is the same as for StartASCII.</P>
+
+<H3>SetNLQ</H3>
+
+<P><CODE>void __fastcall__ SetNLQ(char *workBuf)</CODE></P>
+<P>Set up the printer for NearLetterQuality (NLQ) mode.  Used only for ASCII printing, to get higher quality output.</P>
+
+<H2><A NAME="ss3.10">3.10</A> <A HREF="#toc3.10">System Functions</A>
 </H2>
 
 <H3>FirstInit</H3>
