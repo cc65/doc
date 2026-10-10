@@ -38,20 +38,23 @@ cc65-compiled programs.</EM>
 <LI><A NAME="toc4.2">4.2</A> <A HREF="grc65.html#ss4.2">Building the GEOS application without cl65</A>
 </UL>
 <P>
-<H2><A NAME="toc5">5.</A> <A HREF="grc65.html#s5">Building a GEOS VLIR overlay application</A></H2>
+<H2><A NAME="toc5">5.</A> <A HREF="grc65.html#s5">Building desk accessories</A></H2>
+
+<P>
+<H2><A NAME="toc6">6.</A> <A HREF="grc65.html#s6">Building a GEOS VLIR overlay application</A></H2>
 
 <UL>
-<LI><A NAME="toc5.1">5.1</A> <A HREF="grc65.html#ss5.1">Building the GEOS overlay application using cl65</A>
-<LI><A NAME="toc5.2">5.2</A> <A HREF="grc65.html#ss5.2">Building the GEOS overlay application without cl65</A>
+<LI><A NAME="toc6.1">6.1</A> <A HREF="grc65.html#ss6.1">Building the GEOS overlay application using cl65</A>
+<LI><A NAME="toc6.2">6.2</A> <A HREF="grc65.html#ss6.2">Building the GEOS overlay application without cl65</A>
 </UL>
 <P>
-<H2><A NAME="toc6">6.</A> <A HREF="grc65.html#s6">Bugs and feedback</A></H2>
+<H2><A NAME="toc7">7.</A> <A HREF="grc65.html#s7">Bugs and feedback</A></H2>
 
 <P>
-<H2><A NAME="toc7">7.</A> <A HREF="grc65.html#s7">Legal stuff</A></H2>
+<H2><A NAME="toc8">8.</A> <A HREF="grc65.html#s8">Legal stuff</A></H2>
 
 <P>
-<H2><A NAME="toc8">8.</A> <A HREF="grc65.html#s8">Appendix A -- example.grc</A></H2>
+<H2><A NAME="toc9">9.</A> <A HREF="grc65.html#s9">Appendix A -- example.grc</A></H2>
 
 
 <HR>
@@ -63,8 +66,9 @@ application is the header, that is:  an icon, some strings, and some addresses.
 Optional resources might be menu definitions, other headers (e.g., for data
 files of an app.), dialog definitions, etc.  Without an application's header,
 GEOS is unable to load and start it.</P>
-<P>Currently, <B>grc65</B> supports only menus and the required header definition,
-along with support for building applications with VLIR-structured overlays.</P>
+<P>Currently, <B>grc65</B> supports menus, the required header definition,
+driver/accessory headers (desk accessories), and building applications with
+VLIR-structured overlays.</P>
 <P><B>grc65</B> generates output in two formats: C header and <B>ca65</B> source (.s).
 That is because the application header data must be in assembly format, while
 the menu definitions can be translated easily into C.  The purpose of the C
@@ -177,7 +181,8 @@ HEADER &lt;GEOS_TYPE> "dosname" "classname" "version" {
 
 The header definition describes the GEOS header sector which is unique to
 each file.  The definition starts with the keyword <CODE>HEADER</CODE>, then goes the
-GEOS file-type.  You can use only <CODE>APPLICATION</CODE> here at the moment.  Then,
+GEOS file-type.  It can be <CODE>APPLICATION</CODE>, <CODE>AUTO_EXEC</CODE>, or <CODE>DESK_ACC</CODE>.
+Then,
 there are (each one in quotes) the DOS file-name (up to 16 characters), the GEOS
 Class name (up to 12 characters), and the version info (up to 4 characters).
 The version should be written as &#34;<CODE>V</CODE>x.y&#34;, where <EM>x</EM> is the
@@ -358,7 +363,13 @@ required for the correct process of GEOS sequential application building.</P>
 
 
 
-<H2><A NAME="building-vlir"></A> <A NAME="s5">5.</A> <A HREF="#toc5">Building a GEOS VLIR overlay application</A></H2>
+<H2><A NAME="building-da"></A> <A NAME="s5">5.</A> <A HREF="#toc5">Building desk accessories</A></H2>
+
+<P>Desk accessories (<CODE>DESK_ACC</CODE>) must be built using the following target: <CODE>geos-c-da</CODE></P>
+<P>See <CODE>samples/geos</CODE> for a working example.</P>
+
+
+<H2><A NAME="building-vlir"></A> <A NAME="s6">6.</A> <A HREF="#toc6">Building a GEOS VLIR overlay application</A></H2>
 
 <P>Large GEOS applications typically don't fit in one piece in their designated
 memory area.  They are therefore split into overlays which are loaded into memory
@@ -370,7 +381,7 @@ starting with 1 are to be used for the actual overlays.</P>
 of the files "<CODE>overlay-demo.c</CODE>" and "<CODE>overlay-demores.grc</CODE>".</P>
 
 
-<H2><A NAME="ss5.1">5.1</A> <A HREF="#toc5.1">Building the GEOS overlay application using cl65</A>
+<H2><A NAME="ss6.1">6.1</A> <A HREF="#toc6.1">Building the GEOS overlay application using cl65</A>
 </H2>
 
 <P>This is a simple one step process:
@@ -389,7 +400,7 @@ the distribution of code into the overlays and to optimize the memory area reser
 for the overlays.</P>
 
 
-<H2><A NAME="ss5.2">5.2</A> <A HREF="#toc5.2">Building the GEOS overlay application without cl65</A>
+<H2><A NAME="ss6.2">6.2</A> <A HREF="#toc6.2">Building the GEOS overlay application without cl65</A>
 </H2>
 
 <H3>First step -- compiling the overlay resources</H3>
@@ -435,7 +446,7 @@ ld65 -t geos-cbm -o overlay-demo.cvt -m overlay-demo.map overlay-demores.o overl
 
 
 
-<H2><A NAME="s6">6.</A> <A HREF="#toc6">Bugs and feedback</A></H2>
+<H2><A NAME="s7">7.</A> <A HREF="#toc7">Bugs and feedback</A></H2>
 
 <P>This is the first release of <B>grc65</B>, and it contains bugs, for sure!  I
 am aware of them; I know that the parser is weak, and if you don't follow the
@@ -447,7 +458,7 @@ better.</P>
 
 
 
-<H2><A NAME="s7">7.</A> <A HREF="#toc7">Legal stuff</A></H2>
+<H2><A NAME="s8">8.</A> <A HREF="#toc8">Legal stuff</A></H2>
 
 <P><B>grc65</B> is covered by the same license as the whole cc65 package, so you
 should see its documentation for more info.  Anyway, if you like it, and want
@@ -459,7 +470,7 @@ for addresses.</P>
 
 
 
-<H2><A NAME="example-grc"></A> <A NAME="s8">8.</A> <A HREF="#toc8">Appendix A -- example.grc</A></H2>
+<H2><A NAME="example-grc"></A> <A NAME="s9">9.</A> <A HREF="#toc9">Appendix A -- example.grc</A></H2>
 
 <P>
 <BLOCKQUOTE><CODE>
