@@ -325,7 +325,7 @@ on the screen.</P>
 <P><CODE>char TestPoint (struct pixel *myPixel)</CODE></P>
 <P>This function tests if the given pixel is set and returns <CODE>true</CODE> (non-zero) or <CODE>false</CODE> (zero).</P>
 
-<H3>Character and string output</H3>
+<H3>Character and string input and output</H3>
 
 <H3>PutChar</H3>
 
@@ -346,6 +346,21 @@ See <CODE>ggraph.h</CODE> for the list of tokens that you can also place in the 
 The <CODE>parameter</CODE> is the field width in pixels (range 1-31) and the mode bits. Depending on them
 the string can be filled with zeroes (the string is always 5 characters long) or not and left or right
 justified to the given pixel. See <CODE>ggraph.h</CODE> for predefined values for <CODE>parameter</CODE>.</P>
+
+<H3>GetString</H3>
+
+<P><CODE>void GetString (char *buffer, char maxLen, char y, unsigned x, void (*doneHandler)(void), void (*faultHandler)(void))</CODE></P>
+<P>This function sets up string input at the given screen position and stores the string in the given
+<CODE>buffer</CODE>.  String input is handled by the mainloop, this routine returns immediately just like
+DoMenu.  <CODE>doneHandler</CODE> is the handler that will be called when the user presses return.  If
+<CODE>faultHandler</CODE> is non-zero it is used instead of the system fault handler and will be called when
+the cursor lands outside the current window.</P>
+
+<P>You can put a default string in <CODE>buffer</CODE>, but in that case the faultHandler will not be installed
+correctly.  If you need both a default and a fault handler, reinstall the fault handler after the
+GetString call, like this:</P>
+<P><CODE>GetString(buf, maxLen, y, x, doneHandler, NULL);</CODE></P>
+<P><CODE>StringFaultVec = faultHandler;</CODE></P>
 
 <H3>Font Handling</H3>
 
