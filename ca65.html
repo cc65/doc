@@ -862,6 +862,24 @@ byte. If omitted, the assembler will only produce only 1 byte.</P>
 
 <P>In 6502 mode (which is the default) the assembler accepts all regular "legal"
 6502 mnemonics and addressing modes.</P>
+<P>Note that an operand starting with an opening parenthesis is always parsed as
+an indirect address, even if the parentheses are only meant to group an
+expression. In 6502 mode this gives an "Illegal addressing mode" error:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+        sta     (1 &lt;&lt; 3)        ; error: parsed as indirect, not as sta $08
+        sta     1 &lt;&lt; 3          ; ok: sta $08
+        sta     0+(1 &lt;&lt; 3)      ; ok: the operand no longer starts with "("
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>On CPUs that have zero page indirect addressing (65SC02, 65C02 and later), the
+same line assembles without any diagnostic, but as indirect: <CODE>lda (1 &lt;&lt; 3)</CODE>
+gives <CODE>$B2 $08</CODE> (<CODE>LDA ($08)</CODE>) rather than <CODE>$A5 $08</CODE> (<CODE>LDA $08</CODE>).
+To write a plain address, drop the outer parentheses or start the operand with
+another token. See also the <CODE>
+<A HREF="#bracket_as_indirect">bracket_as_indirect</A></CODE> feature.</P>
 
 <H3><A NAME="6502X-mode"></A> 6502X mode</H3>
 
